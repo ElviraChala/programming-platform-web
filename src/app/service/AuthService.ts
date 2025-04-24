@@ -1,5 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
+import {TokenObject} from "../interface/TokenObject";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -7,7 +8,6 @@ export class AuthService {
   private readonly apiUrl = "http://localhost:8080";
 
   constructor(private readonly http: HttpClient) {
-    console.log(http);
   }
 
   register(username: string, password: string) {
@@ -16,7 +16,7 @@ export class AuthService {
       "username": username,
       "password": password
     };
-    return this.http.post(this.apiUrl + postUrl, body);
+    return this.http.post<TokenObject>(this.apiUrl + postUrl, body);
   }
 
   login(username: string, password: string) {
@@ -25,6 +25,6 @@ export class AuthService {
       "username": username,
       "password": password
     };
-    return this.http.post(this.apiUrl + postUrl, body);
+    return this.http.post<TokenObject>(this.apiUrl + postUrl, body);
   }
 }

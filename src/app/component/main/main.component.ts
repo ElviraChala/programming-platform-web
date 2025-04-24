@@ -1,25 +1,28 @@
-import {Component} from '@angular/core';
-import {AuthService} from '../../service/AuthService';
+import {Component} from "@angular/core";
+import {Router} from "@angular/router";
+import {AuthService} from "../../service/AuthService";
+import {TokenObject} from "../../interface/TokenObject";
 
 @Component({
-  selector: 'app-main',
+  selector: "app-main",
   standalone: false,
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.css'
+  templateUrl: "./main.component.html",
+  styleUrl: "./main.component.css"
 })
 export class MainComponent {
-  username: string = '';
-  password: string = '';
+  username: string = "";
+  password: string = "";
 
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: AuthService,
+              private readonly router: Router) {
   }
 
   login() {
     let response = this.authService.login(this.username, this.password);
     console.log(response);
     response.subscribe({
-      next: (res) => console.log('login success', res),
-      error: (err) => console.error('login failed', err)
+      next: (res) => this.saveTokenAndMove(res),
+      error: (err) => console.error("Login failed", err)
     });
   }
 
@@ -27,8 +30,20 @@ export class MainComponent {
     let response = this.authService.register(this.username, this.password);
     console.log(response);
     response.subscribe({
-      next: (res) => console.log('Registration success', res),
-      error: (err) => console.error('Registration failed', err)
+      next: (res) => this.saveTokenAndMove(res),
+      error: (err) => console.error("Registration failed", err)
+    });
+  }
+
+  private saveTokenAndMove(res: TokenObject) {
+    console.debug("login success", res);
+
+    sessionStorage.setItem("token", res.token);
+    sessionStorage.setItem("userId", String(res.id));
+
+
+    this.router.navigate(["/courses"]).then(r => {
+      return console.debug(r);
     });
   }
 }
