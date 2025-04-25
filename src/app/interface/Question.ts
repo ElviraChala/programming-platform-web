@@ -3,7 +3,7 @@ import {QueryList} from "@angular/core";
 export interface Question {
   id: number;
   text: string;
-  options: QueryList<string>;
+  options: string[];
   correctAnswer: string;
   checkKnowledgeId?: number;
 }

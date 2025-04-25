@@ -1,0 +1,36 @@
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Question} from "../interface/Question";
+
+@Injectable({
+  providedIn: "root"
+})
+export class QuestionService {
+  private readonly apiUrl = "http://localhost:8080/question";
+
+  constructor(private readonly http: HttpClient) {
+  }
+
+  createQuestion(question: Question): Observable<Question> {
+    return this.http.post<Question>(this.apiUrl, question);
+  }
+
+  getQuestionById(id: string): Observable<Question> {
+    const params = new HttpParams().set("id", id);
+    return this.http.get<Question>(this.apiUrl, {params});
+  }
+
+  getAllQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(`${this.apiUrl}/all`);
+  }
+
+  updateQuestion(question: Question): Observable<Question> {
+    return this.http.put<Question>(this.apiUrl, question);
+  }
+
+  deleteQuestion(id: string): Observable<void> {
+    const params = new HttpParams().set("id", id);
+    return this.http.delete<void>(this.apiUrl, {params});
+  }
+}
