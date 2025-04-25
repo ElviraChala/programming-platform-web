@@ -14,6 +14,7 @@ export class FirstCheckComponent implements OnInit {
   currentQuestionId: number = -1;
   currentQuestionIndex: number = -1;
   currentAnswer: string = "";
+  savedAnsvers: string[] = [];
 
   constructor(private readonly firstCheckService: FirstCheckService) {
   }
@@ -34,6 +35,14 @@ export class FirstCheckComponent implements OnInit {
   }
 
   getAnswer() {
-    console.log(this.currentAnswer);
+    this.savedAnsvers[this.currentQuestionIndex] = this.currentAnswer;
+    this.currentQuestionIndex++;
+
+    if (this.currentQuestionIndex === this.firstCheck?.questionIds.length) {
+      alert("Done");
+      return;
+    }
+
+    this.currentQuestionId = this.firstCheck?.questionIds[this.currentQuestionIndex] || -1;
   }
 }

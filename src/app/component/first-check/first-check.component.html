@@ -1,5 +1,8 @@
 <h1>First check</h1>
 
-<app-question [idQuestion]="currentQuestionId" [(ngModel)]="currentAnswer"></app-question>
+<app-question
+  [idQuestion]="currentQuestionId"
+  [(ngModel)]="currentAnswer">
+</app-question>
 
 <button (click)="getAnswer()">Відповісти</button>

@@ -41,7 +41,6 @@ export class MainComponent {
     sessionStorage.setItem("token", res.token);
     sessionStorage.setItem("userId", String(res.id));
 
-
     this.router.navigate(["/courses"]).then(r => {
       return console.debug(r);
     });
