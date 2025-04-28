@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Student} from "../interface/Student";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
@@ -14,9 +14,8 @@ export class StudentService {
     return this.http.post<Student>(this.apiUrl, student);
   }
 
-  getStudentById(id: string): Observable<Student> {
-    const params = new HttpParams().set("id", id);
-    return this.http.get<Student>(this.apiUrl, {params});
+  getStudent(): Observable<Student> {
+    return this.http.get<Student>(this.apiUrl);
   }
 
   getAllStudents(): Observable<Student[]> {
@@ -27,8 +26,7 @@ export class StudentService {
     return this.http.put<Student>(this.apiUrl, student);
   }
 
-  deleteStudent(id: number): Observable<void> {
-    const params = new HttpParams().set("id", id.toString());
-    return this.http.delete<void>(this.apiUrl, {params});
+  deleteStudent(): Observable<void> {
+    return this.http.delete<void>(this.apiUrl);
   }
 }

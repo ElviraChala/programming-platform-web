@@ -17,8 +17,12 @@ export class QuestionService {
   }
 
   getQuestionById(id: string): Observable<Question> {
+    // Перевірка на коректність id
+    if (!id) {
+      throw new Error('ID питання не може бути порожнім');
+    }
     const params = new HttpParams().set("id", id);
-    return this.http.get<Question>(this.apiUrl, {params});
+    return this.http.get<Question>(this.apiUrl, { params });
   }
 
   getAllQuestions(): Observable<Question[]> {
@@ -30,7 +34,10 @@ export class QuestionService {
   }
 
   deleteQuestion(id: string): Observable<void> {
+    if (!id) {
+      throw new Error('ID питання не може бути порожнім');
+    }
     const params = new HttpParams().set("id", id);
-    return this.http.delete<void>(this.apiUrl, {params});
+    return this.http.delete<void>(this.apiUrl, { params });
   }
 }

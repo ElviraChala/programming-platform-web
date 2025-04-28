@@ -1,0 +1,21 @@
+<div class="register-container">
+  <h2>Register</h2>
+
+  <form (ngSubmit)="onRegister()">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" [(ngModel)]="username" name="username" required (input)="onInputChange()">
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" [(ngModel)]="password" name="password" required type="password" (input)="onInputChange()">
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="isButtonDisabled">Register</button>
+  </form>
+</div>

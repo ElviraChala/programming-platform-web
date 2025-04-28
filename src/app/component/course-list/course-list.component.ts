@@ -18,14 +18,7 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = sessionStorage.getItem("userId");
-    if (id == null) {
-      return;
-    }
-
-    // subscribe виконується в окремому потоці,
-    // тому логіку отриманого студента треба виконувати в ньому
-    this.studentService.getStudentById(id)
+    this.studentService.getStudent()
       .subscribe({
         next: value => {
           this.student = value;

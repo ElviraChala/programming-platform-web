@@ -6,12 +6,17 @@ import {FirstCheck} from "../interface/FirstCheck";
   providedIn: "root"
 })
 export class FirstCheckService {
-  private readonly apiUrl = "http://localhost:8080/first-check";
+  private readonly apiUrl = "http://localhost:8080";
 
   constructor(private readonly http: HttpClient) {
   }
 
   public getFirstCheck() {
-    return this.http.get<FirstCheck>(this.apiUrl);
+    const postUrl: string = "/first-check";
+    return this.http.get<FirstCheck>(this.apiUrl + postUrl);
   }
+
+  public sendAnswers(savedAnswers: string[]) {
+    const postUrl: string = "/answer-check";
+    return this.http.post<boolean>(this.apiUrl + postUrl, { answers: savedAnswers });  }
 }

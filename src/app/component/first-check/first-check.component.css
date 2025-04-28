@@ -1,0 +1,87 @@
+h1 {
+  text-align: center;
+  font-size: 2em;
+  color: #333;
+  margin: 40px 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: #4CAF50;
+  margin-bottom: 15px;
+}
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+app-question {
+  margin-top: 10px;
+  width: 80%;
+  max-width: 600px;
+}
+
+/* Стиль для кнопок */
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Стиль для завершення тесту */
+.test-completion {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.test-completion h2 {
+  color: #333;
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+.test-completion button {
+  background-color: #FF9800;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+.test-completion button:hover {
+  background-color: #e68900;
+}
+
+/* Стиль для повідомлення про завантаження */
+.loading-message {
+  text-align: center;
+  color: #999;
+  font-size: 1.2em;
+  margin-top: 30px;
+}

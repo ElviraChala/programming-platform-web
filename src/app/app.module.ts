@@ -11,6 +11,11 @@ import {CourseItemComponent} from "./component/course-item/course-item.component
 import {QuestionComponent} from "./component/question/question.component";
 import {FirstCheckComponent} from "./component/first-check/first-check.component";
 import {AuthInterceptor} from "./service/AuthInterceptor";
+import {RegisterComponent} from "./component/register/register.component";
+import {LoginComponent} from "./component/login/login.component";
+import { FooterComponent } from './component/footer/footer.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
+import { RegistrationSuccessComponent } from './component/registration-success/registration-success.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import {AuthInterceptor} from "./service/AuthInterceptor";
     CourseListComponent,
     CourseItemComponent,
     QuestionComponent,
-    FirstCheckComponent
+    FirstCheckComponent,
+    RegisterComponent,
+    LoginComponent,
+    FooterComponent,
+    NavbarComponent,
+    RegistrationSuccessComponent
   ],
   imports: [
     HttpClientModule,
