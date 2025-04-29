@@ -8,10 +8,10 @@ import {Router} from "@angular/router";
   styleUrl: "./registration-success.component.css"
 })
 export class RegistrationSuccessComponent {
-  constructor(private router: Router) {
+  constructor(private readonly router: Router) {
   }
 
   goToTest() {
-    this.router.navigate(["/first-check"]);
+    this.router.navigate(["/first-check"]).then(r => console.debug(r));
   }
 }

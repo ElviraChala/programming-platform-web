@@ -1,6 +1,8 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {FirstCheck} from "../interface/FirstCheck";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { FirstCheck } from "../interface/FirstCheck";
+import { Answer } from "../interface/Answer";
+import { CheckResult } from "../interface/CheckResult";
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +18,8 @@ export class FirstCheckService {
     return this.http.get<FirstCheck>(this.apiUrl + postUrl);
   }
 
-  public sendAnswers(savedAnswers: string[]) {
-    const postUrl: string = "/answer-check";
-    return this.http.post<boolean>(this.apiUrl + postUrl, { answers: savedAnswers });  }
+  public sendAnswers(savedAnswers: Answer[]) {
+    const postUrl: string = "/first-check";
+    return this.http.post<CheckResult>(this.apiUrl + postUrl, savedAnswers);
+  }
 }

@@ -1,10 +1,10 @@
 .footer {
-  background-color: #282c34;
+  background-color: #333;
   color: #fff;
   padding: 20px 0;
-  text-align: center;
-  position: fixed;
   bottom: 0;
+  position: fixed;
+  text-align: center;
   width: 100%;
 }
 
@@ -21,15 +21,4 @@
 
 .social-icons {
   margin-top: 10px;
-}
-
-.social-icon {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #fff;
-  font-size: 16px;
-}
-
-.social-icon:hover {
-  color: #007bff;
 }

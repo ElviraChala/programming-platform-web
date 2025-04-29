@@ -32,5 +32,9 @@ export class CourseListComponent implements OnInit {
         },
         error: value => console.error(value)
       });
+
+
   }
+
+
 }

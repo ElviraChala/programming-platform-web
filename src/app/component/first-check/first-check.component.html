@@ -6,7 +6,7 @@
   <div *ngIf="firstCheck && firstCheck.questionIds && firstCheck.questionIds.length > 0">
 
     <!-- Поточне питання -->
-    <div *ngIf="currentQuestionIndex < firstCheck.questionIds.length" class="question-container">
+    <div *ngIf="!showResults && currentQuestionIndex < firstCheck.questionIds.length" class="question-container container">
       <h2>Запитання {{ currentQuestionIndex + 1 }}:</h2>
 
       <!-- Компонент для відображення запитання -->
@@ -22,9 +22,16 @@
   </div>
 
   <!-- Якщо тест завершено -->
-  <div *ngIf="firstCheck && currentQuestionIndex >= firstCheck.questionIds.length" class="test-completion">
+  <div *ngIf="!showResults && firstCheck && currentQuestionIndex >= firstCheck.questionIds.length" class="test-completion">
     <h2>Тест завершено! Дякуємо за участь.</h2>
     <button (click)="submitAnswers()">Надіслати відповіді</button>
+  </div>
+
+  <div *ngIf="showResults" class="question-container container">
+    <h2>Результати тесту</h2>
+    <p>Кількість балів: {{ resultScore }}</p>
+    <p>Ваш рівень: {{ resultLevel }}</p>
+    <button (click)="goToCourses()">До курсів</button>
   </div>
 
 </div>

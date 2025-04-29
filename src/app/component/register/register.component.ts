@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../service/AuthService';
-import { Router } from '@angular/router';
+import {Component} from "@angular/core";
+import {AuthService} from "../../service/AuthService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-register",
@@ -9,31 +9,33 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class RegisterComponent {
-  username: string = '';
-  password: string = '';
-  errorMessage: string = '';
+  username: string = "";
+  password: string = "";
+  errorMessage: string = "";
   isButtonDisabled: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private readonly authService: AuthService,
+              private readonly router: Router) {
+    sessionStorage.clear();
+  }
 
   onRegister() {
-    if (this.username && this.password) {
-      this.isButtonDisabled = true;
-
-      this.authService.register(this.username, this.password).subscribe(
-        (response) => {
-          this.router.navigate(['/registration-success']);  // Переходимо на сторінку успіху
-        },
-        (error) => {
-          this.errorMessage = error.message;
-          this.isButtonDisabled = false;
-        }
-      );
+    if (!(this.username && this.password)) {
+      return;
     }
+
+    this.isButtonDisabled = true;
+    this.authService.register(this.username, this.password).subscribe({
+      next: value => {
+        sessionStorage.setItem("token", value.token);
+        this.router.navigate(["/registration-success"]).then(r => console.debug(r));
+      },
+      error: err => console.error(err)
+    });
   }
 
 
   onInputChange() {
-    this.errorMessage = '';
+    this.errorMessage = "";
   }
 }

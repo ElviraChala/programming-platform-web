@@ -1,10 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {FirstCheckService} from "../../service/FirstCheckService";
-import {StudentService} from "../../service/StudentService";
-import {Student} from "../../interface/Student";
-import {FirstCheck} from "../../interface/FirstCheck";
-import {AuthService} from "../../service/AuthService";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FirstCheckService } from "../../service/FirstCheckService";
+import { StudentService } from "../../service/StudentService";
+import { Student } from "../../interface/Student";
+import { FirstCheck } from "../../interface/FirstCheck";
+import { Answer } from "../../interface/Answer";
+import { Level } from "../../interface/Level";
 
 @Component({
   selector: "app-first-check",
@@ -17,28 +18,31 @@ export class FirstCheckComponent implements OnInit {
   currentQuestionId: number = -1;
   currentQuestionIndex: number = -1;
   currentAnswer: string = "";
-  savedAnswers: string[] = [];
+  savedAnswers: Answer[] = [];
   student: Student | undefined;
+  showResults: boolean = false;
+  resultScore?: number;
+  resultLevel?: Level;
 
   constructor(
     private readonly firstCheckService: FirstCheckService,
     private readonly studentService: StudentService,
-    private readonly router: Router,
-    private readonly authService: AuthService
-  ) {}
+    private readonly router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     this.studentService.getStudent().subscribe({
       next: (student) => {
         this.student = student;
         if (!student.isFirst) {
-          this.router.navigate(['/courses']);
+          this.router.navigate(["/courses"]).then(r => console.debug(r));
         } else {
           this.loadFirstCheck();
         }
       },
       error: (err) => {
-        console.error('Error fetching student:', err);
+        console.error("Error fetching student:", err);
       }
     });
   }
@@ -52,11 +56,11 @@ export class FirstCheckComponent implements OnInit {
           this.currentQuestionIndex = 0;
           this.currentQuestionId = this.firstCheck.questionIds[0];
         } else {
-          console.error('First check has no questions!');
+          console.error("First check has no questions!");
         }
       },
       error: (error) => {
-        console.error('Error loading first check:', error);
+        console.error("Error loading first check:", error);
       },
       complete: () => {
       }
@@ -68,7 +72,10 @@ export class FirstCheckComponent implements OnInit {
       return;
     }
 
-    this.savedAnswers[this.currentQuestionIndex] = this.currentAnswer;
+    this.savedAnswers.push({
+      id: this.currentQuestionId,
+      currentAnswer: this.currentAnswer
+    });
     this.currentQuestionIndex++;
 
     if (this.currentQuestionIndex === this.firstCheck?.questionIds.length) {
@@ -80,27 +87,24 @@ export class FirstCheckComponent implements OnInit {
   }
 
   submitAnswers() {
-    if (this.savedAnswers.length > 0) {
-      this.firstCheckService.sendAnswers(this.savedAnswers).subscribe({
-        next: (response) => {
-          console.log("Answers submitted successfully:", response);
-          if (this.student) {
-            this.student.isFirst = false;
-            this.studentService.updateStudent(this.student).subscribe({
-              next: () => {
-                console.log("Student status updated to not first");
-                this.router.navigate(['/courses']);
-              },
-              error: (error) => {
-                console.error("Error updating student status:", error);
-              }
-            });
-          }
-        },
-        error: (error) => {
-          console.error("Error submitting answers:", error);
-        },
-      });
+    if (this.savedAnswers.length <= 0) {
+      return;
     }
+
+    this.firstCheckService.sendAnswers(this.savedAnswers).subscribe({
+      next: (response) => {
+        console.log("Answers submitted successfully:", response);
+        this.resultScore = response.score;
+        this.resultLevel = response.level;
+        this.showResults = true;
+      },
+      error: (error) => {
+        console.error("Error submitting answers:", error);
+      }
+    });
+  }
+
+  goToCourses() {
+    this.router.navigate(["/courses"]).then(console.debug);
   }
 }
