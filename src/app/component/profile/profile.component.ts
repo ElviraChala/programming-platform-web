@@ -1,7 +1,7 @@
-import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Student} from "../../interface/Student";
-import {StudentService} from "../../service/StudentService";
+import { Component, OnInit } from "@angular/core";
+import { Student } from "../../interface/Student";
+import { StudentService } from "../../service/StudentService";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-profile",
@@ -10,11 +10,14 @@ import {StudentService} from "../../service/StudentService";
   styleUrl: "./profile.component.css"
 })
 export class ProfileComponent implements OnInit {
-  profileForm!: FormGroup;
   student!: Student;
+  username?: string;
+  name?: string;
+  email?: string;
+  password: string = "";
 
-  constructor(private readonly fb: FormBuilder,
-              private readonly studentService: StudentService) {
+  constructor(private readonly studentService: StudentService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {
@@ -22,34 +25,43 @@ export class ProfileComponent implements OnInit {
   }
 
   loadStudentData(): void {
-    this.studentService.getStudent().subscribe(data => {
-      this.student = data;
-      this.profileForm = this.fb.group({
-        username: [this.student.username, [Validators.required]],
-        name: [this.student.name, [Validators.required]],
-        email: [this.student.email, [Validators.required, Validators.email]],
-        password: ["", [Validators.minLength(6)]], // порожній для оновлення пароля при потребі
-        level: [this.student.level],
-        isFirst: [this.student.isFirst],
-        score: [this.student.score]
-      });
+    this.studentService.getStudent().subscribe({
+      next: value => {
+        if (!value) {
+          this.router.navigate(["/login"]).then(console.debug);
+          return;
+        }
+
+        this.student = value;
+        this.username = value.username;
+        this.email = value.email;
+        this.name = value.name;
+        this.password = "";
+        this.student.password = "";
+      },
+      error: err => {
+        console.error(err);
+        this.router.navigate(["/login"]).then(console.debug);
+      }
     });
   }
 
   onSubmit(): void {
-    if (this.profileForm.valid) {
+    this.student.name = this.name;
+    this.student.email = this.email;
 
-      const updatedStudent: Student = {
-        ...this.student,
-        ...this.profileForm.value
-      };
+    if (this.password.length > 0) {
+      this.student.password = this.password;
+    }
 
-      this.studentService.updateStudent(updatedStudent)
-        .subscribe({
-          next: student => this.student = student,
+    this.studentService.updateStudent(this.student)
+      .subscribe({
+          next: student => {
+            this.student = student;
+            this.loadStudentData();
+          },
           error: err => console.error(err)
         }
       );
-    }
   }
 }

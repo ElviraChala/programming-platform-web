@@ -1,37 +1,42 @@
-<div class="profile-container container" *ngIf="profileForm">
+<div class="profile-container container">
   <h2>User Profile</h2>
 
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
-    <fieldset>
-      <legend>Personal Information</legend>
+  <fieldset>
+    <legend>Personal Information</legend>
 
-      <div class="form-group">
-        <label>Username:</label>
-        <input formControlName="username" type="text" [disabled]="true" class="form-control">
-      </div>
+    <div class="form-group">
+      <label>Username:
+        <input [(ngModel)]="username" type="text" [disabled]="true" class="form-control">
+      </label>
+    </div>
 
-      <div class="form-group">
-        <label>Name:</label>
-        <input formControlName="name" type="text" class="form-control">
-      </div>
+    <div class="form-group">
+      <label>Name:
+        <input [(ngModel)]="name" type="text" class="form-control">
+      </label>
+    </div>
 
-      <div class="form-group">
-        <label>Email:</label>
-        <input formControlName="email" type="email" class="form-control">
-      </div>
-    </fieldset>
+    <div class="form-group">
+      <label>Email:
+        <input [(ngModel)]="email" type="email" class="form-control">
+      </label>
+    </div>
+  </fieldset>
 
-    <fieldset>
-      <legend>Account Settings</legend>
+  <fieldset>
+    <legend>Account Settings</legend>
 
-      <div class="form-group">
-        <label>New Password:</label>
-        <input formControlName="password" type="password" placeholder="Leave empty to keep current password" class="form-control">
-      </div>
-    </fieldset>
+    <div class="form-group">
+      <label>New Password:
+        <input [(ngModel)]="password"
+               type="password"
+               placeholder="Leave empty to keep current password"
+               class="form-control">
+      </label>
+    </div>
+  </fieldset>
 
-    <button type="submit" [disabled]="!profileForm.valid" class="btn btn-primary">
-      Update Profile
-    </button>
-  </form>
+  <button (click)="onSubmit()" class="btn btn-primary">
+    Update Profile
+  </button>
 </div>
