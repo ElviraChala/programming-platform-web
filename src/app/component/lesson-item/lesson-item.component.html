@@ -1,0 +1,16 @@
+<div *ngIf="lesson" class="lesson-list-container">
+  <h2>{{ lesson.name }}</h2>
+  <p>{{ lesson.theory.fileName }}</p>
+
+
+  <button *ngIf="lesson?.checkKnowledgeId"
+          (click)="startLessonTest()"
+          class="start-test-button">
+    Перейти до тестування
+  </button>
+
+</div>
+
+<div *ngIf="!lesson">
+  <p>Курс не знайдено або сталася помилка.</p>
+</div>

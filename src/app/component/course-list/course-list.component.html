@@ -6,8 +6,10 @@
   </div>
 
   <ul class="course-list">
-    <app-course-item *ngFor="let course of courses"
-        [id]="course.id">
-    </app-course-item>
+    <li *ngFor="let course of courses"
+        [class.disabled]="!isLogged"
+        (click)="isLogged && openCourse(course.id)">
+      {{ course.name }}
+    </li>
   </ul>
 </div>

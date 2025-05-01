@@ -7,15 +7,24 @@ import { CourseListComponent } from "./component/course-list/course-list.compone
 import { RegistrationSuccessComponent } from "./component/registration-success/registration-success.component";
 import { FirstCheckComponent } from "./component/first-check/first-check.component";
 import { ProfileComponent } from "./component/profile/profile.component";
+import { CourseComponent } from "./component/course-item/course.component";
+import { LessonItemComponent } from "./component/lesson-item/lesson-item.component";
+import { LessonListComponent } from "./component/lesson-list/lesson-list.component";
+import { LessonTestComponent } from "./component/lesson-test/lesson-test.component";
 
 const routes: Routes = [
   {path: "", component: MainComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "courses", component: CourseListComponent},
-  {path: "registration-success", component: RegistrationSuccessComponent},  // Додано маршрут для успіху реєстрації
+  {path: "registration-success", component: RegistrationSuccessComponent},
+  { path: 'lessons/:id', component: LessonItemComponent },
+  { path: 'lessons', component: LessonListComponent },
+  { path: 'lesson-test/:checkKnowledgeId', component: LessonTestComponent },
   {path: "first-check", component: FirstCheckComponent},
   {path: "profile", component: ProfileComponent},
+  { path: 'courses/:id', component: CourseComponent },
+  { path: 'courses', component: CourseListComponent },
   {path: "**", redirectTo: ""}
 ];
 

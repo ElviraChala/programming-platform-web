@@ -1,0 +1,47 @@
+<div *ngIf="student && questions.length > 0" class="container">
+  <h1>Тест до уроку 📚</h1>
+
+  <!-- Навігація по запитаннях -->
+  <div *ngIf="!showResults && currentQuestionIndex < questions.length" class="navigation-panel">
+    <div class="question-buttons">
+      <button
+        *ngFor="let question of questions; let i = index"
+        [class.current]="i === currentQuestionIndex"
+        [class.answered]="isAnswers[i]"
+        [class.unanswered]="!isAnswers[i]"
+        (click)="goToQuestion(i)">
+        {{ i + 1 }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Поточне питання -->
+  <div *ngIf="!showResults && currentQuestionIndex < questions.length" class="question-container">
+    <h2>Запитання {{ currentQuestionIndex + 1 }}:</h2>
+
+    <app-question
+      [idQuestion]="currentQuestionId"
+      [(ngModel)]="currentAnswer">
+    </app-question>
+
+    <button
+      (click)="getAnswer()"
+      [disabled]="!currentAnswer.trim()">
+      {{ currentQuestionIndex + 1 === questions.length ? 'Завершити' : 'Відповісти' }}
+    </button>
+  </div>
+
+  <!-- Завершення тесту -->
+  <div *ngIf="!showResults && currentQuestionIndex >= questions.length" class="test-completion">
+    <h2>Тест завершено!</h2>
+    <button (click)="submitAnswers()">Надіслати відповіді</button>
+  </div>
+
+  <!-- Результати -->
+  <div *ngIf="showResults" class="result-container result-with-bg">
+    <h2>Ваш результат: {{ resultScore | number:'1.2-2' }}</h2>
+    <p class="feedback-message">{{ feedbackMessage }}</p>
+    <button (click)="goBackToLesson()" class="go-to-course">Повернутись до курсу</button>
+    <img src="/img-result.png" alt="Result Illustration">
+  </div>
+</div>

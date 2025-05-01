@@ -17,7 +17,6 @@ export class CourseListComponent implements OnInit {
   student?: Student;
   courses: Course[] = [];
 
-
   constructor(private readonly studentService: StudentService,
               private readonly courseService: CourseService,
               private readonly router: Router) {
@@ -43,6 +42,7 @@ export class CourseListComponent implements OnInit {
     this.courseService.getAllCourses().subscribe({
       next: value => {
         this.courses = value;
+        console.log("Отримані курси список:", this.courses);
       },
       error: value => console.error(value)
     });
@@ -50,5 +50,9 @@ export class CourseListComponent implements OnInit {
 
   isLoggedIn() {
     this.isLogged = !!sessionStorage.getItem("token");
+  }
+
+  openCourse(id: number): void {
+    this.router.navigate(['/courses', id]).then(console.debug);
   }
 }

@@ -5,9 +5,9 @@ import {Question} from "../../interface/Question";
 
 @Component({
   selector: "app-question",
-  standalone: false,
   templateUrl: "./question.component.html",
   styleUrl: "./question.component.css",
+  standalone: false,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -41,10 +41,6 @@ export class QuestionComponent implements ControlValueAccessor, OnChanges {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    console.debug(isDisabled);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -7,7 +7,7 @@ import { AppComponent } from "./app.component";
 import { MainComponent } from "./component/main/main.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CourseListComponent } from "./component/course-list/course-list.component";
-import { CourseItemComponent } from "./component/course-item/course-item.component";
+import { CourseComponent } from "./component/course-item/course.component";
 import { QuestionComponent } from "./component/question/question.component";
 import { FirstCheckComponent } from "./component/first-check/first-check.component";
 import { AuthInterceptorService } from "./service/auth-interceptor.service";
@@ -17,13 +17,16 @@ import { FooterComponent } from "./component/footer/footer.component";
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { RegistrationSuccessComponent } from "./component/registration-success/registration-success.component";
 import { ProfileComponent } from "./component/profile/profile.component";
+import { LessonListComponent } from './component/lesson-list/lesson-list.component';
+import { LessonItemComponent } from './component/lesson-item/lesson-item.component';
+import { LessonTestComponent } from './component/lesson-test/lesson-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     CourseListComponent,
-    CourseItemComponent,
+    CourseComponent,
     QuestionComponent,
     FirstCheckComponent,
     RegisterComponent,
@@ -32,6 +35,9 @@ import { ProfileComponent } from "./component/profile/profile.component";
     NavbarComponent,
     RegistrationSuccessComponent,
     ProfileComponent,
+    LessonListComponent,
+    LessonItemComponent,
+    LessonTestComponent
   ],
   imports: [
     HttpClientModule,
@@ -46,6 +52,9 @@ import { ProfileComponent } from "./component/profile/profile.component";
       useClass: AuthInterceptorService,
       multi: true
     }
+  ],
+  exports: [
+    QuestionComponent
   ],
   bootstrap: [AppComponent]
 })

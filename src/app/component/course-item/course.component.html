@@ -1,0 +1,19 @@
+<div *ngIf="course" class="course-list-container">
+  <h2>{{ course.name }}</h2>
+  <p>{{ course.description }}</p>
+  <p><strong>Рівень:</strong> {{ course.level }}</p>
+  <p><strong>Кількість уроків:</strong> {{ course.lessonIds.length }}</p>
+
+  <ul>
+    <li *ngFor="let lesson of lessons">
+      <a (click)="openLesson(lesson.id)" class="lesson-link">
+        {{ lesson.orderIndex }}. {{ lesson.name }}
+      </a>
+    </li>
+  </ul>
+
+</div>
+
+<div *ngIf="!course">
+  <p>Курс не знайдено або сталася помилка.</p>
+</div>
