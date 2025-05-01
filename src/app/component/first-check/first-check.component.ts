@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { FirstCheckService } from "../../service/FirstCheckService";
-import { StudentService } from "../../service/StudentService";
+import { FirstCheckService } from "../../service/first-check.service";
+import { StudentService } from "../../service/student.service";
 import { Student } from "../../interface/Student";
 import { FirstCheck } from "../../interface/FirstCheck";
 import { Answer } from "../../interface/Answer";

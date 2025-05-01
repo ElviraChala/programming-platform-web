@@ -1,4 +1,4 @@
-import {QueryList} from "@angular/core";
+import { Level } from "./Level";
 
 export interface Question {
   id: number;
@@ -6,4 +6,5 @@ export interface Question {
   options: string[];
   correctAnswer: string;
   checkKnowledgeId?: number;
+  level: Level;
 }

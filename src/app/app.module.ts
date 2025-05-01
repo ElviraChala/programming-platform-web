@@ -10,7 +10,7 @@ import { CourseListComponent } from "./component/course-list/course-list.compone
 import { CourseItemComponent } from "./component/course-item/course-item.component";
 import { QuestionComponent } from "./component/question/question.component";
 import { FirstCheckComponent } from "./component/first-check/first-check.component";
-import { AuthInterceptor } from "./service/AuthInterceptor";
+import { AuthInterceptorService } from "./service/auth-interceptor.service";
 import { RegisterComponent } from "./component/register/register.component";
 import { LoginComponent } from "./component/login/login.component";
 import { FooterComponent } from "./component/footer/footer.component";
@@ -43,7 +43,7 @@ import { ProfileComponent } from "./component/profile/profile.component";
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: AuthInterceptorService,
       multi: true
     }
   ],

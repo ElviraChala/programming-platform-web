@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Student } from "../../interface/Student";
-import { StudentService } from "../../service/StudentService";
+import { StudentService } from "../../service/student.service";
 import { Router } from "@angular/router";
+import { Course } from "../../interface/Course";
+import { CourseService } from "../../service/course.service";
 
 @Component({
   selector: "app-course-list",
@@ -9,30 +11,20 @@ import { Router } from "@angular/router";
   templateUrl: "./course-list.component.html",
   styleUrl: "./course-list.component.css"
 })
-export class CourseListComponent implements OnInit, AfterViewInit {
+export class CourseListComponent implements OnInit {
 
   isLogged: boolean = false;
   student?: Student;
-  courses = [
-    {name: "Java Basics"},
-    {name: "Spring Boot"},
-    {name: "Algorithms"}
-  ];
+  courses: Course[] = [];
 
 
   constructor(private readonly studentService: StudentService,
+              private readonly courseService: CourseService,
               private readonly router: Router) {
   }
 
-  ngAfterViewInit(): void {
-    this.isLoggedIn();
-  }
-
-  openCourse(course: any) {
-    this.router.navigate(["/courses", course.name.toLowerCase().replace(" ", "-")]);
-  }
-
   ngOnInit(): void {
+    this.isLoggedIn();
     this.studentService.getStudent()
       .subscribe({
         next: value => {
@@ -47,12 +39,16 @@ export class CourseListComponent implements OnInit, AfterViewInit {
         },
         error: value => console.error(value)
       });
+
+    this.courseService.getAllCourses().subscribe({
+      next: value => {
+        this.courses = value;
+      },
+      error: value => console.error(value)
+    });
   }
 
   isLoggedIn() {
     this.isLogged = !!sessionStorage.getItem("token");
   }
-
-  // TODO Доробити нормальний список курсів, лекцій і тестів
-
 }

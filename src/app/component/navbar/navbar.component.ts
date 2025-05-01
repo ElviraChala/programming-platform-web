@@ -1,5 +1,7 @@
-import { AfterViewInit, Component } from "@angular/core";
-import { StudentService } from "../../service/StudentService";
+import { Component, OnInit } from "@angular/core";
+import { StudentService } from "../../service/student.service";
+import { NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs";
 
 
 @Component({
@@ -8,16 +10,24 @@ import { StudentService } from "../../service/StudentService";
   templateUrl: "./navbar.component.html",
   styleUrl: "./navbar.component.css"
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements OnInit {
   username?: string;
   isLogged: boolean = false;
 
-  constructor(private readonly studentService: StudentService) {
+  constructor(private readonly studentService: StudentService,
+              private readonly router: Router) {
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.isLoggedIn();
     this.getUserName();
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.isLoggedIn();
+        this.getUserName();
+      });
   }
 
   isLoggedIn() {

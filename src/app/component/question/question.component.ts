@@ -1,5 +1,5 @@
 import {Component, EventEmitter, forwardRef, Input, OnChanges, Output, SimpleChanges} from "@angular/core";
-import {QuestionService} from "../../service/QuestionService";
+import {QuestionService} from "../../service/question.service";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Question} from "../../interface/Question";
 
