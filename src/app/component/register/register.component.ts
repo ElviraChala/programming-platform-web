@@ -13,10 +13,17 @@ export class RegisterComponent {
   password: string = "";
   errorMessage: string = "";
   isButtonDisabled: boolean = false;
+  isPassStrong: boolean = false;
 
   constructor(private readonly authService: AuthService,
               private readonly router: Router) {
     sessionStorage.clear();
+  }
+
+  isPasswordStrong(password: string) {
+    // Мінімум 6 символів, одна велика, одна мала, одна цифра
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+    this.isPassStrong = pattern.test(password);
   }
 
   onRegister() {
@@ -34,8 +41,8 @@ export class RegisterComponent {
     });
   }
 
-
   onInputChange() {
     this.errorMessage = "";
+    this.isPasswordStrong(this.password);
   }
 }

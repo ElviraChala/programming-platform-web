@@ -26,29 +26,56 @@
   width: auto;
 }
 
+.greeting {
+  font-size: 18px;
+  margin-right: 50px;
+
+}
+
 /* Навігаційне меню */
 .nav-links {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .nav-links li {
-  margin: 0 15px;
+  margin: 0 10px;
 }
 
 .nav-links a {
   color: #fff;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
   transition: color 0.3s ease;
 }
 
 .nav-links a:hover,
 .nav-links .active {
-  color: #f2ce4d;
+  color: rgb(255, 152, 0);
 }
+
+.nav-links li a {
+  display: inline-block;
+  padding: 8px 10px;
+  margin: 4px;
+  border: 1px solid white;
+  border-radius: 6px;
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  border-color: rgb(255, 152, 0);
+  color: rgb(255, 152, 0);
+}
+
 
 /* Мобільна адаптивність */
 @media screen and (max-width: 768px) {
@@ -73,7 +100,4 @@
     align-items: flex-start;
   }
 
-  .nav-links li {
-    margin: 10px 0;
-  }
 }

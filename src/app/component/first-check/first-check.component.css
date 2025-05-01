@@ -1,36 +1,52 @@
+/* === Заголовки === */
 h1 {
   text-align: center;
   font-size: 2em;
-  color: #333;
-  margin: 100px 0;
+  color: #3c3c3c;
+  margin: 100px 0 20px;
 }
 
 h2 {
   font-size: 1.5em;
-  color: #4CAF50;
-  margin-bottom: 15px;
+  color: #3c3c3c;
+  margin-bottom: 10px;
 }
 
+/* === Контейнер питання === */
 .question-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.result-container {
+  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 18px;
+  margin: 0 220px;
+}
+
+.level{
+  display: block;
+  color: rgba(0, 255, 17, 0.74);
 }
 
 app-question {
-  margin-top: 10px;
+  margin: 10px 0;
   width: 80%;
   max-width: 600px;
+  font-size: 16px;
 }
 
-/* Стиль для кнопок */
+/* === Кнопки === */
 button {
-  background-color: #4CAF50;
+  background-color: rgba(241, 138, 36, 0.89);
   color: white;
   border: none;
   padding: 12px 20px;
@@ -42,7 +58,7 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: rgba(223, 119, 17, 0.9);
 }
 
 button:disabled {
@@ -50,7 +66,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Стиль для завершення тесту */
+/* === Завершення тесту === */
 .test-completion {
   text-align: center;
   padding: 20px;
@@ -74,14 +90,84 @@ button:disabled {
   font-size: 1.1em;
 }
 
+.go-to-course{
+  margin-top: 50px;
+}
+
 .test-completion button:hover {
   background-color: #e68900;
 }
 
-/* Стиль для повідомлення про завантаження */
+.feedback-message{
+  margin-top: 20px;
+  color: #333;
+  font-size: 1.2em;
+}
+
+/* === Повідомлення про завантаження === */
 .loading-message {
   text-align: center;
   color: #999;
   font-size: 1.2em;
   margin-top: 30px;
 }
+
+/* === Навігація по питаннях === */
+.navigation-panel {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.question-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.question-buttons button {
+  background-color: #fff;
+  color: #333;
+  padding: 3px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #FF9800;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.3s ease;
+}
+
+
+/* Відповідь збережена */
+.question-buttons button.answered {
+  background-color: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+/* Питання ще без відповіді */
+.question-buttons button.unanswered {
+  background-color: #e0e0e0;
+  color: #555;
+  border-color: #bbb;
+}
+
+/* Поточне питання */
+.question-buttons button.current{
+  background-color: #FF9800;
+  font-weight: 500;
+  color: #fff;
+}
+
+img{
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  right: 0;
+  bottom: 50px;
+  z-index: -1;
+  opacity: 1;
+}
+

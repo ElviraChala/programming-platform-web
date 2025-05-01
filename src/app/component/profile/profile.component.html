@@ -1,42 +1,72 @@
 <div class="profile-container container">
-  <h2>User Profile</h2>
+  <h2>Профіль користувача</h2>
 
-  <fieldset>
-    <legend>Personal Information</legend>
+  <div class="profile-columns">
+    <!-- Ліва частина: редаговані поля -->
+    <div class="editable-section">
+      <fieldset>
+        <legend>🧞 Персональна інформація</legend>
 
-    <div class="form-group">
-      <label>Username:
-        <input [(ngModel)]="username" type="text" [disabled]="true" class="form-control">
-      </label>
+        <div class="form-group">
+          <label>Ім'я:
+            <input [(ngModel)]="name" type="text" class="form-control">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>✉️ Email:
+            <input
+              [(ngModel)]="email"
+              name="email"
+              #emailInput="ngModel"
+              email
+              type="email"
+              class="form-control">
+          </label>
+        </div>
+
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+          <div *ngIf="emailInput.errors?.['email']">Введіть коректну email-адресу</div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Налаштування акаунта</legend>
+        <div class="form-group">
+          <label>Новий пароль:
+            <input [(ngModel)]="password"
+                   type="password"
+                   placeholder="Залиште пустим, якщо не бажаєте змінювати :)"
+                   class="form-control">
+          </label>
+        </div>
+      </fieldset>
+
+      <button
+        (click)="onSubmit()"
+        class="btn btn-primary"
+        [disabled]="emailInput.invalid && emailInput.touched">
+        Оновити профіль
+      </button>
     </div>
 
-    <div class="form-group">
-      <label>Name:
-        <input [(ngModel)]="name" type="text" class="form-control">
-      </label>
+    <!-- Права частина: незмінювані дані -->
+    <div class="readonly-section">
+      <img src="/user-img.png" class="user-img" alt="User">
+      <div class="info-box username">
+        <p>Username</p>
+        <h3>{{ username }}</h3>
+      </div>
+      <div class="student-info">
+        <div class="info-box">
+          <p>Рівень</p>
+          <h3>{{ student.level }}</h3>
+        </div>
+        <div class="info-box">
+          <p>Бали 🪙</p>
+          <h3>{{ student.score }}</h3>
+        </div>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label>Email:
-        <input [(ngModel)]="email" type="email" class="form-control">
-      </label>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Account Settings</legend>
-
-    <div class="form-group">
-      <label>New Password:
-        <input [(ngModel)]="password"
-               type="password"
-               placeholder="Leave empty to keep current password"
-               class="form-control">
-      </label>
-    </div>
-  </fieldset>
-
-  <button (click)="onSubmit()" class="btn btn-primary">
-    Update Profile
-  </button>
+  </div>
 </div>

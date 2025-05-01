@@ -48,8 +48,6 @@ export class QuestionComponent implements ControlValueAccessor, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.debug(changes);
-
     let id = changes["idQuestion"]?.currentValue;
 
     if (id == null || id === -1) {

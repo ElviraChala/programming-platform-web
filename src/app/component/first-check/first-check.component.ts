@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FirstCheckService } from "../../service/FirstCheckService";
 import { StudentService } from "../../service/StudentService";
@@ -23,6 +23,8 @@ export class FirstCheckComponent implements OnInit {
   showResults: boolean = false;
   resultScore?: number;
   resultLevel?: Level;
+  feedbackMessage: string = "";
+  isAnswers: boolean[] = [];
 
   constructor(
     private readonly firstCheckService: FirstCheckService,
@@ -68,23 +70,56 @@ export class FirstCheckComponent implements OnInit {
   }
 
   getAnswer() {
-    if (this.currentAnswer === "") {
+    this.saveCurrentAnswer();
+
+    if (this.currentQuestionIndex + 1 >= (this.firstCheck?.questionIds.length ?? 0)) {
+      this.currentQuestionIndex++;
       return;
     }
 
-    this.savedAnswers.push({
-      id: this.currentQuestionId,
-      currentAnswer: this.currentAnswer
-    });
+    this.isAnswers[this.currentQuestionIndex] = true;
     this.currentQuestionIndex++;
-
-    if (this.currentQuestionIndex === this.firstCheck?.questionIds.length) {
-      this.submitAnswers();
-      return;
-    }
-
     this.currentQuestionId = this.firstCheck?.questionIds[this.currentQuestionIndex] ?? -1;
+
+    const nextSaved = this.savedAnswers.find(ans => ans.id === this.currentQuestionId);
+    this.currentAnswer = nextSaved?.currentAnswer ?? "";
   }
+
+  // navigation for questions
+
+  saveCurrentAnswer() {
+    const trimmedAnswer = this.currentAnswer.trim();
+    if (!trimmedAnswer) return;
+
+    const existingIndex = this.savedAnswers.findIndex(ans => ans.id === this.currentQuestionId);
+    if (existingIndex !== -1) {
+      this.savedAnswers[existingIndex].currentAnswer = trimmedAnswer;
+    } else {
+      this.savedAnswers.push({
+        id: this.currentQuestionId,
+        currentAnswer: trimmedAnswer
+      });
+    }
+  }
+
+  isAnswered(index: number) {
+    const questionId = this.firstCheck?.questionIds[index];
+    this.isAnswers[index] = this.savedAnswers.some(ans => ans.id === questionId && ans.currentAnswer.trim() !== "");
+  }
+
+  goToQuestion(index: number): void {
+    if (!this.firstCheck) return;
+
+    this.saveCurrentAnswer();
+
+    const newQuestionId = this.firstCheck.questionIds[index];
+    const saved = this.savedAnswers.find(ans => ans.id === newQuestionId);
+
+    this.currentAnswer = saved?.currentAnswer ?? "";
+    this.currentQuestionIndex = index;
+    this.currentQuestionId = newQuestionId;
+  }
+
 
   submitAnswers() {
     if (this.savedAnswers.length <= 0) {
@@ -96,6 +131,7 @@ export class FirstCheckComponent implements OnInit {
         console.log("Answers submitted successfully:", response);
         this.resultScore = response.score;
         this.resultLevel = response.level;
+        this.setFeedbackMessage(this.resultScore);
         this.showResults = true;
       },
       error: (error) => {
@@ -106,5 +142,15 @@ export class FirstCheckComponent implements OnInit {
 
   goToCourses() {
     this.router.navigate(["/courses"]).then(console.debug);
+  }
+
+  setFeedbackMessage(score: number): void {
+    if (score < 40) {
+      this.feedbackMessage = "Не засмучуйтесь! Це лише початок — все ще попереду 💪";
+    } else if (score < 75) {
+      this.feedbackMessage = "Чудово! У вас вже є базові знання, продовжуйте в тому ж дусі 👏";
+    } else {
+      this.feedbackMessage = "Вражаюче! Ви чудово підготовлені 🎉🚀";
+    }
   }
 }

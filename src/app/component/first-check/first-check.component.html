@@ -1,12 +1,25 @@
-<h1>Вступний тест</h1>
-
 <!-- Якщо студент є і тест треба проходити -->
-<div *ngIf="student?.isFirst">
-
+<div *ngIf="student?.isFirst" class="container">
   <div *ngIf="firstCheck && firstCheck.questionIds && firstCheck.questionIds.length > 0">
+      <h1>Оцінка початкових знань 📝</h1>
+
+    <!-- Навігація по запитаннях -->
+    <div *ngIf="!showResults && currentQuestionIndex < firstCheck.questionIds.length" class="navigation-panel">
+      <div class="question-buttons">
+        <button
+          *ngFor="let id of firstCheck?.questionIds; let i = index"
+          [class.current]="i === currentQuestionIndex"
+          [class.answered]="isAnswers[i]"
+          [class.unanswered]="!isAnswers[i]"
+          (click)="goToQuestion(i)">
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
 
     <!-- Поточне питання -->
-    <div *ngIf="!showResults && currentQuestionIndex < firstCheck.questionIds.length" class="question-container container">
+    <div *ngIf="!showResults && currentQuestionIndex < firstCheck.questionIds.length"
+         class="question-container">
       <h2>Запитання {{ currentQuestionIndex + 1 }}:</h2>
 
       <!-- Компонент для відображення запитання -->
@@ -16,22 +29,28 @@
       </app-question>
 
       <!-- Кнопка для відповіді -->
-      <button (click)="getAnswer()" [disabled]="!currentAnswer.trim()">Відповісти</button>
+      <button
+        (click)="getAnswer()"
+        [disabled]="!currentAnswer.trim()">
+        {{ currentQuestionIndex + 1 === firstCheck.questionIds.length ? 'Завершити' : 'Відповісти' }}
+      </button>
     </div>
 
   </div>
 
   <!-- Якщо тест завершено -->
-  <div *ngIf="!showResults && firstCheck && currentQuestionIndex >= firstCheck.questionIds.length" class="test-completion">
+  <div *ngIf="!showResults && firstCheck && currentQuestionIndex >= firstCheck.questionIds.length"
+       class="test-completion">
     <h2>Тест завершено! Дякуємо за участь.</h2>
     <button (click)="submitAnswers()">Надіслати відповіді</button>
   </div>
 
-  <div *ngIf="showResults" class="question-container container">
-    <h2>Результати тесту</h2>
-    <p>Кількість балів: {{ resultScore }}</p>
-    <p>Ваш рівень: {{ resultLevel }}</p>
-    <button (click)="goToCourses()">До курсів</button>
+  <div *ngIf="showResults" class="result-container result-with-bg">
+    <h2>Ваш результат {{ resultScore | number:'1.2-2' }}</h2>
+    <p class="level">рівень {{ resultLevel }}</p>
+    <p class="feedback-message">{{ feedbackMessage }}</p>
+    <button (click)="goToCourses()" class="go-to-course">Перейти до курсів</button>
+    <img src="/img-result.png" alt="Programming Illustration">
   </div>
 
 </div>

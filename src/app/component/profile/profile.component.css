@@ -1,62 +1,93 @@
 .profile-container {
-  max-width: 50%;
-  margin: 100px auto 100px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 12px;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  color: #ff9800;
 }
 
-.profile-form fieldset {
-  margin-bottom: 15px;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.profile-columns {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.profile-form legend {
+.editable-section {
+  flex: 1 1 55%;
+}
+
+.readonly-section {
+  flex: 1 1 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 25px;
+  padding: 0;
+}
+
+legend {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 10px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.form-group label {
+label {
   display: block;
+  margin-bottom: 10px;
   font-weight: 500;
+  color: #333;
 }
 
-.form-group input {
+input {
+  margin-top: 5px;
   width: 100%;
-  padding: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.score-display {
-  font-weight: bold;
-  font-size: 1.2rem;
+input:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.28);
+  outline: none;
 }
 
 .btn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #f18a24;
   color: white;
+}
+
+.btn-primary:hover {
+  background-color: #ea841e;
+  transform: scale(1.01);
 }
 
 .btn-primary:disabled {
@@ -64,6 +95,66 @@ h2 {
   cursor: not-allowed;
 }
 
-label{
-  margin-bottom: 5px;
+.error-message {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
+
+.readonly-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+}
+
+.student-info{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.info-box {
+  border-left: 3px solid #f18a24;
+  border-right: 3px solid #f18a24;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 5px;
+  max-width: 80%;
+  text-align: center;
+  display: flex;
+}
+
+.user-img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.username{
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.info-box h3 {
+  font-size: 16px;
+  margin: 0;
+  color: #000;
+  font-weight: 400;
+}
+
+.info-box p {
+  margin-right: 10px;
+  color: #7b7b7b;
+  font-size: 16px;
+  font-weight: 400;
+}
+

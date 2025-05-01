@@ -1,8 +1,15 @@
 <div class="course-list-container container">
-  <h2>Courses</h2>
+  <h2>Доступні курси з програмування 💻</h2>
+
+  <div *ngIf="!isLogged" class="warning">
+    <p>Ви не в системі. Щоб розпочати навчання, будь ласка, <a routerLink="/login">увійдіть</a> або <a routerLink="/register">зареєструйтесь</a>.</p>
+  </div>
+
   <ul class="course-list">
-    <li>Course 1</li>
-    <li>Course 2</li>
-    <li>Course 3</li>
+    <li *ngFor="let course of courses"
+        [class.disabled]="!isLogged"
+        (click)="isLogged && openCourse(course)">
+      {{ course.name }}
+    </li>
   </ul>
 </div>

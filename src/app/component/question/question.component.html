@@ -1,12 +1,15 @@
-<h2>{{ question?.text }}</h2>
+<div *ngIf="question" class="question-container">
+  <h3>{{ question.text }}</h3>
 
-<div *ngFor="let option of question?.options">
-  <label>
-    <input type="radio"
-           name="questionOption"
-           [value]="option"
-           [checked]="selectedOption === option"
-           (change)="selectOption(option)"/>
-    {{ option }}
-  </label>
+  <div *ngFor="let option of question.options">
+    <label>
+      <input
+        type="radio"
+        name="option"
+        [value]="option"
+        [checked]="option === selectedOption"
+        (change)="selectOption(option)">
+      {{ option }}
+    </label>
+  </div>
 </div>
