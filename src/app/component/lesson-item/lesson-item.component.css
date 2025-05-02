@@ -4,3 +4,49 @@
   height: 395px;
   padding-top: 50px;
 }
+
+.lesson-list-container h2 {
+  font-size: 2em;
+  color: #3c3c3c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.lesson-list-container p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.start-test-button {
+  background-color: rgba(241, 138, 36, 0.89);
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.start-test-button:hover {
+  background-color: rgba(223, 119, 17, 0.9);
+}
+
+.start-test-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  font-size: 1.1em;
+  color: #777;
+  text-align: center;
+  margin-top: 50px;
+}

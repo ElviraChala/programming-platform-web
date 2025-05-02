@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Вступ до ООП у Java</title>
+  <link rel="stylesheet" href="lesson.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+
+<section class="lesson-container">
+  <div class="lesson-text">
+    <h1 class="lesson-title">Урок 2: <span class="highlight">Об'єктно-орієнтоване програмування</span> у Java</h1>
+
+    <p><strong>ООП</strong> (об'єктно-орієнтоване програмування) — це підхід, у якому програма будується навколо об'єктів. Кожен об'єкт — це комбінація даних (полів) і дій над ними (методів).</p>
+
+    <p>Java є повністю об'єктно-орієнтованою мовою, де класи — основа всього. Правильне розуміння ООП допоможе тобі писати чистий, зрозумілий і повторно використовуваний код.</p>
+
+    <h2>Чотири основи ООП</h2>
+    <ul>
+      <li><strong>Інкапсуляція</strong> — приховування деталей реалізації та доступ через публічні методи.</li>
+      <li><strong>Наслідування</strong> — створення нового класу на основі вже існуючого.</li>
+      <li><strong>Поліморфізм</strong> — можливість одного методу вести себе по-різному залежно від контексту.</li>
+      <li><strong>Абстракція</strong> — виділення суттєвого, приховування зайвого.</li>
+    </ul>
+
+    <h2>Клас та об'єкт у Java</h2>
+    <p><strong>Клас</strong> — це шаблон, а <strong>об'єкт</strong> — конкретний екземпляр цього шаблону.</p>
+
+    <p>Ось приклад простого класу:</p>
+    <pre><code class="language-java">
+public class Person {
+      private String name;
+      private int age;
+
+      // Конструктор
+      public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Метод
+    public void sayHello() {
+        System.out.println("Привіт, мене звати " + name);
+    }
+}
+    </code></pre>
+
+    <p>А ось як створити об'єкт цього класу:</p>
+    <pre><code class="language-java">
+Person user = new Person("Олена", 22);
+user.sayHello(); // Виведе: Привіт, мене звати Олена
+    </code></pre>
+
+    <h3>Ключові терміни</h3>
+    <ul>
+      <li><strong>private</strong> — обмежує доступ до поля або методу лише в межах класу.</li>
+      <li><strong>public</strong> — дозволяє доступ з будь-якого місця.</li>
+      <li><strong>this</strong> — посилання на поточний об'єкт.</li>
+      <li><strong>new</strong> — створює новий об'єкт.</li>
+    </ul>
+
+    <h3>Запитання для самоперевірки</h3>
+    <ol>
+      <li>Що таке об'єкт у Java?</li>
+      <li>Навіщо використовувати інкапсуляцію?</li>
+      <li>Яка різниця між класом і об'єктом?</li>
+      <li>Як створити метод у класі?</li>
+    </ol>
+  </div>
+</section>
+
+</body>
+</html>

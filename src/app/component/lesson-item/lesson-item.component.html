@@ -1,6 +1,6 @@
 <div *ngIf="lesson" class="lesson-list-container">
   <h2>{{ lesson.name }}</h2>
-  <p>{{ lesson.theory.fileName }}</p>
+  <div [innerHTML]="content"></div>
 
 
   <button *ngIf="lesson?.checkKnowledgeId"

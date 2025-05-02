@@ -1,0 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+
+.lesson-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px 40px;
+  margin: 0 auto 70px;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 80%;
+}
+
+.lesson-text {
+  max-width: 800px;
+}
+
+.lesson-title {
+  font-size: 46px;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: #ff9800;
+}
+
+.lesson-text p {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.lesson-text ul,
+.lesson-text ol {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  font-size: 17px;
+}
+
+.lesson-text li {
+  margin-bottom: 6px;
+}
+
+pre {
+  background: #eee;
+  padding: 5px;
+  overflow-x: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+  background-color: rgba(255, 152, 0, 0.11);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Адаптивність */
+@media screen and (max-width: 768px) {
+  .lesson-container {
+    padding: 30px 20px;
+    flex-direction: column;
+  }
+
+  .lesson-title {
+    font-size: 32px;
+  }
+
+  .lesson-text p {
+    font-size: 16px;
+  }
+}
+

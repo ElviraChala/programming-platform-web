@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Lesson } from "../../interface/Lesson";
 import { LessonService } from "../../service/lesson.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-lesson-item",
@@ -12,10 +14,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class LessonItemComponent implements OnInit {
   name: string = "";
   lesson?: Lesson;
+  content: SafeHtml = "";
 
   constructor(private readonly lessonService: LessonService,
               private readonly router: ActivatedRoute,
-              private readonly route: Router) { }
+              private readonly route: Router,
+              private readonly sanitizer: DomSanitizer,
+              private readonly http: HttpClient) { }
 
   ngOnInit(): void {
     const idParam = this.router.snapshot.paramMap.get("id");
@@ -29,7 +34,13 @@ export class LessonItemComponent implements OnInit {
     this.lessonService.getLessonById(id).subscribe({
         next: (value) => {
           this.lesson = value;
-          console.log("Отриманий урок:", this.lesson);
+          this.http.get("/theory/" + value.theory.fileName, {responseType: 'text'})
+            .subscribe({
+              next: data => {
+                this.content = this.sanitizer.bypassSecurityTrustHtml(data);
+              },
+              error: console.error
+            })
         },
         error: (err) => {
           console.error("Не вдалося завантажити урок", err);
