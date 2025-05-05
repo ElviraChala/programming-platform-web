@@ -37,4 +37,10 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  forgotPassword(email: string) {
+    const postUrl = "/api/auth/forgot-password";
+    const body = {email: email};
+    this.http.post(this.apiUrl + postUrl, body).subscribe();
+  }
 }

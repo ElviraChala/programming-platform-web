@@ -39,4 +39,8 @@ export class LoginComponent {
   onInputChange() {
     this.errorMessage = "";
   }
+
+  forgotPassword() {
+    this.authService.forgotPassword("victor.lissoviy.93@gmail.com");
+  }
 }

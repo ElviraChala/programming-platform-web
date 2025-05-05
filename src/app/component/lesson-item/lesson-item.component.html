@@ -1,15 +1,21 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<!--<script>hljs.highlightAll();</script>-->
+
+
 <div *ngIf="lesson" class="lesson-list-container">
   <h2>{{ lesson.name }}</h2>
-  <div [innerHTML]="content"></div>
 
+  <div [innerHTML]="content"></div>
 
   <button *ngIf="lesson?.checkKnowledgeId"
           (click)="startLessonTest()"
           class="start-test-button">
     Перейти до тестування
   </button>
-
 </div>
+
+
 
 <div *ngIf="!lesson">
   <p>Курс не знайдено або сталася помилка.</p>

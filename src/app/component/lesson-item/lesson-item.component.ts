@@ -1,17 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Lesson } from "../../interface/Lesson";
 import { LessonService } from "../../service/lesson.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { HttpClient } from "@angular/common/http";
+
+declare let hljs: any;
 
 @Component({
   selector: "app-lesson-item",
   standalone: false,
   templateUrl: "./lesson-item.component.html",
-  styleUrl: "./lesson-item.component.css"
+  styleUrls: ["./lesson-item.component.css"],
+
 })
-export class LessonItemComponent implements OnInit {
+export class LessonItemComponent implements OnInit, AfterViewInit {
   name: string = "";
   lesson?: Lesson;
   content: SafeHtml = "";
@@ -19,8 +21,7 @@ export class LessonItemComponent implements OnInit {
   constructor(private readonly lessonService: LessonService,
               private readonly router: ActivatedRoute,
               private readonly route: Router,
-              private readonly sanitizer: DomSanitizer,
-              private readonly http: HttpClient) { }
+              private readonly sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     const idParam = this.router.snapshot.paramMap.get("id");
@@ -34,13 +35,7 @@ export class LessonItemComponent implements OnInit {
     this.lessonService.getLessonById(id).subscribe({
         next: (value) => {
           this.lesson = value;
-          this.http.get("/theory/" + value.theory.fileName, {responseType: 'text'})
-            .subscribe({
-              next: data => {
-                this.content = this.sanitizer.bypassSecurityTrustHtml(data);
-              },
-              error: console.error
-            })
+          this.content = this.sanitizer.bypassSecurityTrustHtml(value.theory.fileName);
         },
         error: (err) => {
           console.error("Не вдалося завантажити урок", err);
@@ -52,6 +47,10 @@ export class LessonItemComponent implements OnInit {
   startLessonTest() {
     if (!this.lesson) return;
     this.route.navigate(['/lesson-test', this.lesson.checkKnowledgeId]).then(console.debug);
+  }
+
+  ngAfterViewInit(): void {
+    hljs.highlightAll();
   }
 
 }
