@@ -8,7 +8,7 @@ import { Theory } from "../interface/Theory";
 })
 export class TheoryService {
 
-  private readonly baseUrl = "http://localhost:8080/theory"; // заміни на змінну середовища при потребі
+  private readonly baseUrl = "http://backend:8080/theory"; // заміни на змінну середовища при потребі
 
   constructor(private readonly http: HttpClient) {}
 

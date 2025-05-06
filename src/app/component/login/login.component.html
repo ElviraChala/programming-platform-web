@@ -17,6 +17,10 @@
     </div>
 
     <button type="submit" [disabled]="isButtonDisabled">Увійти</button>
-    <button (click)="forgotPassword()" >Забули пароль</button>
   </form>
+
+  <button (click)="forgotPassword()" >{{forgotButtonText}}</button>
+  <div *ngIf="isForgotPassword">
+    <input type="email" [(ngModel)]="forgotPasswordEmail">
+  </div>
 </div>

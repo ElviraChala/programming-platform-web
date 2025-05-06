@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 
 @Injectable({providedIn: "root"})
 export class StudentService {
-  private readonly apiUrl = "http://localhost:8080/student";
+  private readonly apiUrl = "http://backend:8080/student";
 
   constructor(private readonly http: HttpClient) {
   }

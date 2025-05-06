@@ -8,7 +8,7 @@ import { CheckResult } from "../interface/CheckResult";
   providedIn: "root"
 })
 export class FirstCheckService {
-  private readonly apiUrl = "http://localhost:8080";
+  private readonly apiUrl = "http://backend:8080";
 
   constructor(private readonly http: HttpClient) {
   }

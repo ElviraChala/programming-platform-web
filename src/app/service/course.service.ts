@@ -8,7 +8,7 @@ import { Course } from "../interface/Course";
 })
 export class CourseService {
 
-  private readonly baseUrl = 'http://localhost:8080/course'; // заміни на свій backend URL, якщо інший
+  private readonly baseUrl = 'http://backend:8080/course'; // заміни на свій backend URL, якщо інший
 
   constructor(private readonly http: HttpClient) {}
 

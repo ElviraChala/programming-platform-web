@@ -20,6 +20,7 @@ import { ProfileComponent } from "./component/profile/profile.component";
 import { LessonListComponent } from './component/lesson-list/lesson-list.component';
 import { LessonItemComponent } from './component/lesson-item/lesson-item.component';
 import { LessonTestComponent } from './component/lesson-test/lesson-test.component';
+import { CreateNewPasswordComponent } from './component/create-new-password/create-new-password.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LessonTestComponent } from './component/lesson-test/lesson-test.compone
     ProfileComponent,
     LessonListComponent,
     LessonItemComponent,
-    LessonTestComponent
+    LessonTestComponent,
+    CreateNewPasswordComponent
   ],
   imports: [
     HttpClientModule,

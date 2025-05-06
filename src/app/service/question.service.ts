@@ -7,7 +7,7 @@ import {Question} from "../interface/Question";
   providedIn: "root"
 })
 export class QuestionService {
-  private readonly apiUrl = "http://localhost:8080/question";
+  private readonly apiUrl = "http://backend:8080/question";
 
   constructor(private readonly http: HttpClient) {
   }

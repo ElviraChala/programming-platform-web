@@ -5,19 +5,19 @@ import { TokenObject } from "../interface/TokenObject";
 @Injectable({providedIn: "root"})
 export class AuthService {
 
-  private readonly apiUrl = "http://localhost:8080";
+  private readonly apiUrl = "http://backend:8080/api/auth";
   private readonly tokenKey = "auth_token";
 
   constructor(private readonly http: HttpClient) {}
 
   register(username: string, password: string) {
-    const postUrl = "/api/auth/register";
+    const postUrl = "/register";
     const body = {username, password};
     return this.http.post<TokenObject>(this.apiUrl + postUrl, body);
   }
 
   login(username: string, password: string) {
-    const postUrl = "/api/auth/login";
+    const postUrl = "/login";
     const body = {username, password};
     return this.http.post<TokenObject>(this.apiUrl + postUrl, body);
   }
@@ -39,8 +39,14 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    const postUrl = "/api/auth/forgot-password";
+    const postUrl = "/forgot-password";
     const body = {email: email};
     this.http.post(this.apiUrl + postUrl, body).subscribe();
+  }
+
+  update(email: string, password: string) {
+    const postUrl = "/update";
+    const body = {email: email, password: password};
+    return this.http.post(this.apiUrl + postUrl, body);
   }
 }

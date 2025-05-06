@@ -9,7 +9,7 @@ import { Lesson } from "../interface/Lesson";
 export class LessonService {
 
 
-  private readonly baseUrl = "http://localhost:8080/lesson"; // або в env файлі
+  private readonly baseUrl = "http://backend:8080/lesson"; // або в env файлі
 
   constructor(private readonly http: HttpClient) {}
 

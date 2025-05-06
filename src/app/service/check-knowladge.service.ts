@@ -9,7 +9,7 @@ import { Answer } from "../interface/Answer";
   providedIn: "root"
 })
 export class CheckKnowledgeService {
-  private readonly baseUrl = `http://localhost:8080/check-knowledge`;
+  private readonly baseUrl = `http://backend:8080/check-knowledge`;
 
   constructor(private readonly http: HttpClient) {}
 

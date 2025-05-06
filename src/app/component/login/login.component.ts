@@ -13,6 +13,9 @@ export class LoginComponent {
   password: string = "";
   errorMessage: string = "";
   isButtonDisabled: boolean = false;
+  isForgotPassword: boolean = false;
+  forgotPasswordEmail: string = "";
+  forgotButtonText: string = "Забули пароль";
 
   constructor(private readonly authService: AuthService,
               private readonly router: Router) {
@@ -41,6 +44,19 @@ export class LoginComponent {
   }
 
   forgotPassword() {
-    this.authService.forgotPassword("victor.lissoviy.93@gmail.com");
+    if (!this.isForgotPassword) {
+      this.isForgotPassword = true;
+      this.forgotButtonText = "Відправити Email";
+      return;
+    }
+
+    if (!this.forgotPasswordEmail) {
+      alert("Не вказаний Email");
+      return;
+    }
+
+    this.authService.forgotPassword(this.forgotPasswordEmail);
+    this.isForgotPassword = false;
+    this.forgotButtonText = "Забули пароль";
   }
 }
