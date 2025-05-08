@@ -19,8 +19,47 @@
     <button type="submit" [disabled]="isButtonDisabled">Увійти</button>
   </form>
 
-  <button (click)="forgotPassword()" >{{forgotButtonText}}</button>
-  <div *ngIf="isForgotPassword">
-    <input type="email" [(ngModel)]="forgotPasswordEmail">
+  <button class="toggle-forgot-button" (click)="forgotPassword()">{{ forgotButtonText }}</button>
+
+  <div *ngIf="isForgotPassword" class="forgot-section">
+
+    <div *ngIf="!isUsernameChecked && !isUserNotFound">
+      <label for="forgotUsername">Введіть ім'я користувача:</label>
+      <input
+        type="text"
+        id="forgotUsername"
+        [(ngModel)]="forgotUsername"
+        (keyup.enter)="checkUsername()"
+      />
+      <button class="check-button" (click)="checkUsername()">Перевірити</button>
+      <div *ngIf="forgotError" class="error-message">{{ forgotError }}</div>
+    </div>
+
+    <!-- Повідомлення про відсутність користувача + кнопка -->
+    <div *ngIf="isUserNotFound">
+      <button class="register-button" (click)="router.navigate(['/register'])">Зареєструватися</button>
+    </div>
+
+    <!-- Поле для email показуємо тільки якщо isUsernameChecked === true -->
+    <div *ngIf="isUsernameChecked && !isUserNotFound">
+      <label for="forgotEmail">Куди надіслати посилання для відновлення?</label>
+      <input
+        type="email"
+        id="forgotEmail"
+        [(ngModel)]="forgotPasswordEmail"
+      />
+      <button class="reset-email-button" (click)="sendResetLink()">Відправити Email</button>
+    </div>
+
   </div>
+
+  <div *ngIf="emailSentMessage" class="success-message">
+    {{ emailSentMessage }}
+  </div>
+
+  <div *ngIf="forgotError" class="error-message">
+    {{ forgotError }}
+  </div>
+
 </div>
+

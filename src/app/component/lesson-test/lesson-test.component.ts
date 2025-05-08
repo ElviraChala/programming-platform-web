@@ -152,4 +152,8 @@ export class LessonTestComponent implements OnInit {
       this.router.navigate(["/courses"]).then(console.debug);
     }
   }
+
+  goToCodingTasks(): void {
+    this.router.navigate(['/coding-tasks', this.check?.lessonId]).then(console.debug);
+  }
 }

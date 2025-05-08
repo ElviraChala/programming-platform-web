@@ -41,7 +41,18 @@
   <div *ngIf="showResults" class="result-container result-with-bg">
     <h2>Ваш результат: {{ resultScore | number:'1.2-2' }}</h2>
     <p class="feedback-message">{{ feedbackMessage }}</p>
-    <button (click)="goBackToLesson()" class="go-to-course">Повернутись до курсу</button>
+    <button
+      (click)="goBackToLesson()"
+      class="go-to-course">
+      Повернутись до курсу
+    </button>
+
+    <button
+      (click)="goToCodingTasks()"
+      class="go-to-coding">
+      Перейти до практичних завдань 💻
+    </button>
     <img src="/img-result.png" alt="Result Illustration">
+
   </div>
 </div>

@@ -12,6 +12,7 @@ import { LessonItemComponent } from "./component/lesson-item/lesson-item.compone
 import { LessonListComponent } from "./component/lesson-list/lesson-list.component";
 import { LessonTestComponent } from "./component/lesson-test/lesson-test.component";
 import { CreateNewPasswordComponent } from "./component/create-new-password/create-new-password.component";
+import { CodingTaskComponent } from "./component/coding-tasks/coding-tasks.component";
 
 const routes: Routes = [
   {path: "", component: MainComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: "lessons/:id", component: LessonItemComponent},
   {path: "lessons", component: LessonListComponent},
   {path: "lesson-test/:checkKnowledgeId", component: LessonTestComponent},
+  { path: 'coding-tasks/:id', component: CodingTaskComponent },
   {path: "first-check", component: FirstCheckComponent},
   {path: "profile", component: ProfileComponent},
   {path: "courses/:id", component: CourseComponent},

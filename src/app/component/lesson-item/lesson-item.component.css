@@ -2,7 +2,6 @@
   width: 80%;
   margin: 50px auto;
   height: 395px;
-  padding-top: 50px;
 }
 
 .lesson-list-container h2 {
@@ -20,6 +19,7 @@
 }
 
 .start-test-button {
+  display: block;
   background-color: rgba(241, 138, 36, 0.89);
   color: #fff;
   border: none;
@@ -28,6 +28,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 0 auto 100px;
 }
 
 .start-test-button:hover {

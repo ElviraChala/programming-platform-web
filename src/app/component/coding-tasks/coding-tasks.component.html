@@ -1,0 +1,35 @@
+<div *ngIf="taskLoaded && task" class="coding-task-page">
+  <div class="task-layout">
+    <!-- Ліва панель: опис завдання -->
+    <div class="task-description">
+      <h2>Завдання: {{ task.title }}</h2>
+      <p [innerHTML]="task.description"></p>
+
+      <h3>Очікуваний результат:</h3>
+      <pre><code>{{ task.expectedOutput }}</code></pre>
+    </div>
+
+    <!-- Права панель: поле для коду -->
+    <div class="code-editor">
+      <div class="editor-header">
+        <label for="language">Мова:</label>
+        <select id="language" disabled>
+          <option selected>Java</option>
+        </select>
+        <button class="run-btn" (click)="runCode()">▶ Запустити</button>
+      </div>
+
+      <textarea [(ngModel)]="code" placeholder="// Напиши свій код тут..." rows="12"></textarea>
+
+      <div class="output-block">
+        <h4>Результат:</h4>
+        <pre class="output">{{ output }}</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Повідомлення про завантаження або відсутність завдань -->
+<div *ngIf="!taskLoaded">
+  <p class="error-message">Завантаження або помилка...</p>
+</div>

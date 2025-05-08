@@ -21,6 +21,7 @@ import { LessonListComponent } from './component/lesson-list/lesson-list.compone
 import { LessonItemComponent } from './component/lesson-item/lesson-item.component';
 import { LessonTestComponent } from './component/lesson-test/lesson-test.component';
 import { CreateNewPasswordComponent } from './component/create-new-password/create-new-password.component';
+import { CodingTaskComponent } from './component/coding-tasks/coding-tasks.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CreateNewPasswordComponent } from './component/create-new-password/crea
     LessonListComponent,
     LessonItemComponent,
     LessonTestComponent,
-    CreateNewPasswordComponent
+    CreateNewPasswordComponent,
+    CodingTaskComponent
   ],
   imports: [
     HttpClientModule,
