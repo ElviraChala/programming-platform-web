@@ -2,13 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from "../interface/Course";
+import { backHost } from "../app.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  private readonly baseUrl = 'http://backend:8080/course'; // заміни на свій backend URL, якщо інший
+  private readonly baseUrl = backHost + "/course";
 
   constructor(private readonly http: HttpClient) {}
 

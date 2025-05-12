@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
+  selector: "app-root",
+  templateUrl: "./app.component.html",
   standalone: false,
-  styleUrl: './app.component.css'
+  styleUrl: "./app.component.css"
 })
 export class AppComponent {
-  title = 'programming-platform-web';
+  title = "programming-platform-web";
+
   constructor() {
     localStorage.clear();
   }
 }
+
+export const backHost = "http://dev-spark.space:8080";

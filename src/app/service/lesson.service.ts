@@ -2,14 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Lesson } from "../interface/Lesson";
+import { backHost } from "../app.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class LessonService {
-
-
-  private readonly baseUrl = "http://backend:8080/lesson"; // або в env файлі
+  private readonly baseUrl = backHost + "/lesson"; // або в env файлі
 
   constructor(private readonly http: HttpClient) {}
 

@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TokenObject } from "../interface/TokenObject";
+import { backHost } from "../app.component";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
 
-  private readonly apiUrl = "http://backend:8080/api/auth";
+  private readonly apiUrl = backHost + "/api/auth";
   private readonly tokenKey = "auth_token";
 
   constructor(private readonly http: HttpClient) {}

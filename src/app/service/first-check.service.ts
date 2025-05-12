@@ -3,12 +3,13 @@ import { HttpClient } from "@angular/common/http";
 import { FirstCheck } from "../interface/FirstCheck";
 import { Answer } from "../interface/Answer";
 import { CheckResult } from "../interface/CheckResult";
+import { backHost } from "../app.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class FirstCheckService {
-  private readonly apiUrl = "http://backend:8080";
+  private readonly apiUrl = backHost;
 
   constructor(private readonly http: HttpClient) {
   }

@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Theory } from "../interface/Theory";
+import { backHost } from "../app.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class TheoryService {
 
-  private readonly baseUrl = "http://backend:8080/theory"; // заміни на змінну середовища при потребі
+  private readonly baseUrl = backHost + "/theory";
 
   constructor(private readonly http: HttpClient) {}
 

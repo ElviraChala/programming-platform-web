@@ -57,7 +57,7 @@
         <p>Username</p>
         <h3>{{ username }}</h3>
       </div>
-      <div class="student-info">
+      <div class="student-info" *ngIf="student" >
         <div class="info-box">
           <p>Рівень</p>
           <h3>{{ student.level }}</h3>

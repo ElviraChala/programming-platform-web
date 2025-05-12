@@ -4,12 +4,13 @@ import { Observable } from "rxjs";
 import { CheckKnowledge } from "../interface/CheckKnowledge";
 import { Question } from "../interface/Question";
 import { Answer } from "../interface/Answer";
+import { backHost } from "../app.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class CheckKnowledgeService {
-  private readonly baseUrl = `http://backend:8080/check-knowledge`;
+  private readonly baseUrl = backHost + "/check-knowledge";
 
   constructor(private readonly http: HttpClient) {}
 

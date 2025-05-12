@@ -2,12 +2,13 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Question} from "../interface/Question";
+import { backHost } from "../app.component";
 
 @Injectable({
   providedIn: "root"
 })
 export class QuestionService {
-  private readonly apiUrl = "http://backend:8080/question";
+  private readonly apiUrl = backHost + "/question";
 
   constructor(private readonly http: HttpClient) {
   }
