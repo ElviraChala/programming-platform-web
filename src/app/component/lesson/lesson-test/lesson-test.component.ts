@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Question } from "../../interface/Question";
-import { CheckKnowledgeService } from "../../service/check-knowladge.service";
-import { Student } from "../../interface/Student";
-import { StudentService } from "../../service/student.service";
-import { Lesson } from "../../interface/Lesson";
-import { Answer } from "../../interface/Answer";
-import { CheckKnowledge } from "../../interface/CheckKnowledge";
+import { Question } from "../../../interface/Question";
+import { CheckKnowledgeService } from "../../../service/check-knowladge.service";
+import { Student } from "../../../interface/Student";
+import { StudentService } from "../../../service/student.service";
+import { Lesson } from "../../../interface/Lesson";
+import { Answer } from "../../../interface/Answer";
+import { CheckKnowledge } from "../../../interface/CheckKnowledge";
 
 
 @Component({

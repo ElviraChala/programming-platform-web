@@ -14,4 +14,4 @@ export class AppComponent {
   }
 }
 
-export const backHost = "http://dev-spark.space:8080";
+export const backHost = "http://dev-spark.fun:8080";

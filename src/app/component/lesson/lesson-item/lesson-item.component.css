@@ -18,7 +18,8 @@
   text-align: left;
 }
 
-.start-test-button {
+.start-test-button,
+.edit-test-button{
   display: block;
   background-color: rgba(241, 138, 36, 0.89);
   color: #fff;

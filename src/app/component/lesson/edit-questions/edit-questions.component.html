@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>Питання до уроку</h2>
+  <div class="edit-block">
+    <button class="add-question" (click)="addQuestion()">➕ Додати питання</button>
+
+    <div *ngFor="let question of questions; let i = index" class="question-block">
+      <h3>{{ i + 1 }}. {{ question.text }}</h3>
+      <ul>
+        <li *ngFor="let option of question.options">
+          {{ option }}
+          <span *ngIf="option === question.correctAnswer">✅</span>
+
+        </li>
+      </ul>
+
+      <button (click)="editQuestion(question)">✏️ Редагувати</button>
+      <button (click)="deleteQuestion(question.id)">🗑️ Видалити</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="course-list-container container">
+  <h2>Доступні курси з програмування 💻</h2>
+
+  <div *ngIf="!isLogged" class="warning">
+    <p>
+      Ви не в системі. Щоб розпочати навчання, будь ласка,
+      <a routerLink="/login">увійдіть</a> або
+      <a routerLink="/register">зареєструйтесь</a>.
+    </p>
+  </div>
+
+  <!-- Кнопка для адміністратора -->
+  <div *ngIf="isAdmin()" class="create-course-wrapper">
+    <button class="create-course-button" (click)="createNewCourse()">+ Створити новий курс</button>
+  </div>
+
+  <ul class="course-list">
+    <li *ngFor="let course of courses"
+        [class.disabled]="!isLogged"
+        (click)="isLogged && course.id !== undefined && openCourse(course.id)">
+      {{ course.name }}
+
+      <div *ngIf="isAdmin()" class="admin-buttons" (click)="$event.stopPropagation()">
+        <button (click)="editCourse(course)">Редагувати</button>
+        <button *ngIf="course.id !== undefined" (click)="deleteCourse(course.id)">Видалити</button>
+      </div>
+    </li>
+  </ul>
+</div>

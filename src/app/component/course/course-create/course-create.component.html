@@ -1,0 +1,32 @@
+<div class="edit-course-container container">
+  <h2>Створення курсу</h2>
+
+  <form [formGroup]="courseForm" (ngSubmit)="createCourse()">
+
+    <div>
+      <label for="name">Назва курсу:</label>
+      <input id="name" formControlName="name" />
+      <div class="error" *ngIf="name.invalid && name.touched">
+        Назва обов’язкова
+      </div>
+    </div>
+
+    <div>
+      <label for="description">Опис:</label>
+      <textarea id="description" formControlName="description" rows="4"></textarea>
+      <div class="error" *ngIf="description.invalid && description.touched">
+        Опис обов’язковий
+      </div>
+    </div>
+
+    <div>
+      <label for="level">Рівень курсу:</label>
+      <select id="level" formControlName="level">
+        <option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="courseForm.invalid">Створити курс</button>
+    <button type="button" (click)="goBack()">Скасувати</button>
+  </form>
+</div>

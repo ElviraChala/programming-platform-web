@@ -1,0 +1,45 @@
+<div class="edit-course-container" *ngIf="course">
+  <form class="edit-course-form" (ngSubmit)="updateCourse()">
+    <h2>Редагування курсу</h2>
+
+    <div>
+      <label for="name">Назва курсу:</label>
+      <input
+        id="name"
+        [(ngModel)]="course.name"
+        name="name"
+        required
+        placeholder="Введіть назву курсу"
+      />
+    </div>
+
+    <div>
+      <label for="description">Опис:</label>
+      <textarea
+        id="description"
+        [(ngModel)]="course.description"
+        name="description"
+        rows="4"
+        required
+        placeholder="Опишіть мету, зміст або для кого цей курс"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="level">Рівень курсу:</label>
+      <select
+        id="level"
+        [(ngModel)]="course.level"
+        name="level"
+        required
+      >
+        <option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="cta-button">Зберегти зміни</button>
+      <button type="button" class="cta-button cancel-button" (click)="goBack()">Скасувати</button>
+    </div>
+  </form>
+</div>

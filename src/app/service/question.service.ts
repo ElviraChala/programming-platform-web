@@ -17,7 +17,7 @@ export class QuestionService {
     return this.http.post<Question>(this.apiUrl, question);
   }
 
-  getQuestionById(id: string): Observable<Question> {
+  getQuestionById(id: number): Observable<Question> {
     // Перевірка на коректність id
     if (!id) {
       throw new Error('ID питання не може бути порожнім');

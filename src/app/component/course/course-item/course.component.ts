@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Course } from "../../interface/Course";
-import { CourseService } from "../../service/course.service";
+import { Course } from "../../../interface/Course";
+import { CourseService } from "../../../service/course.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Lesson } from "../../interface/Lesson";
-import { LessonService } from "../../service/lesson.service";
+import { Lesson } from "../../../interface/Lesson";
+import { LessonService } from "../../../service/lesson.service";
 import { forkJoin } from "rxjs";
 
 @Component({

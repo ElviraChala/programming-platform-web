@@ -38,4 +38,8 @@ export class CheckKnowledgeService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  updateQuestion(question: Question): Observable<Question> {
+    return this.http.put<Question>(`${this.baseUrl}/question`, question);
+  }
 }

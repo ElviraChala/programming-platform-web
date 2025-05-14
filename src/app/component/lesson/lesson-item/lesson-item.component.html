@@ -1,13 +1,19 @@
-
 <div *ngIf="lesson" class="lesson-list-container">
   <h2>{{ lesson.name }}</h2>
 
   <div [innerHTML]="content"></div>
 
-  <button *ngIf="lesson?.checkKnowledgeId"
+  <button *ngIf="student && !isAdmin() && lesson?.checkKnowledgeId"
           (click)="startLessonTest()"
           class="start-test-button">
     Перейти до тестування
+  </button>
+
+  <!-- Для адміністратора -->
+  <button *ngIf="isAdmin() && lesson?.checkKnowledgeId"
+          (click)="editQuestions()"
+          class="edit-test-button">
+    Редагувати тести
   </button>
 </div>
 

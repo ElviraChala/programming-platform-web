@@ -1,0 +1,33 @@
+<div class="container" *ngIf="form">
+  <h2>Редагування питання</h2>
+
+  <form (ngSubmit)="save()">
+    <div>
+      <label>Текст питання:</label>
+      <input [(ngModel)]="form.text" name="text" required />
+    </div>
+
+    <div>
+      <label>Варіанти відповідей:</label>
+      <div *ngFor="let option of form.options; let i = index">
+        <input [(ngModel)]="form.options[i]" name="option{{ i }}" required />
+        <button type="button" (click)="removeOption(i)">🗑️</button>
+      </div>
+      <button type="button" (click)="addOption()">➕ Додати варіант</button>
+    </div>
+
+    <div>
+      <label>Правильна відповідь:</label>
+      <input [(ngModel)]="form.correctAnswer" name="correctAnswer" required />
+    </div>
+
+    <div>
+      <label>Рівень складності:</label>
+      <select [(ngModel)]="form.level" name="level" required>
+        <option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="!form.text || !form.correctAnswer || !form.level">💾 Зберегти</button>
+  </form>
+</div>

@@ -50,7 +50,7 @@ export class QuestionComponent implements ControlValueAccessor, OnChanges {
       return;
     }
 
-    this.questionService.getQuestionById(String(id))
+    this.questionService.getQuestionById(id)
       .subscribe({
         next: value => {
           this.question = value;
