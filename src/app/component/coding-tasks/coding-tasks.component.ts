@@ -4,6 +4,7 @@ import { LessonService } from '../../service/lesson.service';
 import { ProgrammingTaskService } from '../../service/programming-task.service';
 import { Lesson } from '../../interface/Lesson';
 import { ProgrammingTask } from '../../interface/ProgrammingTask';
+import { InterpreterService } from "../../service/interpreter.service";
 
 @Component({
   selector: 'app-coding-tasks',
@@ -21,7 +22,8 @@ export class CodingTaskComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly lessonService: LessonService,
-    private readonly programmingTaskService: ProgrammingTaskService
+    private readonly programmingTaskService: ProgrammingTaskService,
+    private readonly interpreterService: InterpreterService
   ) {}
 
   ngOnInit(): void {
@@ -68,12 +70,20 @@ export class CodingTaskComponent implements OnInit {
     if (!this.task) return;
 
     const normalizedCode = this.code.trim();
-    const normalizedExpected = this.task.expectedOutput.trim();
-
-    if (normalizedCode.includes(normalizedExpected)) {
-      this.output = this.task.expectedOutput;
-    } else {
-      this.output = 'Результат не збігається з очікуваним';
-    }
+    this.interpreterService.checkCode(this.task.id, normalizedCode).subscribe({
+      next: value => {
+        if (value.isOk) {
+          this.output = "Супер, все правильно";
+        } else {
+          this.output = "Щось не так:"
+            + "\nОчікуваний результат: " + value.expectedOutput
+            + "\nПоточний результат: " + value.actualOutput
+        }
+      },
+      error: err => {
+        console.error(err);
+        this.output = "Виникла помилка";
+      }
+    })
   }
 }
