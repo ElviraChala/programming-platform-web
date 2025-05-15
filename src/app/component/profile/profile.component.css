@@ -1,8 +1,28 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .profile-container {
   max-width: 900px;
   margin: 80px auto;
   padding: 30px;
   border-radius: 12px;
+  min-height: 100vh;
+  flex: 1;
 }
 
 h2 {
@@ -156,5 +176,76 @@ input:focus {
   color: #7b7b7b;
   font-size: 16px;
   font-weight: 400;
+}
+
+/* Адаптація для планшетів */
+@media screen and (max-width: 768px) {
+    .profile-container {
+    margin: 60px auto;
+    padding: 20px;
+  }
+
+  .profile-columns {
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  .editable-section,
+  .readonly-section {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .user-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .student-info {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+/* Адаптація для мобільних пристроїв */
+@media screen and (max-width: 480px) {
+  .profile-container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .user-img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .info-box {
+    padding: 8px 10px;
+    min-width: 100px;
+  }
+
+  .info-box h3,
+  .info-box p {
+    font-size: 14px;
+  }
+
+  input {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .student-info {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 

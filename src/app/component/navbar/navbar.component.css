@@ -8,6 +8,7 @@
   height: 50px;
   width: 100%;
   overflow: hidden;
+  z-index: 1000;
 }
 
 .navbar-container {
@@ -18,6 +19,7 @@
   margin: 0 auto;
   padding: 0 20px;
   height: 100%;
+  position: relative;
 }
 
 .logo-icon {
@@ -29,7 +31,6 @@
 .greeting {
   font-size: 18px;
   margin-right: 50px;
-
 }
 
 /* Навігаційне меню */
@@ -39,7 +40,6 @@
   padding: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .nav-links li {
@@ -76,28 +76,69 @@
   color: rgb(255, 152, 0);
 }
 
+.burger {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+}
 
-/* Мобільна адаптивність */
 @media screen and (max-width: 768px) {
-  .navbar {
-    height: auto;
-    padding: 10px 0;
-  }
-
-  .navbar-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .logo-icon {
-    height: 35px;
-    margin-bottom: 10px;
+  .burger {
+    display: block;
+    border-radius: 4px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .nav-links {
-    width: 100%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    background-color: #333;
     flex-direction: column;
     align-items: flex-start;
+    padding: 20px 0;
+    display: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   }
 
+  .nav-links.open {
+    display: flex;
+  }
+
+  .greeting {
+    margin: 0 0 15px 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #555;
+    width: calc(100% - 40px);
+  }
+
+  .nav-links li {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    border-left: 4px solid transparent;
+  }
+
+  .nav-links li a:hover,
+  .nav-links li a.active {
+    background-color: #444;
+    border-left: 4px solid rgb(255, 152, 0);
+  }
 }

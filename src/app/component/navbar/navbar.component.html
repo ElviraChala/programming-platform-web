@@ -4,17 +4,19 @@
       <img class="logo-icon" src="/logo2.svg" alt="">
     </a>
 
+    <button class="burger" (click)="toggleMenu()">
+      &#9776;
+    </button>
 
-    <ul class="nav-links">
-    <div *ngIf="isLogged" class="greeting">
-      👋 привіт, <span class="greeting-name">{{ username }}</span>
-    </div>
-      <li><a routerLink="/courses" routerLinkActive="active">Курси</a></li>
-      <li *ngIf="!isLogged"><a routerLink="/login" routerLinkActive="active">Увійти</a></li>
-      <li *ngIf="!isLogged"><a routerLink="/register" routerLinkActive="active">Зареєструватись</a></li>
-      <li *ngIf="isLogged"><a routerLink="/profile" routerLinkActive="active">Профіль</a></li>
+    <ul class="nav-links" [class.open]="menuOpen">
+      <div *ngIf="isLogged" class="greeting">
+        👋 привіт, <span class="greeting-name">{{ username }}</span>
+      </div>
+      <li><a routerLink="/courses" routerLinkActive="active" (click)="closeMenu()">Курси</a></li>
+      <li *ngIf="!isLogged"><a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Увійти</a></li>
+      <li *ngIf="!isLogged"><a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Зареєструватись</a></li>
+      <li *ngIf="isLogged"><a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Профіль</a></li>
       <li *ngIf="isLogged"><a (click)="logout()" style="cursor:pointer">Вийти</a></li>
     </ul>
-
   </div>
 </nav>

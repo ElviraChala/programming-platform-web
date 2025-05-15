@@ -2,24 +2,101 @@
   background-color: #333;
   color: #fff;
   padding: 20px 0;
-  bottom: 0;
-  position: fixed;
   text-align: center;
   width: 100%;
-  margin-top: auto;
+  position: relative;
+  bottom: unset;
 }
 
 .footer-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .footer p {
   margin: 0;
-  font-size: 14px;
+  font-size: clamp(12px, 2.5vw, 14px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-divider {
+  display: inline-block;
+}
+
+.footer-motto {
+  display: inline-block;
 }
 
 .social-icons {
-  margin-top: 10px;
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  color: #fff;
+  font-size: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #ff9800;
+  transform: translateY(-2px);
+}
+
+/* Адаптивність */
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 15px 0;
+    position: relative;
+    bottom: unset;
+  }
+
+  .footer p {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-divider {
+    display: none;
+  }
+
+  .social-icons {
+    margin-top: 12px;
+    gap: 12px;
+  }
+
+  .social-icon {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    padding: 12px 0;
+    position: relative;
+    bottom: unset;
+  }
+
+  .footer-content {
+    padding: 0 15px;
+  }
+
+  .footer-motto {
+    display: block;
+    margin-top: 5px;
+  }
+
+  .social-icons {
+    margin-top: 10px;
+    gap: 10px;
+  }
 }

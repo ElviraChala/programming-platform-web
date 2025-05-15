@@ -1,7 +1,7 @@
 <div *ngIf="lesson" class="lesson-list-container">
   <h2>{{ lesson.name }}</h2>
 
-  <div [innerHTML]="content"></div>
+  <div class="inner-text" [innerHTML]="content"></div>
 
   <button *ngIf="student && !isAdmin() && lesson?.checkKnowledgeId"
           (click)="startLessonTest()"

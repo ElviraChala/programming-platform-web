@@ -1,19 +1,21 @@
 .coding-task-page {
   padding: 20px;
   font-family: 'Segoe UI', sans-serif;
-  margin: 100px 0;
+  margin: 50px 0;
+  min-height: calc(100vh - env(safe-area-inset-bottom));
 }
 
 .task-layout {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .task-description {
   flex: 1;
   min-width: 300px;
-  max-width: 45%;
+  max-width: 600px;
   background: #f9f9f9;
   padding: 20px;
   border-radius: 12px;
@@ -23,7 +25,7 @@
 .code-editor {
   flex: 1;
   min-width: 300px;
-  max-width: 50%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -33,11 +35,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-textarea#code {
+textarea {
   width: 100%;
-  height: 300px;
+  min-height: 200px;
   font-family: 'Courier New', monospace;
   font-size: 14px;
   padding: 10px;
@@ -73,6 +76,37 @@ pre {
   word-break: break-word;
 }
 
-.error-message{
+.error-message {
   margin-top: 200px;
+  text-align: center;
+  font-size: 18px;
+  color: #d32f2f;
+}
+
+/* 🔽 Адаптація для екранів менше 768px */
+@media (max-width: 768px) {
+  .task-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-description,
+  .code-editor {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .run-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  textarea {
+    min-height: 250px;
+  }
 }

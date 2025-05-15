@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, HostListener } from "@angular/core";
 import { StudentService } from "../../service/student.service";
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
-
 
 @Component({
   selector: "app-navbar",
@@ -13,6 +12,7 @@ import { filter } from "rxjs";
 export class NavbarComponent implements OnInit {
   username?: string;
   isLogged: boolean = false;
+  menuOpen = false;
 
   constructor(private readonly studentService: StudentService,
               private readonly router: Router) {
@@ -30,6 +30,13 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    if (window.innerWidth > 768) {
+      this.menuOpen = false;
+    }
+  }
+
   isLoggedIn() {
     this.isLogged = !!sessionStorage.getItem("token");
   }
@@ -42,8 +49,17 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
+  }
+
   logout() {
     sessionStorage.clear();
-    window.location.href = "/login"; // або router.navigate()
+    this.closeMenu();
+    window.location.href = "/login";
   }
 }
