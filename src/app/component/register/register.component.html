@@ -3,34 +3,64 @@
 
   <form (ngSubmit)="onRegister()">
     <div>
-      <label for="username">Username:</label>
+      <label for="username">Логін</label>
       <input
         id="username"
         name="username"
         [(ngModel)]="username"
-        required
-        (input)="onInputChange()">
+        (ngModelChange)="onUsernameChange($event)"
+        required>
+
+      <div *ngIf="isUsernameTaken" class="error-message">
+        Такий логін вже існує 😯
+      </div>
     </div>
 
-    <div>
-      <label for="password">Password:</label>
-      <input
-        id="password"
-        name="password"
-        type="password"
-        [(ngModel)]="password"
-        required
-        (input)="onInputChange()">
+    <div class="password-wrapper">
+      <label for="password">Пароль</label>
+      <div class="password-field">
+        <input
+          id="password"
+          name="password"
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          (ngModelChange)="validateForm()"
+          required>
+        <button type="button" (click)="togglePasswordVisibility()" class="eye-button" aria-label="Показати/приховати пароль">
+          <img [src]="showPassword ? 'open-eye.png' : 'close-eye.png'" alt="icon">
+        </button>
+      </div>
     </div>
 
-    <div *ngIf="!isPassStrong && password.length > 0" class="error-message">
-      Пароль має містити щонайменше 6 символів, одну велику літеру, одну малу та одну цифру.
+    <div class="password-wrapper">
+      <label for="confirmPassword">Ще разок 🙄, щоб запам'ятати </label>
+      <div class="password-field">
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          [(ngModel)]="confirmPassword"
+          (ngModelChange)="validateForm()"
+          required>
+        <button type="button" (click)="toggleConfirmPasswordVisibility()" class="eye-button" aria-label="Показати/приховати пароль">
+          <img [src]="showConfirmPassword ? 'open-eye.png' : 'close-eye.png'" alt="icon">
+        </button>
+      </div>
+    </div>
+
+
+    <div *ngIf="password.length > 0 && !isPassStrong" class="error-message">
+      Пароль має містити щонайменше 6 символів, одну велику літеру, одну малу та одну цифру 💩
+    </div>
+
+    <div *ngIf="confirmPassword.length > 0 && passwordsDoNotMatch" class="error-message">
+      Паролі не співпадають 😤
     </div>
 
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
 
-    <button type="submit" [disabled]="isButtonDisabled">Зареєструватися</button>
+    <button type="submit" [disabled]="!isFormValid" class="register-button">Зареєструватися</button>
   </form>
 </div>

@@ -3,19 +3,20 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Level } from "../../../interface/Level";
 import { Question } from "../../../interface/Question";
 import { QuestionService } from "../../../service/question.service";
+import { Location } from "@angular/common";
 
 @Component({
-  selector: 'app-edit-question-form',
+  selector: "app-edit-question-form",
   standalone: false,
-  templateUrl: './edit-question-form.component.html',
-  styleUrls: ['./edit-question-form.component.css']
+  templateUrl: "./edit-question-form.component.html",
+  styleUrls: ["./edit-question-form.component.css"]
 })
 export class EditQuestionFormComponent implements OnInit {
   form: any = {
-    text: '',
-    options: [''],
-    correctAnswer: '',
-    level: '',
+    text: "",
+    options: [""],
+    correctAnswer: "",
+    level: ""
   };
   questionId!: number;
   checkKnowledgeId!: number;
@@ -25,12 +26,13 @@ export class EditQuestionFormComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly questionService: QuestionService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
     // Отримуємо параметр 'questionId' з URL
     this.route.queryParams.subscribe(params => {
-      this.questionId = params['questionId'];
+      this.questionId = params["questionId"];
       if (this.questionId) {
         this.loadQuestion(); // Якщо є id питання, завантажуємо його
       }
@@ -44,12 +46,12 @@ export class EditQuestionFormComponent implements OnInit {
           text: question.text,
           options: question.options,
           correctAnswer: question.correctAnswer,
-          level: question.level,
+          level: question.level
         };
         this.checkKnowledgeId = question.checkKnowledgeId ?? 0;
         console.log("id question", this.checkKnowledgeId);
       },
-      error: (err) => console.error('Помилка завантаження питання', err)
+      error: (err) => console.error("Помилка завантаження питання", err)
     });
   }
 
@@ -68,16 +70,24 @@ export class EditQuestionFormComponent implements OnInit {
     };
 
     this.questionService.updateQuestion(updatedQuestion).subscribe({
-      next: () => this.router.navigate(['/edit-questions', this.checkKnowledgeId]),
-      error: err => console.error('Не вдалося оновити питання', err)
+      next: () => this.router.navigate(["/edit-questions", this.checkKnowledgeId]),
+      error: err => console.error("Не вдалося оновити питання", err)
     });
   }
 
   addOption(): void {
-    this.form.options.push('');
+    this.form.options.push("");
   }
 
   removeOption(index: number): void {
     this.form.options.splice(index, 1);
+  }
+
+  cancel() {
+    this.location.back();
+  }
+
+  updateInput(event: any) {
+    console.log(event);
   }
 }

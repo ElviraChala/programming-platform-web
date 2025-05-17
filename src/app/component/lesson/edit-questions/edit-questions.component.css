@@ -1,72 +1,155 @@
-.container{
+.container {
+  width: 80%;
   margin: 100px auto;
+  min-height: calc(100vh - env(safe-area-inset-bottom));
 }
 
 h2 {
-  font-size: 1.8em;
-  color: #ea841e;
   text-align: center;
-  margin: 40px 0 20px;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  color: #ff9800;
 }
 
-/* === Кнопка додавання питання === */
-button {
-  background-color: rgba(241, 138, 36, 0.89);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
+.warning {
+  padding: 10px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
   border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.create-question-wrapper {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.add-question {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  margin: 20px auto;
-  display: block;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: rgba(223, 119, 17, 0.9);
+.add-question:hover {
+  background-color: #409f44;
 }
 
-/* === Контейнер кожного питання === */
+.question-list {
+  list-style-type: none;
+  padding: 0;
+}
+
 .question-block {
-  border: 1px solid #ffcc80;
-  border-radius: 8px;
+  background-color: #ecf0f1;
+  margin: 15px 0;
   padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  max-width: 700px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.question-block h3 {
+.question-block:hover {
+  background-color: #d0d7de;
+}
+
+.question-content {
+  flex: 1;
+  min-width: 70%;
+}
+
+.question-content h3 {
   margin-top: 0;
   color: #3c3c3c;
   font-size: 1.2em;
 }
 
-.question-block ul {
+.answer-options {
   padding-left: 20px;
-  list-style-type: disc;
-  margin: 10px 0 20px;
+  list-style-type: none;
+  margin: 10px 0;
 }
 
-.question-block li {
+.answer {
   font-size: 1em;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* === Кнопки дій для питання === */
-.question-block button {
-  margin-right: 10px;
-  margin-top: 10px;
-  background-color: #ffa726;
-  padding: 8px 16px;
-  font-size: 0.95em;
+.answer-item {
+  font-size: 8px;
 }
 
-.question-block button:hover {
-  background-color: #fb8c00;
+.admin-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-buttons button {
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff9800;
+  color: white;
+}
+
+.admin-buttons .delete-btn {
+  background-color: #f44336;
+}
+
+.admin-buttons-min {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+
+  .question-block {
+    padding: 15px;
+  }
+
+  .admin-buttons {
+    width: 100%;
+    margin-top: 10px;
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .admin-buttons {
+    display: none;
+  }
+
+  .admin-buttons-min {
+    display: flex;
+    gap: 8px;
+  }
+
+  .admin-buttons-min button {
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff9800;
+    color: white;
+  }
+
+  .admin-buttons-min .delete-btn {
+    background-color: #f44336;
+  }
 }

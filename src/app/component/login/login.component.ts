@@ -22,6 +22,7 @@ export class LoginComponent {
   forgotError: string = "";
   isUserNotFound: boolean = false;
   emailSentMessage: string = '';
+  showPassword: boolean = false;
 
 
   constructor(private readonly authService: AuthService,
@@ -39,7 +40,8 @@ export class LoginComponent {
           this.router.navigate(["/courses"]).then(console.debug);
         },
         error: err => {
-          this.errorMessage = err.message;
+          console.error(err.message)
+          this.errorMessage = "Неправильний логін або пароль";
           this.isButtonDisabled = false;
         }
       });
@@ -130,6 +132,10 @@ export class LoginComponent {
         this.emailSentMessage = ""; // очищення повідомлення про успіх
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
 }

@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Question } from "../../../interface/Question";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CheckKnowledgeService } from "../../../service/check-knowladge.service";
+import { Role } from "../../../interface/Role";
+import { Student } from "../../../interface/Student";
+import { StudentService } from "../../../service/student.service";
 
 @Component({
   selector: 'app-edit-questions',
@@ -10,16 +13,36 @@ import { CheckKnowledgeService } from "../../../service/check-knowladge.service"
   styleUrl: './edit-questions.component.css'
 })
 export class EditQuestionsComponent implements OnInit{
+  isLogged: boolean = false;
+  student?: Student;
   questions: Question[] = [];
   checkId!: number;
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly studentService: StudentService,
     private readonly checkService: CheckKnowledgeService,
     private readonly router: Router
   ) {}
 
   ngOnInit(): void {
+    this.isLoggedIn();
+
+    this.studentService.getStudent()
+      .subscribe({
+        next: value => {
+          this.student = value;
+
+          if (this.student?.isFirst === true) {
+            this.router.navigate(["/first-check"])
+              .then(r => {
+                console.debug(r);
+              });
+          }
+        },
+        error: value => console.error(value)
+      });
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('checkKnowledgeId');
       if (id) {
@@ -27,6 +50,15 @@ export class EditQuestionsComponent implements OnInit{
         this.loadQuestions();
       }
     });
+  }
+
+  isLoggedIn() {
+    this.isLogged = !!sessionStorage.getItem("token");
+  }
+
+  isAdmin(): boolean {
+    console.log("isAdmin", this.student?.role === Role.ADMIN, this.student?.role);
+    return this.student?.role === Role.ADMIN;
   }
 
   loadQuestions(): void {

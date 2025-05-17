@@ -52,7 +52,7 @@ a:hover {
   justify-content: center;
 }
 
-.container {
+.container{
   margin-top: 100px;
   margin-bottom: 100px;
   width: 100%;
@@ -65,7 +65,7 @@ a:hover {
   padding: 16px;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -104,12 +104,6 @@ a:hover {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

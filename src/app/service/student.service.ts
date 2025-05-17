@@ -30,4 +30,16 @@ export class StudentService {
   deleteStudent(): Observable<void> {
     return this.http.delete<void>(this.apiUrl);
   }
+
+  addScore(studentId: number, score: number): Observable<void> {
+    return this.http.post<void>(
+      `${this.apiUrl}/${studentId}/add-score`,
+      null,
+      { params: { score } }
+    );
+  }
+
+  getLeaderboard(): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.apiUrl}/all/leaderboard`);
+  }
 }

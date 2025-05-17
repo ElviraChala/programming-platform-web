@@ -27,6 +27,7 @@ import { CourseCreateComponent } from './component/course/course-create/course-c
 import { EditQuestionsComponent } from './component/lesson/edit-questions/edit-questions.component';
 import { EditQuestionFormComponent } from './component/lesson/edit-question-form/edit-question-form.component';
 import { AddQuestionFormComponent } from './component/lesson/add-question-form/add-question-form.component';
+import { LeaderboardComponent } from './component/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AddQuestionFormComponent } from './component/lesson/add-question-form/a
     CourseCreateComponent,
     EditQuestionsComponent,
     EditQuestionFormComponent,
-    AddQuestionFormComponent
+    AddQuestionFormComponent,
+    LeaderboardComponent
   ],
   imports: [
     HttpClientModule,

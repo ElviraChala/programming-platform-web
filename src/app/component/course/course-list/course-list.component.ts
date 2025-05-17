@@ -4,7 +4,7 @@ import { StudentService } from "../../../service/student.service";
 import { Router } from "@angular/router";
 import { Course } from "../../../interface/Course";
 import { CourseService } from "../../../service/course.service";
-import { Role } from '../../../interface/Role';
+import { Role } from "../../../interface/Role";
 
 @Component({
   selector: "app-course-list",
@@ -30,7 +30,7 @@ export class CourseListComponent implements OnInit {
         next: value => {
           this.student = value;
 
-          if (this.student?.isFirst === true) {
+          if (this.student?.isFirst === true && this.student.role === Role.STUDENT) {
             this.router.navigate(["/first-check"])
               .then(r => {
                 console.debug(r);

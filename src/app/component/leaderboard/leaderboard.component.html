@@ -1,0 +1,29 @@
+<div class="leaderboard-container container">
+  <h2 class="leaderboard-title">🏆 Таблиця лідерів</h2>
+
+  <div class="leaderboard-wrapper">
+    <table class="leaderboard-table">
+      <thead>
+      <tr>
+        <th>Місце</th>
+        <th>Учень</th>
+        <th class="level">Рівень</th>
+        <th>Бали 🪙</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of students; index as i">
+        <td>
+          <span *ngIf="i === 0" class="medal gold">🥇</span>
+          <span *ngIf="i === 1" class="medal silver">🥈</span>
+          <span *ngIf="i === 2" class="medal bronze">🥉</span>
+          <span *ngIf="i > 2" class="position">{{ i + 1 }}</span>
+        </td>
+        <td class="student-name">{{ student.username }}</td>
+        <td class="level">{{ student.level }}</td>
+        <td class="student-score">{{ student.score }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

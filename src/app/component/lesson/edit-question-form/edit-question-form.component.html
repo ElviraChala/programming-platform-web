@@ -1,7 +1,7 @@
-<div class="container" *ngIf="form">
-  <h2>Редагування питання</h2>
+<div class="edit-question-container" *ngIf="form">
+  <form (ngSubmit)="save()" class="edit-question-form">
+    <h2>Редагування питання</h2>
 
-  <form (ngSubmit)="save()">
     <div>
       <label>Текст питання:</label>
       <input [(ngModel)]="form.text" name="text" required />
@@ -9,11 +9,11 @@
 
     <div>
       <label>Варіанти відповідей:</label>
-      <div *ngFor="let option of form.options; let i = index">
+      <div *ngFor="let option of form.options; let i = index" class="answer-option-row">
         <input [(ngModel)]="form.options[i]" name="option{{ i }}" required />
-        <button type="button" (click)="removeOption(i)">🗑️</button>
+        <button type="button" (click)="removeOption(i)" aria-label="Видалити варіант">🗑️</button>
       </div>
-      <button type="button" (click)="addOption()">➕ Додати варіант</button>
+      <button type="button" class="add-option-button" (click)="addOption()">➕ Додати варіант</button>
     </div>
 
     <div>
@@ -28,6 +28,18 @@
       </select>
     </div>
 
-    <button type="submit" [disabled]="!form.text || !form.correctAnswer || !form.level">💾 Зберегти</button>
+    <div class="edit-buttons-wrapper">
+      <button type="submit"
+              class="submit-button"
+              [disabled]="!form.text || !form.correctAnswer || !form.level">
+        💾 Зберегти
+      </button>
+
+      <button type="button"
+              class="cancel-button"
+              (click)="cancel()">
+        ❌ Скасувати
+      </button>
+    </div>
   </form>
 </div>

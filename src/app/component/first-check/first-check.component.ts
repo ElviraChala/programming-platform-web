@@ -6,6 +6,7 @@ import { Student } from "../../interface/Student";
 import { FirstCheck } from "../../interface/FirstCheck";
 import { Answer } from "../../interface/Answer";
 import { Level } from "../../interface/Level";
+import { Role } from "../../interface/Role";
 
 @Component({
   selector: "app-first-check",
@@ -47,6 +48,7 @@ export class FirstCheckComponent implements OnInit {
         console.error("Error fetching student:", err);
       }
     });
+
   }
 
   loadFirstCheck() {
@@ -83,6 +85,11 @@ export class FirstCheckComponent implements OnInit {
 
     const nextSaved = this.savedAnswers.find(ans => ans.id === this.currentQuestionId);
     this.currentAnswer = nextSaved?.currentAnswer ?? "";
+  }
+
+  finishTest() {
+    this.saveCurrentAnswer();
+    this.currentQuestionIndex = this.firstCheck?.questionIds.length ?? 0;
   }
 
   // navigation for questions
@@ -122,9 +129,6 @@ export class FirstCheckComponent implements OnInit {
 
 
   submitAnswers() {
-    if (this.savedAnswers.length <= 0) {
-      return;
-    }
 
     this.firstCheckService.sendAnswers(this.savedAnswers).subscribe({
       next: (response) => {
@@ -139,6 +143,12 @@ export class FirstCheckComponent implements OnInit {
       }
     });
   }
+
+  isAdmin(): boolean {
+    console.log("isAdmin", this.student?.role === Role.ADMIN, this.student?.role);
+    return this.student?.role === Role.ADMIN;
+  }
+
 
   goToCourses() {
     this.router.navigate(["/courses"]).then(console.debug);

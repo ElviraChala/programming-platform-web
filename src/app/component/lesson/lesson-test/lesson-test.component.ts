@@ -4,7 +4,6 @@ import { Question } from "../../../interface/Question";
 import { CheckKnowledgeService } from "../../../service/check-knowladge.service";
 import { Student } from "../../../interface/Student";
 import { StudentService } from "../../../service/student.service";
-import { Lesson } from "../../../interface/Lesson";
 import { Answer } from "../../../interface/Answer";
 import { CheckKnowledge } from "../../../interface/CheckKnowledge";
 
@@ -27,6 +26,7 @@ export class LessonTestComponent implements OnInit {
   feedbackMessage: string = "";
   student?: Student;
   questions: Question[] = [];
+  total: number = 0;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -133,17 +133,32 @@ export class LessonTestComponent implements OnInit {
           this.resultScore = result;
           this.feedbackMessage = this.getMessage(result);
           this.showResults = true;
+          this.studentService.addScore(this.student!.id, this.resultScore).subscribe({
+            next: () => console.debug("Бали оновлено"),
+            error: (err) => console.error("Помилка при оновленні балів:", err)
+          });
         },
         error: (error) => console.error("Error submitting answers:", error)
       });
   }
 
-  getMessage(score: number): string {
-    if (score === 100) return "Чудова робота! Ти все знаєш 🥳";
-    if (score >= 80) return "Майже ідеально! Лише кілька дрібниць — і буде відмінно 👍";
-    if (score >= 60) return "Ти на правильному шляху! Повтори деякі теми — і все вийде 💪";
-    return "Не зупиняйся! Ще одна спроба — і результат покращиться 🚀";
+  getMessage(score:number): string {
+    this.total = this.questions.length;
+    const ratio = score / this.total;
+
+    if (ratio === 1) {
+      return "Чудова робота! Ти все знаєш 🥳";
+    } else if (ratio >= 0.8) {
+      return "Майже ідеально! Лише кілька дрібниць — і буде відмінно 👍";
+    } else if (ratio >= 0.6) {
+      return "Ти на правильному шляху! Повтори деякі теми — і все вийде 💪";
+    } else if (ratio >= 0.4) {
+      return "Ти вже дещо розумієш! Потрібно трохи більше практики 🔄";
+    } else {
+      return "Не зупиняйся! Ще одна спроба — і результат покращиться 🚀";
+    }
   }
+
 
   goBackToLesson(): void {
     if (this.check?.lessonId) {

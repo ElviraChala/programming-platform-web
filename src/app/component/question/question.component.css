@@ -31,6 +31,8 @@ label {
 }
 
 input[type="radio"] {
+  display: flex;
+  justify-content: start;
   margin-right: 12px;
   accent-color: #dc7b1a;
 }
@@ -46,6 +48,19 @@ label:has(input[type="radio"]:checked) {
 
 /* Наведення */
 label:hover {
-  /*background-color: #f0f0f0;*/
   border-color: #999;
+}
+
+
+@media (max-width: 1024px) {
+}
+
+
+@media (max-width: 768px) {
+
+
+  @media (max-width: 480px) {
+
+
+  }
 }

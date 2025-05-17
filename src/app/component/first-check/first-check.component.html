@@ -6,7 +6,7 @@
     <!-- Навігація по запитаннях -->
     <div *ngIf="!showResults && currentQuestionIndex < firstCheck.questionIds.length" class="navigation-panel">
       <div class="question-buttons">
-        <button
+        <button class="answer-options"
           *ngFor="let id of firstCheck?.questionIds; let i = index"
           [class.current]="i === currentQuestionIndex"
           [class.answered]="isAnswers[i]"
@@ -29,10 +29,15 @@
       </app-question>
 
       <!-- Кнопка для відповіді -->
-      <button
+      <button class="answer"
         (click)="getAnswer()"
         [disabled]="!currentAnswer.trim()">
         {{ currentQuestionIndex + 1 === firstCheck.questionIds.length ? 'Завершити' : 'Відповісти' }}
+      </button>
+      <button *ngIf="currentQuestionIndex + 1 !== firstCheck.questionIds.length"
+              class="over"
+              (click)="finishTest()">
+        Завершити
       </button>
     </div>
 

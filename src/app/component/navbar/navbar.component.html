@@ -12,7 +12,11 @@
       <div *ngIf="isLogged" class="greeting">
         👋 привіт, <span class="greeting-name">{{ username }}</span>
       </div>
+
       <li><a routerLink="/courses" routerLinkActive="active" (click)="closeMenu()">Курси</a></li>
+      <li *ngIf="isLogged">
+        <a routerLink="/leaderboard" routerLinkActive="active" (click)="closeMenu()">Таблиця лідерів</a>
+      </li>
       <li *ngIf="!isLogged"><a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Увійти</a></li>
       <li *ngIf="!isLogged"><a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Зареєструватись</a></li>
       <li *ngIf="isLogged"><a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Профіль</a></li>

@@ -40,7 +40,7 @@
   <!-- Результати -->
   <div *ngIf="showResults" class="result-container">
     <div class="result-content">
-      <h2 class="result-score">Ваш результат: {{ resultScore | number:'1.2-2' }}</h2>
+      <h2 class="result-score">Ваш результат: {{ resultScore | number:'1.0-0' }} із {{total}}</h2>
       <p class="feedback-message">{{ feedbackMessage }}</p>
       <div class="result-buttons">
         <button class="go-to-course" (click)="goBackToLesson()">

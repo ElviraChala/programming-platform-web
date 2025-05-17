@@ -1,4 +1,4 @@
-.container{
+.container {
   min-height: calc(100vh - env(safe-area-inset-bottom));
 }
 
@@ -129,6 +129,8 @@ button:disabled {
 }
 
 .question-buttons button {
+  display: block;
+  justify-content: start;
   background-color: #fff;
   color: #333;
   padding: 3px;

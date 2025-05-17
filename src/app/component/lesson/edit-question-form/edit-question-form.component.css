@@ -1,0 +1,163 @@
+.edit-question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  background: #fff;
+  color: #000;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  min-height: calc(100vh - env(safe-area-inset-bottom));
+}
+
+.edit-question-form {
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.edit-question-form h2 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #ea841e;
+  text-align: center;
+}
+
+.edit-question-form label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.edit-question-form input,
+.edit-question-form select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+.edit-question-form input:focus,
+.edit-question-form select:focus {
+  border-color: #ff9800;
+  outline: none;
+}
+
+.answer-option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.answer-option-row button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin-bottom: 15px;
+}
+
+.answer-option-row button:hover {
+  color: #ea841e;
+}
+
+.add-option-button {
+  display: inline-block;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-option-button:hover {
+  background-color: rgba(241, 138, 36, 0.89);
+}
+
+.submit-button {
+  width: 40%;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 14px 28px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: rgba(241, 138, 36, 0.89);
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.cancel-button {
+  width: 40%;
+  background-color: #c0c0c0;
+  color: #fff;
+  padding: 14px 28px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #aaa;
+}
+
+.edit-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 50px;
+  margin-top: 40px;
+}
+
+
+/* Адаптивність */
+@media screen and (max-width: 768px) {
+  .edit-question-container {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  .edit-question-form {
+    padding: 20px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  button {
+    font-size: 11px;
+    padding: 5px;
+  }
+}

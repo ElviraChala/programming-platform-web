@@ -3,13 +3,23 @@
 
   <form (ngSubmit)="onLogin()">
     <div>
-      <label for="username">Username:</label>
+      <label for="username">Логін</label>
       <input id="username" [(ngModel)]="username" name="username" required (input)="onInputChange()">
     </div>
 
-    <div>
-      <label for="password">Password:</label>
-      <input id="password" [(ngModel)]="password" name="password" required type="password" (input)="onInputChange()">
+    <div class="password-wrapper">
+      <label for="password">Пароль</label>
+      <div class="password-field">
+        <input
+          id="password"
+          name="password"
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          required>
+        <button type="button" (click)="togglePasswordVisibility()" class="eye-button" aria-label="Показати/приховати пароль">
+          <img [src]="showPassword ? 'open-eye.png' : 'close-eye.png'" alt="icon">
+        </button>
+      </div>
     </div>
 
     <div *ngIf="errorMessage" class="error-message">

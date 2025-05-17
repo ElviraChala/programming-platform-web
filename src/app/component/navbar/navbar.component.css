@@ -78,7 +78,7 @@
 
 .burger {
   display: none;
-  font-size: 26px;
+  font-size: 28px;
   background: none;
   border: none;
   color: white;
@@ -92,7 +92,7 @@
     border-radius: 4px;
     position: absolute;
     right: 20px;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
   }
 
