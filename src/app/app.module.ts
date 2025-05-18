@@ -28,6 +28,7 @@ import { EditQuestionsComponent } from './component/lesson/edit-questions/edit-q
 import { EditQuestionFormComponent } from './component/lesson/edit-question-form/edit-question-form.component';
 import { AddQuestionFormComponent } from './component/lesson/add-question-form/add-question-form.component';
 import { LeaderboardComponent } from './component/leaderboard/leaderboard.component';
+import { UsersEditComponent } from './component/users-edit/users-edit.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { LeaderboardComponent } from './component/leaderboard/leaderboard.compon
     EditQuestionsComponent,
     EditQuestionFormComponent,
     AddQuestionFormComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    UsersEditComponent
   ],
   imports: [
     HttpClientModule,

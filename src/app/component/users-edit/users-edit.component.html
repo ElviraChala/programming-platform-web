@@ -1,0 +1,11 @@
+<div class="users-container">
+  <div class="user-item" *ngFor="let user of users">
+    <div class="user-info">
+      <span class="username">{{ user.username }}</span>
+    </div>
+    <div class="user-actions">
+      <button class="edit-btn" (click)="editUser(user)">Edit</button>
+      <button class="delete-btn" (click)="deleteUser(user)">Delete</button>
+    </div>
+  </div>
+</div>

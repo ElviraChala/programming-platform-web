@@ -1,7 +1,7 @@
-import {HttpClient} from "@angular/common/http";
-import {Student} from "../interface/Student";
-import {Observable} from "rxjs";
-import {Injectable} from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Student } from "../interface/Student";
+import { Observable } from "rxjs";
+import { Injectable } from "@angular/core";
 import { backHost } from "../app.component";
 
 @Injectable({providedIn: "root"})
@@ -27,15 +27,18 @@ export class StudentService {
     return this.http.put<Student>(this.apiUrl, student);
   }
 
-  deleteStudent(): Observable<void> {
-    return this.http.delete<void>(this.apiUrl);
+  deleteStudent(id: number): Observable<void> {
+    const param = {
+      id: id
+    };
+    return this.http.delete<void>(this.apiUrl, {params: param});
   }
 
   addScore(studentId: number, score: number): Observable<void> {
     return this.http.post<void>(
       `${this.apiUrl}/${studentId}/add-score`,
       null,
-      { params: { score } }
+      {params: {score}}
     );
   }
 

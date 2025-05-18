@@ -19,6 +19,7 @@ import { EditQuestionsComponent } from "./component/lesson/edit-questions/edit-q
 import { AddQuestionFormComponent } from "./component/lesson/add-question-form/add-question-form.component";
 import { EditQuestionFormComponent } from "./component/lesson/edit-question-form/edit-question-form.component";
 import { LeaderboardComponent } from "./component/leaderboard/leaderboard.component";
+import { UsersEditComponent } from "./component/users-edit/users-edit.component";
 
 const routes: Routes = [
   {path: "", component: MainComponent},
@@ -51,6 +52,8 @@ const routes: Routes = [
   {path: "lesson-test/:checkKnowledgeId", component: LessonTestComponent},
   {path: "edit-questions/:checkKnowledgeId", component: EditQuestionsComponent},
   {path: "coding-tasks/:id", component: CodingTaskComponent},
+
+  {path: "users", component: UsersEditComponent},
 
   // 🔁 Фолбек
   {path: "**", redirectTo: ""}

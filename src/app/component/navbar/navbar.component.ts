@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { StudentService } from "../../service/student.service";
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
+import { Role } from "../../interface/Role";
 
 @Component({
   selector: "app-navbar",
@@ -13,6 +14,7 @@ export class NavbarComponent implements OnInit {
   username?: string;
   isLogged: boolean = false;
   menuOpen = false;
+  isAdmin: boolean = false;
 
   constructor(private readonly studentService: StudentService,
               private readonly router: Router) {
@@ -31,20 +33,21 @@ export class NavbarComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     if (window.innerWidth > 768) {
       this.menuOpen = false;
     }
   }
 
   isLoggedIn() {
-    this.isLogged = !!sessionStorage.getItem("token");
+    this.isLogged = !!sessionStorage.getItem("token") && this.username !== "";
   }
 
   getUserName() {
     this.studentService.getStudent().subscribe({
       next: value => {
         this.username = value.username;
+        this.isAdmin = value.role === Role.ADMIN;
       }
     });
   }
