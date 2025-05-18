@@ -29,6 +29,7 @@ import { EditQuestionFormComponent } from './component/lesson/edit-question-form
 import { AddQuestionFormComponent } from './component/lesson/add-question-form/add-question-form.component';
 import { LeaderboardComponent } from './component/leaderboard/leaderboard.component';
 import { UsersEditComponent } from './component/users-edit/users-edit.component';
+import { StudentEditComponent } from './component/student-edit/student-edit.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { UsersEditComponent } from './component/users-edit/users-edit.component'
     EditQuestionFormComponent,
     AddQuestionFormComponent,
     LeaderboardComponent,
-    UsersEditComponent
+    UsersEditComponent,
+    StudentEditComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Student } from "../../interface/Student";
 import { StudentService } from "../../service/student.service";
 
@@ -8,10 +9,13 @@ import { StudentService } from "../../service/student.service";
   templateUrl: "./users-edit.component.html",
   styleUrl: "./users-edit.component.css"
 })
-export class UsersEditComponent implements OnInit{
+export class UsersEditComponent implements OnInit {
   users: Student[] = [];
 
-  constructor(private readonly studentService: StudentService) {}
+  constructor(
+    private readonly studentService: StudentService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -29,34 +33,19 @@ export class UsersEditComponent implements OnInit{
   }
 
   editUser(user: Student): void {
-    // Here you would typically open a modal or navigate to an edit page
-    // For now, we'll just log the user to be edited
-    console.log('Editing user:', user);
-
-    // Example implementation:
-    // You might want to implement a proper form or dialog for editing
-    const updatedUser = { ...user };
-    // After updating the user properties, call the service
-    this.studentService.updateStudent(updatedUser).subscribe({
-      next: () => {
-        console.log('User updated successfully');
-        this.loadUsers(); // Reload the users list
-      },
-      error: (err) => {
-        console.error('Error updating user:', err);
-      }
-    });
+    // Navigate to the student-edit component with the user's ID
+    this.router.navigate(["/students", user.id, "edit"]).then(console.debug);
   }
 
   deleteUser(user: Student): void {
     if (confirm(`Are you sure you want to delete user ${user.username}?`)) {
       this.studentService.deleteStudent(user.id).subscribe({
         next: () => {
-          console.log('User deleted successfully');
+          console.log("User deleted successfully");
           this.loadUsers(); // Reload the users list
         },
         error: (err) => {
-          console.error('Error deleting user:', err);
+          console.error("Error deleting user:", err);
         }
       });
     }

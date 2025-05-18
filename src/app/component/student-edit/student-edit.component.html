@@ -1,0 +1,63 @@
+<div class="student-edit-container">
+  <h2>Edit Student</h2>
+
+  <div *ngIf="loading" class="loading">
+    Loading student data...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="editForm != null">
+    <form *ngIf="!loading && !error" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="id">ID:</label>
+        <input type="text" id="id" formControlName="id" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="username">
+        <div *ngIf="editForm.get('username')?.invalid && editForm.get('username')?.touched" class="error-message">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email">
+        <div *ngIf="editForm.get('email')?.invalid && editForm.get('email')?.touched" class="error-message">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group checkbox">
+        <label for="isFirst">First-time user:</label>
+        <input type="checkbox" id="isFirst" formControlName="isFirst">
+      </div>
+
+      <div class="form-group">
+        <label for="level">Level:</label>
+        <select id="level" formControlName="level">
+          <option *ngFor="let level of levels" [value]="level">{{ level }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role:</label>
+        <input type="text" id="role" formControlName="role" readonly>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="editForm?.invalid" class="save-btn">Save Changes</button>
+        <button type="button" (click)="onCancel()" class="cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -20,6 +20,7 @@ import { AddQuestionFormComponent } from "./component/lesson/add-question-form/a
 import { EditQuestionFormComponent } from "./component/lesson/edit-question-form/edit-question-form.component";
 import { LeaderboardComponent } from "./component/leaderboard/leaderboard.component";
 import { UsersEditComponent } from "./component/users-edit/users-edit.component";
+import { StudentEditComponent } from "./component/student-edit/student-edit.component";
 
 const routes: Routes = [
   {path: "", component: MainComponent},
@@ -54,6 +55,7 @@ const routes: Routes = [
   {path: "coding-tasks/:id", component: CodingTaskComponent},
 
   {path: "users", component: UsersEditComponent},
+  {path: "students/:id/edit", component: StudentEditComponent},
 
   // 🔁 Фолбек
   {path: "**", redirectTo: ""}

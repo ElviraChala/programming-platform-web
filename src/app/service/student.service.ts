@@ -19,6 +19,10 @@ export class StudentService {
     return this.http.get<Student>(this.apiUrl);
   }
 
+  getStudentById(id: number): Observable<Student> {
+    return this.http.get<Student>(this.apiUrl + "/" + id);
+  }
+
   getAllStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(`${this.apiUrl}/all`);
   }
