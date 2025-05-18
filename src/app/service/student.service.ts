@@ -38,11 +38,11 @@ export class StudentService {
     return this.http.delete<void>(this.apiUrl, {params: param});
   }
 
-  addScore(studentId: number, score: number): Observable<void> {
+  addScore(studentId: number, checkId: number): Observable<void> {
     return this.http.post<void>(
       `${this.apiUrl}/${studentId}/add-score`,
       null,
-      {params: {score}}
+      {params: {checkId: checkId}}
     );
   }
 

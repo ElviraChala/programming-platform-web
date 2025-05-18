@@ -42,4 +42,121 @@
       <button type="button" class="cta-button cancel-button" (click)="goBack()">Скасувати</button>
     </div>
   </form>
+
+  <!-- Lessons Section -->
+  <div class="lessons-section">
+    <h3>Уроки курсу</h3>
+
+    <!-- List of existing lessons -->
+    <div class="lessons-list" *ngIf="lessons.length > 0">
+      <div class="lesson-item" *ngFor="let lesson of lessons">
+        <div class="lesson-info">
+          <h4>{{ lesson.name }}</h4>
+          <p>Порядковий номер: {{ lesson.orderIndex }}</p>
+        </div>
+        <div class="lesson-actions">
+          <button type="button" class="action-button edit-button" (click)="startEditLesson(lesson)">Редагувати</button>
+          <button type="button" class="action-button delete-button" (click)="deleteLesson(lesson)">Видалити</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-lessons" *ngIf="lessons.length === 0">
+      <p>У цього курсу ще немає уроків.</p>
+    </div>
+
+    <button type="button" class="add-lesson-button" (click)="startAddLesson()" *ngIf="!isAddingLesson && !isEditingLesson">
+      Додати новий урок
+    </button>
+
+    <!-- Add new lesson form -->
+    <div class="lesson-form" *ngIf="isAddingLesson">
+      <h4>Додати новий урок</h4>
+      <form (ngSubmit)="saveNewLesson()">
+        <div>
+          <label for="lessonName">Назва уроку:</label>
+          <input
+            id="lessonName"
+            [(ngModel)]="newLesson.name"
+            name="lessonName"
+            required
+            placeholder="Введіть назву уроку"
+          />
+        </div>
+
+        <div>
+          <label for="lessonOrderIndex">Порядковий номер:</label>
+          <input
+            type="number"
+            id="lessonOrderIndex"
+            [(ngModel)]="newLesson.orderIndex"
+            name="lessonOrderIndex"
+            required
+            min="0"
+          />
+        </div>
+
+        <div>
+          <label for="theoryFileName">Назва файлу теорії:</label>
+          <input
+            id="theoryFileName"
+            [(ngModel)]="newLesson.theory.fileName"
+            name="theoryFileName"
+            required
+            placeholder="Введіть назву файлу теорії"
+          />
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="cta-button">Зберегти урок</button>
+          <button type="button" class="cta-button cancel-button" (click)="cancelAddLesson()">Скасувати</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Edit lesson form -->
+    <div class="lesson-form" *ngIf="isEditingLesson && editingLesson">
+      <h4>Редагувати урок</h4>
+      <form (ngSubmit)="saveEditedLesson()">
+        <div>
+          <label for="editLessonName">Назва уроку:</label>
+          <input
+            id="editLessonName"
+            [(ngModel)]="editingLesson.name"
+            name="editLessonName"
+            required
+            placeholder="Введіть назву уроку"
+          />
+        </div>
+
+        <div>
+          <label for="editLessonOrderIndex">Порядковий номер:</label>
+          <input
+            type="number"
+            id="editLessonOrderIndex"
+            [(ngModel)]="editingLesson.orderIndex"
+            name="editLessonOrderIndex"
+            required
+            min="0"
+          />
+        </div>
+
+        <div>
+          <label for="editTheoryFileName">Назва файлу теорії:</label>
+          <input
+            id="editTheoryFileName"
+            [(ngModel)]="editingLesson.theory.fileName"
+            name="editTheoryFileName"
+            required
+            placeholder="Введіть назву файлу теорії"
+          />
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="cta-button">Зберегти зміни</button>
+          <button type="button" class="cta-button cancel-button" (click)="cancelEditLesson()">Скасувати</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

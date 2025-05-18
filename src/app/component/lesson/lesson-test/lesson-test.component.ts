@@ -133,7 +133,10 @@ export class LessonTestComponent implements OnInit {
           this.resultScore = result;
           this.feedbackMessage = this.getMessage(result);
           this.showResults = true;
-          this.studentService.addScore(this.student!.id, this.resultScore).subscribe({
+          if (!this.check?.id || (result / this.check.questions.length) < 0.67) {
+            return;
+          }
+          this.studentService.addScore(this.student!.id, this.check?.id).subscribe({
             next: () => console.debug("Бали оновлено"),
             error: (err) => console.error("Помилка при оновленні балів:", err)
           });
