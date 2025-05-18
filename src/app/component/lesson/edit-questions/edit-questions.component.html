@@ -28,12 +28,12 @@
           </ul>
         </div>
 
-        <div class="admin-buttons" *ngIf="isAdmin()">
+        <div class="admin-buttons" *ngIf="isAdmin">
           <button (click)="editQuestion(question)">Редагувати</button>
           <button (click)="deleteQuestion(question.id)" class="delete-btn">Видалити</button>
         </div>
 
-        <div class="admin-buttons-min" *ngIf="isAdmin()">
+        <div class="admin-buttons-min" *ngIf="isAdmin">
           <button (click)="editQuestion(question)">✏️</button>
           <button (click)="deleteQuestion(question.id)" class="delete-btn">🗑️</button>
         </div>

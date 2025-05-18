@@ -34,7 +34,7 @@ export class QuestionService {
     return this.http.put<Question>(this.apiUrl, question);
   }
 
-  deleteQuestion(id: string): Observable<void> {
+  deleteQuestion(id: number): Observable<void> {
     if (!id) {
       throw new Error('ID питання не може бути порожнім');
     }

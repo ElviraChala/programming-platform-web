@@ -10,7 +10,7 @@
     <div>
       <label>Варіанти відповідей:</label>
       <div *ngFor="let option of form.options; let i = index" class="answer-option-row">
-        <input [(ngModel)]="form.options[i]" name="option{{ i }}" required />
+        <input [ngModel]="form.options[i]" name="option{{ i }}" (focusout)="updateOption($event, i)" required />
         <button type="button" (click)="removeOption(i)" aria-label="Видалити варіант">🗑️</button>
       </div>
       <button type="button" class="add-option-button" (click)="addOption()">➕ Додати варіант</button>

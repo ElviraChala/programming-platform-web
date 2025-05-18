@@ -26,7 +26,7 @@ export class EditQuestionFormComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly questionService: QuestionService,
-    private location: Location
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +70,9 @@ export class EditQuestionFormComponent implements OnInit {
     };
 
     this.questionService.updateQuestion(updatedQuestion).subscribe({
-      next: () => this.router.navigate(["/edit-questions", this.checkKnowledgeId]),
+      next: () => {
+        this.router.navigate(["/edit-questions", this.checkKnowledgeId]).then(console.debug)
+      },
       error: err => console.error("Не вдалося оновити питання", err)
     });
   }
@@ -87,7 +89,8 @@ export class EditQuestionFormComponent implements OnInit {
     this.location.back();
   }
 
-  updateInput(event: any) {
-    console.log(event);
+  updateOption($event: FocusEvent, i: number) {
+    let element = $event.target as HTMLInputElement;
+    this.form.options[i] = element.value;
   }
 }

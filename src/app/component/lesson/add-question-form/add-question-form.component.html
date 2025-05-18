@@ -1,0 +1,45 @@
+<div class="add-question-container" *ngIf="form">
+  <form (ngSubmit)="save()" class="add-question-form">
+    <h2>Додавання нового питання</h2>
+
+    <div>
+      <label>Текст питання:</label>
+      <input [(ngModel)]="form.text" name="text" required />
+    </div>
+
+    <div>
+      <label>Варіанти відповідей:</label>
+      <div *ngFor="let option of form.options; let i = index" class="answer-option-row">
+        <input [ngModel]="form.options[i]" name="option{{ i }}" (focusout)="updateOption($event, i)" required />
+        <button type="button" (click)="removeOption(i)" aria-label="Видалити варіант">🗑️</button>
+      </div>
+      <button type="button" class="add-option-button" (click)="addOption()">➕ Додати варіант</button>
+    </div>
+
+    <div>
+      <label>Правильна відповідь:</label>
+      <input [(ngModel)]="form.correctAnswer" name="correctAnswer" required />
+    </div>
+
+    <div>
+      <label>Рівень складності:</label>
+      <select [(ngModel)]="form.level" name="level" required>
+        <option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</option>
+      </select>
+    </div>
+
+    <div class="add-buttons-wrapper">
+      <button type="submit"
+              class="submit-button"
+              [disabled]="!form.text || !form.correctAnswer || !form.level">
+        💾 Зберегти
+      </button>
+
+      <button type="button"
+              class="cancel-button"
+              (click)="cancel()">
+        ❌ Скасувати
+      </button>
+    </div>
+  </form>
+</div>
