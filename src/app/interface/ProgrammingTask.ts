@@ -4,4 +4,5 @@ export interface ProgrammingTask {
   description: string;
   starterCode: string;
   expectedOutput: string;
+  lessonId: number;
 }

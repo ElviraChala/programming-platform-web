@@ -56,6 +56,7 @@
         </div>
         <div class="lesson-actions">
           <button type="button" class="action-button edit-button" (click)="startEditLesson(lesson)">Редагувати</button>
+          <button type="button" class="action-button" (click)="startAddProgrammingTask(lesson)">Додати завдання</button>
           <button type="button" class="action-button delete-button" (click)="deleteLesson(lesson)">Видалити</button>
         </div>
       </div>
@@ -155,6 +156,143 @@
         <div class="button-group">
           <button type="submit" class="cta-button">Зберегти зміни</button>
           <button type="button" class="cta-button cancel-button" (click)="cancelEditLesson()">Скасувати</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Programming Task Forms -->
+    <!-- Add new programming task form -->
+    <div class="programming-task-form" *ngIf="isAddingProgrammingTask && selectedLessonForTask">
+      <h4>Додати нове завдання для уроку "{{ selectedLessonForTask.name }}"</h4>
+
+      <!-- Display existing programming tasks -->
+      <div class="programming-tasks-list" *ngIf="programmingTasks.length > 0">
+        <h5>Існуючі завдання:</h5>
+        <div class="programming-task-item" *ngFor="let task of programmingTasks">
+          <div class="programming-task-info">
+            <h6>{{ task.title }}</h6>
+          </div>
+          <div class="programming-task-actions">
+            <button type="button" class="action-button edit-button" (click)="startEditProgrammingTask(task, selectedLessonForTask)">Редагувати</button>
+            <button type="button" class="action-button delete-button" (click)="deleteProgrammingTask(task, selectedLessonForTask)">Видалити</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-programming-tasks" *ngIf="programmingTasks.length === 0">
+        <p>У цього уроку ще немає завдань.</p>
+      </div>
+
+      <form (ngSubmit)="saveNewProgrammingTask()">
+        <div>
+          <label for="taskTitle">Назва завдання:</label>
+          <input
+            id="taskTitle"
+            [(ngModel)]="newProgrammingTask.title"
+            name="taskTitle"
+            required
+            placeholder="Введіть назву завдання"
+          />
+        </div>
+
+        <div>
+          <label for="taskDescription">Опис завдання:</label>
+          <textarea
+            id="taskDescription"
+            [(ngModel)]="newProgrammingTask.description"
+            name="taskDescription"
+            rows="4"
+            required
+            placeholder="Опишіть завдання"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="starterCode">Початковий код:</label>
+          <textarea
+            id="starterCode"
+            [(ngModel)]="newProgrammingTask.starterCode"
+            name="starterCode"
+            rows="6"
+            required
+            placeholder="Введіть початковий код"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="expectedOutput">Очікуваний результат:</label>
+          <textarea
+            id="expectedOutput"
+            [(ngModel)]="newProgrammingTask.expectedOutput"
+            name="expectedOutput"
+            rows="4"
+            required
+            placeholder="Введіть очікуваний результат"
+          ></textarea>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="cta-button">Зберегти завдання</button>
+          <button type="button" class="cta-button cancel-button" (click)="cancelAddProgrammingTask()">Скасувати</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Edit programming task form -->
+    <div class="programming-task-form" *ngIf="isEditingProgrammingTask && editingProgrammingTask && selectedLessonForTask">
+      <h4>Редагувати завдання для уроку "{{ selectedLessonForTask.name }}"</h4>
+
+      <form (ngSubmit)="saveEditedProgrammingTask()">
+        <div>
+          <label for="editTaskTitle">Назва завдання:</label>
+          <input
+            id="editTaskTitle"
+            [(ngModel)]="editingProgrammingTask.title"
+            name="editTaskTitle"
+            required
+            placeholder="Введіть назву завдання"
+          />
+        </div>
+
+        <div>
+          <label for="editTaskDescription">Опис завдання:</label>
+          <textarea
+            id="editTaskDescription"
+            [(ngModel)]="editingProgrammingTask.description"
+            name="editTaskDescription"
+            rows="4"
+            required
+            placeholder="Опишіть завдання"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="editStarterCode">Початковий код:</label>
+          <textarea
+            id="editStarterCode"
+            [(ngModel)]="editingProgrammingTask.starterCode"
+            name="editStarterCode"
+            rows="6"
+            required
+            placeholder="Введіть початковий код"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="editExpectedOutput">Очікуваний результат:</label>
+          <textarea
+            id="editExpectedOutput"
+            [(ngModel)]="editingProgrammingTask.expectedOutput"
+            name="editExpectedOutput"
+            rows="4"
+            required
+            placeholder="Введіть очікуваний результат"
+          ></textarea>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="cta-button">Зберегти зміни</button>
+          <button type="button" class="cta-button cancel-button" (click)="cancelEditProgrammingTask()">Скасувати</button>
         </div>
       </form>
     </div>

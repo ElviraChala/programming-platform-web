@@ -5,6 +5,8 @@ import { CourseService } from "../../../service/course.service";
 import { Level } from "../../../interface/Level";
 import { Lesson } from "../../../interface/Lesson";
 import { LessonService } from "../../../service/lesson.service";
+import { ProgrammingTask } from "../../../interface/ProgrammingTask";
+import { ProgrammingTaskService } from "../../../service/programming-task.service";
 
 @Component({
   selector: 'app-edit-course',
@@ -23,10 +25,19 @@ export class EditCourseComponent implements OnInit{
   isAddingLesson = false;
   isEditingLesson = false;
 
+  // Programming Task management
+  programmingTasks: ProgrammingTask[] = [];
+  newProgrammingTask: ProgrammingTask = this.createEmptyProgrammingTask(0);
+  editingProgrammingTask: ProgrammingTask | null = null;
+  isAddingProgrammingTask = false;
+  isEditingProgrammingTask = false;
+  selectedLessonForTask: Lesson | null = null;
+
   constructor(private readonly route: ActivatedRoute,
               private readonly router: Router,
               private readonly courseService: CourseService,
-              private readonly lessonService: LessonService) {}
+              private readonly lessonService: LessonService,
+              private readonly programmingTaskService: ProgrammingTaskService) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -190,6 +201,123 @@ export class EditCourseComponent implements OnInit{
       },
       checkKnowledgeId: 0,
       programmingTaskIds: []
+    };
+  }
+
+  // Programming Task management methods
+  loadProgrammingTasks(lesson: Lesson): void {
+    if (!lesson.programmingTaskIds || lesson.programmingTaskIds.length === 0) {
+      this.programmingTasks = [];
+      return;
+    }
+
+    // Load each programming task by ID
+    this.programmingTasks = [];
+    for (const taskId of lesson.programmingTaskIds) {
+      this.programmingTaskService.getProgrammingTaskById(taskId).subscribe({
+        next: (task) => this.programmingTasks.push(task),
+        error: (err) => console.error(`Не вдалося завантажити завдання з ID ${taskId}:`, err)
+      });
+    }
+  }
+
+  startAddProgrammingTask(lesson: Lesson): void {
+    this.selectedLessonForTask = lesson;
+    this.isAddingProgrammingTask = true;
+    this.isEditingProgrammingTask = false;
+    this.newProgrammingTask = this.createEmptyProgrammingTask(lesson.id);
+    this.loadProgrammingTasks(lesson);
+  }
+
+  cancelAddProgrammingTask(): void {
+    this.isAddingProgrammingTask = false;
+    this.selectedLessonForTask = null;
+    this.newProgrammingTask = this.createEmptyProgrammingTask(0);
+  }
+
+  saveNewProgrammingTask(): void {
+    if (!this.selectedLessonForTask) {
+      alert('Спочатку виберіть урок');
+      return;
+    }
+
+    console.log(this.newProgrammingTask);
+
+    this.programmingTaskService.createProgrammingTask(this.newProgrammingTask).subscribe({
+      next: (createdTask) => {
+        this.programmingTasks.push(createdTask);
+
+        // Update the lesson's programmingTaskIds array
+        if (!this.selectedLessonForTask!.programmingTaskIds) {
+          this.selectedLessonForTask!.programmingTaskIds = [];
+        }
+        this.selectedLessonForTask!.programmingTaskIds.push(createdTask.id);
+      },
+      error: (err) => console.error('Помилка при створенні завдання:', err)
+    });
+  }
+
+  startEditProgrammingTask(task: ProgrammingTask, lesson: Lesson): void {
+    this.selectedLessonForTask = lesson;
+    this.isEditingProgrammingTask = true;
+    this.isAddingProgrammingTask = false;
+    this.editingProgrammingTask = { ...task }; // Create a copy to avoid direct modification
+    this.loadProgrammingTasks(lesson);
+  }
+
+  cancelEditProgrammingTask(): void {
+    this.isEditingProgrammingTask = false;
+    this.selectedLessonForTask = null;
+    this.editingProgrammingTask = null;
+  }
+
+  saveEditedProgrammingTask(): void {
+    if (!this.editingProgrammingTask) return;
+
+    this.programmingTaskService.updateProgrammingTask(this.editingProgrammingTask).subscribe({
+      next: (updatedTask) => {
+        // Update the task in the local array
+        const index = this.programmingTasks.findIndex(t => t.id === updatedTask.id);
+        if (index !== -1) {
+          this.programmingTasks[index] = updatedTask;
+        }
+
+        alert('Завдання оновлено!');
+        this.isEditingProgrammingTask = false;
+        this.selectedLessonForTask = null;
+        this.editingProgrammingTask = null;
+      },
+      error: (err) => console.error('Помилка при оновленні завдання:', err)
+    });
+  }
+
+  deleteProgrammingTask(task: ProgrammingTask, lesson: Lesson): void {
+    if (!confirm(`Ви впевнені, що хочете видалити завдання "${task.title}"?`)) {
+      return;
+    }
+
+    this.programmingTaskService.deleteProgrammingTask(task.id).subscribe({
+      next: () => {
+        // Remove the task from the local array
+        this.programmingTasks = this.programmingTasks.filter(t => t.id !== task.id);
+
+        // Update the lesson's programmingTaskIds array
+        if (lesson.programmingTaskIds) {
+          lesson.programmingTaskIds = lesson.programmingTaskIds.filter(id => id !== task.id);
+        }
+      },
+      error: (err) => console.error('Помилка при видаленні завдання:', err)
+    });
+  }
+
+  private createEmptyProgrammingTask(id: number): ProgrammingTask {
+    return {
+      id: 0,
+      title: '',
+      description: '',
+      starterCode: '',
+      expectedOutput: '',
+      lessonId: id,
     };
   }
 }

@@ -216,6 +216,82 @@
   outline: none;
 }
 
+/* Programming Task Styles */
+.programming-task-form {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.programming-task-form h4 {
+  color: #ea841e;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.programming-task-form h5 {
+  color: #333;
+  margin: 15px 0;
+}
+
+.programming-tasks-list {
+  margin-bottom: 20px;
+}
+
+.programming-task-item {
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.programming-task-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.programming-task-info h6 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.programming-task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.no-programming-tasks {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin: 20px 0;
+}
+
+.programming-task-form input,
+.programming-task-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+.programming-task-form input:focus,
+.programming-task-form textarea:focus {
+  border: 1px solid #ff9800;
+  outline: none;
+}
+
 /* Адаптивність */
 @media screen and (max-width: 768px) {
   .edit-course-container {
@@ -234,6 +310,17 @@
 
   .lesson-actions {
     margin-top: 10px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .programming-task-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .programming-task-actions {
+    margin-top: 8px;
     width: 100%;
     justify-content: flex-end;
   }
