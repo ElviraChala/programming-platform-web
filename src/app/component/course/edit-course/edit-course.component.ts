@@ -7,14 +7,15 @@ import { Lesson } from "../../../interface/Lesson";
 import { LessonService } from "../../../service/lesson.service";
 import { ProgrammingTask } from "../../../interface/ProgrammingTask";
 import { ProgrammingTaskService } from "../../../service/programming-task.service";
+import { saveAs } from "file-saver";
 
 @Component({
-  selector: 'app-edit-course',
+  selector: "app-edit-course",
   standalone: false,
-  templateUrl: './edit-course.component.html',
-  styleUrl: './edit-course.component.css'
+  templateUrl: "./edit-course.component.html",
+  styleUrl: "./edit-course.component.css"
 })
-export class EditCourseComponent implements OnInit{
+export class EditCourseComponent implements OnInit {
   course?: Course;
   levels?: string[] = Object.keys(Level).filter(key => isNaN(Number(key))); // ["LOW", "MEDIUM", "HIGH"]
 
@@ -24,6 +25,10 @@ export class EditCourseComponent implements OnInit{
   editingLesson: Lesson | null = null;
   isAddingLesson = false;
   isEditingLesson = false;
+
+  // HTML file management
+  selectedFile: File | null = null;
+  selectedEditFile: File | null = null;
 
   // Programming Task management
   programmingTasks: ProgrammingTask[] = [];
@@ -40,13 +45,13 @@ export class EditCourseComponent implements OnInit{
               private readonly programmingTaskService: ProgrammingTaskService) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get("id"));
     this.courseService.getCourseById(id).subscribe({
       next: data => {
         this.course = data;
         this.loadLessons();
       },
-      error: err => console.error('Не вдалося завантажити курс:', err)
+      error: err => console.error("Не вдалося завантажити курс:", err)
     });
   }
 
@@ -55,15 +60,15 @@ export class EditCourseComponent implements OnInit{
 
     this.courseService.updateCourse(this.course).subscribe({
       next: () => {
-        alert('Курс оновлено!');
-        this.router.navigate(['/courses']).then(console.debug);
+        alert("Курс оновлено!");
+        this.router.navigate(["/courses"]).then(console.debug);
       },
-      error: err => console.error('Помилка при оновленні:', err)
+      error: err => console.error("Помилка при оновленні:", err)
     });
   }
 
   goBack(): void {
-    this.router.navigate(['/courses']).then(console.debug);
+    this.router.navigate(["/courses"]).then(console.debug);
   }
 
   // Lesson management methods
@@ -99,16 +104,29 @@ export class EditCourseComponent implements OnInit{
   cancelAddLesson(): void {
     this.isAddingLesson = false;
     this.newLesson = this.createEmptyLesson();
+    this.selectedFile = null;
+  }
+
+  onFileSelected(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    if (element.files && element.files.length > 0) {
+      this.selectedFile = element.files[0];
+      // Set the fileName to match the uploaded file if it's not already set
+      if (!this.newLesson.theory.fileName) {
+        this.newLesson.theory.fileName = this.selectedFile.name;
+      }
+    }
   }
 
   saveNewLesson(): void {
     if (!this.course?.id) {
-      alert('Спочатку збережіть курс');
+      alert("Спочатку збережіть курс");
       return;
     }
 
     this.newLesson.courseId = this.course.id;
 
+    // First, create the lesson
     this.lessonService.createLesson(this.newLesson).subscribe({
       next: (createdLesson) => {
         this.lessons.push(createdLesson);
@@ -119,29 +137,55 @@ export class EditCourseComponent implements OnInit{
         }
         this.course!.lessonIds.push(createdLesson.id);
 
+        // If there's a file selected, upload it
+        if (this.selectedFile) {
+          this.lessonService.uploadHtmlFile(this.selectedFile, createdLesson.theory.fileName).subscribe({
+            next: (savedFileName) => {
+              console.log("HTML файл завантажено:", savedFileName);
+            },
+            error: (err) => {
+              console.error("Помилка при завантаженні HTML файлу:", err);
+              alert("Урок створено, але не вдалося завантажити HTML файл");
+            }
+          });
+        }
+
         // Update the course to save the new lessonIds
         this.courseService.updateCourse(this.course!).subscribe({
           next: () => {
-            alert('Урок додано!');
+            alert("Урок додано!");
             this.isAddingLesson = false;
             this.newLesson = this.createEmptyLesson();
+            this.selectedFile = null;
           },
-          error: (err) => console.error('Помилка при оновленні курсу:', err)
+          error: (err) => console.error("Помилка при оновленні курсу:", err)
         });
       },
-      error: (err) => console.error('Помилка при створенні уроку:', err)
+      error: (err) => console.error("Помилка при створенні уроку:", err)
     });
   }
 
   startEditLesson(lesson: Lesson): void {
     this.isEditingLesson = true;
     this.isAddingLesson = false;
-    this.editingLesson = { ...lesson }; // Create a copy to avoid direct modification
+    this.editingLesson = {...lesson}; // Create a copy to avoid direct modification
   }
 
   cancelEditLesson(): void {
     this.isEditingLesson = false;
     this.editingLesson = null;
+    this.selectedEditFile = null;
+  }
+
+  onEditFileSelected(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    if (element.files && element.files.length > 0 && this.editingLesson) {
+      this.selectedEditFile = element.files[0];
+      // Set the fileName to match the uploaded file if it's not already set
+      if (!this.editingLesson.theory.fileName) {
+        this.editingLesson.theory.fileName = this.selectedEditFile.name;
+      }
+    }
   }
 
   saveEditedLesson(): void {
@@ -155,11 +199,25 @@ export class EditCourseComponent implements OnInit{
           this.lessons[index] = updatedLesson;
         }
 
-        alert('Урок оновлено!');
+        // If there's a file selected, upload it
+        if (this.selectedEditFile) {
+          this.lessonService.uploadHtmlFile(this.selectedEditFile, updatedLesson.theory.fileName).subscribe({
+            next: () => {
+              console.log("HTML файл завантажено:", updatedLesson.theory.fileName);
+            },
+            error: (err) => {
+              console.error("Помилка при завантаженні HTML файлу:", err);
+              alert("Урок оновлено, але не вдалося завантажити HTML файл");
+            }
+          });
+        }
+
+        alert("Урок оновлено!");
         this.isEditingLesson = false;
         this.editingLesson = null;
+        this.selectedEditFile = null;
       },
-      error: (err) => console.error('Помилка при оновленні уроку:', err)
+      error: (err) => console.error("Помилка при оновленні уроку:", err)
     });
   }
 
@@ -179,25 +237,42 @@ export class EditCourseComponent implements OnInit{
 
           // Update the course to save the new lessonIds
           this.courseService.updateCourse(this.course).subscribe({
-            next: () => alert('Урок видалено!'),
-            error: (err) => console.error('Помилка при оновленні курсу:', err)
+            next: () => alert("Урок видалено!"),
+            error: (err) => console.error("Помилка при оновленні курсу:", err)
           });
         }
       },
-      error: (err) => console.error('Помилка при видаленні уроку:', err)
+      error: (err) => console.error("Помилка при видаленні уроку:", err)
+    });
+  }
+
+  downloadHtmlFile(fileName: string): void {
+    if (!fileName) {
+      alert("Назва файлу не вказана");
+      return;
+    }
+
+    this.lessonService.downloadHtmlFile(fileName).subscribe({
+      next: (blob) => {
+        saveAs(blob, fileName);
+      },
+      error: (err) => {
+        console.error("Помилка при завантаженні файлу:", err);
+        alert("Не вдалося завантажити файл");
+      }
     });
   }
 
   private createEmptyLesson(): Lesson {
     return {
       id: 0,
-      name: '',
+      name: "",
       orderIndex: 0,
       courseId: 0,
       theory: {
         id: 0,
-        fileName: '',
-        lessonId: ''
+        fileName: "",
+        lessonId: ""
       },
       checkKnowledgeId: 0,
       programmingTaskIds: []
@@ -237,7 +312,7 @@ export class EditCourseComponent implements OnInit{
 
   saveNewProgrammingTask(): void {
     if (!this.selectedLessonForTask) {
-      alert('Спочатку виберіть урок');
+      alert("Спочатку виберіть урок");
       return;
     }
 
@@ -253,7 +328,7 @@ export class EditCourseComponent implements OnInit{
         }
         this.selectedLessonForTask!.programmingTaskIds.push(createdTask.id);
       },
-      error: (err) => console.error('Помилка при створенні завдання:', err)
+      error: (err) => console.error("Помилка при створенні завдання:", err)
     });
   }
 
@@ -261,7 +336,7 @@ export class EditCourseComponent implements OnInit{
     this.selectedLessonForTask = lesson;
     this.isEditingProgrammingTask = true;
     this.isAddingProgrammingTask = false;
-    this.editingProgrammingTask = { ...task }; // Create a copy to avoid direct modification
+    this.editingProgrammingTask = {...task}; // Create a copy to avoid direct modification
     this.loadProgrammingTasks(lesson);
   }
 
@@ -282,12 +357,12 @@ export class EditCourseComponent implements OnInit{
           this.programmingTasks[index] = updatedTask;
         }
 
-        alert('Завдання оновлено!');
+        alert("Завдання оновлено!");
         this.isEditingProgrammingTask = false;
         this.selectedLessonForTask = null;
         this.editingProgrammingTask = null;
       },
-      error: (err) => console.error('Помилка при оновленні завдання:', err)
+      error: (err) => console.error("Помилка при оновленні завдання:", err)
     });
   }
 
@@ -306,18 +381,18 @@ export class EditCourseComponent implements OnInit{
           lesson.programmingTaskIds = lesson.programmingTaskIds.filter(id => id !== task.id);
         }
       },
-      error: (err) => console.error('Помилка при видаленні завдання:', err)
+      error: (err) => console.error("Помилка при видаленні завдання:", err)
     });
   }
 
   private createEmptyProgrammingTask(id: number): ProgrammingTask {
     return {
       id: 0,
-      title: '',
-      description: '',
-      starterCode: '',
-      expectedOutput: '',
-      lessonId: id,
+      title: "",
+      description: "",
+      starterCode: "",
+      expectedOutput: "",
+      lessonId: id
     };
   }
 }

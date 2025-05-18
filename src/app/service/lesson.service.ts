@@ -31,4 +31,17 @@ export class LessonService {
   deleteLesson(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  uploadHtmlFile(file: File, fileName: string): Observable<void> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fileName', fileName);
+    return this.http.post<void>(`${this.baseUrl}/upload-html`, formData);
+  }
+
+  downloadHtmlFile(fileName: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/download-html/${fileName}`, {
+      responseType: 'blob'
+    });
+  }
 }

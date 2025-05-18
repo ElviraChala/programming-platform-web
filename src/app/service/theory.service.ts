@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Theory } from "../interface/Theory";
 import { backHost } from "../app.component";
+import { HtmlContent } from "../interface/HtmlContent";
 
 @Injectable({
   providedIn: "root"
@@ -33,5 +34,10 @@ export class TheoryService {
   deleteTheory(id: number): Observable<void> {
     const params = new HttpParams().set("id", id.toString());
     return this.http.delete<void>(this.baseUrl, {params});
+  }
+
+  getHtml(id: number) {
+    const params = new HttpParams().set("id", id.toString());
+    return this.http.get<HtmlContent>(`${this.baseUrl}/html`, {params});
   }
 }

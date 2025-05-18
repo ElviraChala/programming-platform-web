@@ -6,6 +6,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Role } from "../../../interface/Role";
 import { StudentService } from "../../../service/student.service";
 import { Student } from "../../../interface/Student";
+import { TheoryService } from "../../../service/theory.service";
 
 declare let hljs: any;
 
@@ -25,6 +26,7 @@ export class LessonItemComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly lessonService: LessonService,
     private readonly studentService: StudentService,
+    private readonly theoryService: TheoryService,
     private readonly router: ActivatedRoute,
     private readonly route: Router,
     private readonly sanitizer: DomSanitizer
@@ -68,7 +70,14 @@ export class LessonItemComponent implements OnInit, AfterViewInit {
     this.lessonService.getLessonById(id).subscribe({
       next: (value) => {
         this.lesson = value;
-        this.content = this.sanitizer.bypassSecurityTrustHtml(value.theory.fileName);
+        this.theoryService.getHtml(value.theory.id).subscribe({
+          next: (html) => {
+            this.content = this.sanitizer.bypassSecurityTrustHtml(html.content);
+          },
+          error: (err) => {
+            console.error("Не вдалося завантажити теорію", err);
+          }
+        });
       },
       error: (err) => {
         console.error("Не вдалося завантажити урок", err);
@@ -82,11 +91,11 @@ export class LessonItemComponent implements OnInit, AfterViewInit {
 
   startLessonTest(): void {
     if (!this.lesson) return;
-    this.route.navigate(['/lesson-test', this.lesson.checkKnowledgeId]).then(console.debug);
+    this.route.navigate(["/lesson-test", this.lesson.checkKnowledgeId]).then(console.debug);
   }
 
   editQuestions(): void {
     if (!this.lesson?.checkKnowledgeId) return;
-    this.route.navigate(['/edit-questions', this.lesson.checkKnowledgeId]).then(console.debug);
+    this.route.navigate(["/edit-questions", this.lesson.checkKnowledgeId]).then(console.debug);
   }
 }

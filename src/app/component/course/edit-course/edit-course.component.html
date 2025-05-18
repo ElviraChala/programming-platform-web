@@ -108,6 +108,16 @@
           />
         </div>
 
+        <div>
+          <label for="htmlFile">Завантажити HTML файл теорії:</label>
+          <input
+            type="file"
+            id="htmlFile"
+            (change)="onFileSelected($event)"
+            accept=".html"
+          />
+        </div>
+
         <div class="button-group">
           <button type="submit" class="cta-button">Зберегти урок</button>
           <button type="button" class="cta-button cancel-button" (click)="cancelAddLesson()">Скасувати</button>
@@ -151,6 +161,22 @@
             required
             placeholder="Введіть назву файлу теорії"
           />
+        </div>
+
+        <div>
+          <label for="editHtmlFile">Завантажити HTML файл теорії:</label>
+          <input
+            type="file"
+            id="editHtmlFile"
+            (change)="onEditFileSelected($event)"
+            accept=".html"
+          />
+        </div>
+
+        <div *ngIf="editingLesson.theory.fileName">
+          <button type="button" class="cta-button" (click)="downloadHtmlFile(editingLesson.theory.fileName)">
+            Завантажити поточний HTML файл
+          </button>
         </div>
 
         <div class="button-group">
