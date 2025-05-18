@@ -23,12 +23,37 @@
       [idQuestion]="currentQuestionId"
       [(ngModel)]="currentAnswer">
     </app-question>
-    <button
-      class="answer-button"
-      (click)="getAnswer()"
-      [disabled]="!currentAnswer.trim()">
-      {{ currentQuestionIndex + 1 === questions.length ? 'Завершити' : 'Відповісти' }}
-    </button>
+
+    <!-- Навігаційні кнопки -->
+    <div class="navigation-buttons">
+      <button
+        class="nav-button"
+        (click)="previousQuestion()"
+        [disabled]="currentQuestionIndex === 0">
+        ← Попереднє
+      </button>
+
+      <button
+        class="answer-button"
+        (click)="getAnswer()"
+        [disabled]="!currentAnswer.trim()">
+        {{ currentQuestionIndex + 1 === questions.length ? 'Завершити' : 'Відповісти' }}
+      </button>
+
+      <button
+        class="nav-button"
+        (click)="nextQuestion()"
+        [disabled]="currentQuestionIndex === questions.length - 1">
+        Наступне →
+      </button>
+    </div>
+
+    <!-- Кнопка повернення до уроку -->
+    <div class="return-button-container">
+      <button class="return-button" (click)="goBackToLesson()">
+        Повернутись до уроку
+      </button>
+    </div>
   </div>
 
   <!-- Завершення тесту -->

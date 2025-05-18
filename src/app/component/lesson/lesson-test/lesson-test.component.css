@@ -95,7 +95,6 @@ app-question {
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
   transition: all 0.3s ease;
   width: 100%;
   max-width: 300px;
@@ -110,6 +109,65 @@ app-question {
   background-color: #ccc;
   cursor: not-allowed;
   transform: none;
+}
+
+/* Навігаційні кнопки */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.nav-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 150px;
+}
+
+.nav-button:hover {
+  background-color: #3e8e41;
+  transform: translateY(-2px);
+}
+
+.nav-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Кнопка повернення до уроку */
+.return-button-container {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.return-button {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.return-button:hover {
+  background-color: #0b7dda;
+  transform: translateY(-2px);
 }
 
 /* Завершення тесту */
@@ -262,5 +320,23 @@ app-question {
 
   .go-to-course, .go-to-coding {
     width: 100%;
+  }
+
+  /* Мобільні стилі для навігаційних кнопок */
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-button {
+    max-width: 100%;
+    padding: 10px 15px;
+    font-size: 0.85rem;
+  }
+
+  .return-button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.85rem;
   }
 }

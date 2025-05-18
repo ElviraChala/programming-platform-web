@@ -72,6 +72,7 @@ export class LessonTestComponent implements OnInit {
   getAnswer(): void {
     this.saveCurrentAnswer();
 
+    this.isAnswers[this.currentQuestionIndex] = true;
     this.currentQuestionIndex++;
 
     if (!this.questions || this.currentQuestionIndex >= this.questions.length) {
@@ -82,8 +83,6 @@ export class LessonTestComponent implements OnInit {
 
     const saved = this.savedAnswers.find(ans => ans.id === this.currentQuestionId);
     this.currentAnswer = saved?.currentAnswer ?? "";
-
-    this.isAnswers[this.currentQuestionIndex] = true;
   }
 
   saveCurrentAnswer(): void {
@@ -165,7 +164,7 @@ export class LessonTestComponent implements OnInit {
 
   goBackToLesson(): void {
     if (this.check?.lessonId) {
-      this.router.navigate(["/courses", this.check?.lessonId]).then(console.debug);
+      this.router.navigate(["/lessons", this.check?.lessonId]).then(console.debug);
     } else {
       this.router.navigate(["/courses"]).then(console.debug);
     }
