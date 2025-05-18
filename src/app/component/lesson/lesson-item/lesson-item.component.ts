@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Lesson } from "../../../interface/Lesson";
 import { LessonService } from "../../../service/lesson.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -8,15 +8,13 @@ import { StudentService } from "../../../service/student.service";
 import { Student } from "../../../interface/Student";
 import { TheoryService } from "../../../service/theory.service";
 
-declare let hljs: any;
-
 @Component({
   selector: "app-lesson-item",
   standalone: false,
   templateUrl: "./lesson-item.component.html",
   styleUrls: ["./lesson-item.component.css"]
 })
-export class LessonItemComponent implements OnInit, AfterViewInit {
+export class LessonItemComponent implements OnInit {
   name: string = "";
   lesson?: Lesson;
   content: SafeHtml = "";
@@ -36,10 +34,6 @@ export class LessonItemComponent implements OnInit, AfterViewInit {
     this.checkLogin();
     this.loadStudent();
     this.loadLesson();
-  }
-
-  ngAfterViewInit(): void {
-    hljs.highlightAll();
   }
 
   private checkLogin(): void {

@@ -1,5 +1,5 @@
 export interface Theory {
   id: number;
   fileName: string;
-  lessonId: string;
+  lessonId: number;
 }

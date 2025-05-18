@@ -8,6 +8,8 @@ import { LessonService } from "../../../service/lesson.service";
 import { ProgrammingTask } from "../../../interface/ProgrammingTask";
 import { ProgrammingTaskService } from "../../../service/programming-task.service";
 import { saveAs } from "file-saver";
+import { Theory } from "../../../interface/Theory";
+import { TheoryService } from "../../../service/theory.service";
 
 @Component({
   selector: "app-edit-course",
@@ -42,7 +44,8 @@ export class EditCourseComponent implements OnInit {
               private readonly router: Router,
               private readonly courseService: CourseService,
               private readonly lessonService: LessonService,
-              private readonly programmingTaskService: ProgrammingTaskService) {}
+              private readonly programmingTaskService: ProgrammingTaskService,
+              private readonly theoryService: TheoryService) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
@@ -265,16 +268,16 @@ export class EditCourseComponent implements OnInit {
 
   private createEmptyLesson(): Lesson {
     return {
-      id: 0,
+      id: -1,
       name: "",
       orderIndex: 0,
       courseId: 0,
       theory: {
-        id: 0,
+        id: -1,
         fileName: "",
-        lessonId: ""
+        lessonId: 0
       },
-      checkKnowledgeId: 0,
+      checkKnowledgeId: -1,
       programmingTaskIds: []
     };
   }
