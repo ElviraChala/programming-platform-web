@@ -45,7 +45,7 @@ export class AddQuestionFormComponent implements OnInit {
     }
 
     const newQuestion: Question = {
-      id: 0, // ID буде присвоєно на сервері
+      id: -1, // ID буде присвоєно на сервері
       text: this.form.text,
       options: this.form.options.filter((option: string) => option.trim() !== ""),
       correctAnswer: this.form.correctAnswer,

@@ -9,11 +9,8 @@ body {
 .lesson-container {
   display: flex;
   justify-content: center;
-  /*padding: 60px 40px;*/
-  /*margin: 0 auto 70px;*/
   flex-wrap: wrap;
   gap: 40px;
-  /*width: 80%;*/
 }
 
 .lesson-text {
@@ -57,7 +54,6 @@ pre {
 
 code {
   font-family: 'Courier New', monospace;
-  /*background-color: rgba(255, 152, 0, 0.11);*/
   padding: 2px 4px;
   border-radius: 4px;
 }

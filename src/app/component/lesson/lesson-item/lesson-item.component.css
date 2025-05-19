@@ -19,7 +19,7 @@
 
 .lesson-content p {
   font-size: clamp(1rem, 3vw, 1.2rem);
-  color: #555;
+  color: #000000;
   margin-bottom: 1.5em;
   text-align: left;
 }
