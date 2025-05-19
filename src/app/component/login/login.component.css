@@ -1,19 +1,15 @@
 .login-container {
-  width: 97%;
+  width: 90%;
   max-width: 420px;
-  margin: 0 auto;
   padding: 30px;
-  border-radius: 10px;
-  background-color: #fff;
 }
 
-/* Заголовок */
+/* Header */
 .login-container h2 {
   text-align: center;
-  margin-bottom: 24px;
 }
 
-/* Вхідні поля */
+/* Input fields */
 .login-container input {
   width: 100%;
   padding: 10px 14px;
@@ -23,28 +19,31 @@
   font-size: 15px;
 }
 
-/* Кнопка входу */
+/* Login button */
 .login-container button[type="submit"],
 .login-container .reset-email-button,
 .check-button,
-.login-container .register-button{
+.login-container .register-button {
   width: 100%;
   padding: 10px;
-  background-color: rgb(241, 138, 36);
+  background-color: #ff9800;
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
 .login-container button[type="submit"]:hover,
-.login-container .reset-email-button:hover {
-  background-color: rgb(220, 123, 26);
+.login-container .reset-email-button:hover,
+.check-button:hover,
+.login-container .register-button:hover {
+  background-color: #e68a00;
 }
 
-/* Кнопка-посилання для "Забули пароль / Скасувати" */
+/* "Forgot password / Cancel" link button */
 .login-container .toggle-forgot-button {
   background: none;
   border: none;
@@ -54,13 +53,14 @@
   text-decoration: underline;
   margin-top: 10px;
   padding: 0;
+  transition: color 0.2s ease;
 }
 
 .login-container .toggle-forgot-button:hover {
-  color: #333;
+  color: #ff9800;
 }
 
-/* Повідомлення про помилки */
+/* Error messages */
 .error-message {
   color: #7d2e2e;
   background-color: #f5e8e8;
@@ -71,7 +71,7 @@
   font-size: 14px;
 }
 
-/* Відновлення паролю – окрема зона */
+/* Password recovery section */
 .forgot-section {
   margin-top: 25px;
   padding-top: 15px;
@@ -112,4 +112,14 @@
 
 .eye-button:hover img {
   filter: grayscale(0%);
+}
+
+/* Responsive design */
+@media screen and (max-width: 480px) {
+  .login-container {
+    width: 100%;
+    padding: 20px 15px;
+    margin: 30px auto;
+    border-radius: 0;
+  }
 }

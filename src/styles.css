@@ -25,23 +25,76 @@ app-root {
 
 h1, h2, h3 {
   font-weight: bold;
+  color: #ff9800;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  margin-bottom: 16px;
 }
 
 button {
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-button {
+  background-color: #ff9800;
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: #e68a00;
+}
+
+.secondary-button {
+  background-color: #3a3a3a;
+  color: white;
+}
+
+.secondary-button:hover {
+  background-color: #2a2a2a;
+}
+
+.danger-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.danger-button:hover {
+  background-color: #d32f2f;
 }
 
 input {
   font-size: 16px;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 a {
-  color: #df7711;
+  color: #ff9800;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover {
+  color: #e68a00;
   text-decoration: underline;
 }
 
@@ -52,25 +105,52 @@ a:hover {
   justify-content: center;
 }
 
-.container{
-  margin-top: 100px;
-  margin-bottom: 100px;
-  width: 100%;
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 15px;
+}
+
+/* Standard responsive container */
+.content-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 15px;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 1024px) {
+  .container, .content-container {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container, .content-container {
+    margin: 30px auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container, .content-container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
 
 .lesson-content {
   font-family: "Segoe UI", sans-serif;
   line-height: 1.6;
   color: #000000;
-  padding: 16px;
   background-color: #fff;
-}
-
-.lesson-content h1,
-.lesson-content h2,
-.lesson-content h3 {
-  margin-top: 24px;
-  color: #df7711;
 }
 
 .lesson-content p {

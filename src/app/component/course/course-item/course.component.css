@@ -1,29 +1,29 @@
 .course-list-container {
-  width: 80%;
-  margin: 0 auto;
-  padding-top: 30px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 15px;
 }
 
 .course-list-container h2 {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
-  color: #ff9800;
 }
 
 .course-list-container p {
-  font-size: 1rem;
-  margin: 8px 20px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin: 8px 0;
   color: #333;
+  line-height: 1.5;
 }
 
 .course-list-container p strong {
   color: #555;
+  font-weight: 600;
 }
 
 ul {
   list-style-type: none;
-  padding: 0 20px;
+  padding: 0;
   margin-top: 20px;
 }
 
@@ -44,13 +44,13 @@ ul li:hover {
   color: #2c3e50;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   transition: color 0.3s ease;
   cursor: pointer;
 }
 
 .lesson-link:hover {
-  color: #1a73e8;
+  color: #ff9800;
 }
 
 .disabled {
@@ -66,4 +66,22 @@ ul li:hover {
   color: #856404;
   border-radius: 5px;
   margin-bottom: 15px;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+  ul {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .course-list-container {
+    width: 100%;
+    margin: 30px auto;
+  }
+
+  ul li {
+    padding: 12px 15px;
+  }
 }

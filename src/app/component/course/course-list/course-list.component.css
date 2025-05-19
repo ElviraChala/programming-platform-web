@@ -1,13 +1,12 @@
 .course-list-container {
-  width: 80%;
+  width: 90%;
+  max-width: 1200px;
   margin: 50px auto;
+  padding: 0 15px;
 }
 
 .course-list-container h2 {
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8rem;
-  color: #ff9800;
 }
 
 .course-list {
@@ -47,20 +46,30 @@
 
 .admin-buttons {
   margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .admin-buttons button {
-  margin-right: 8px;
-  padding: 4px 10px;
-  background-color: rgb(250, 126, 3);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  margin: 0;
+  color: #fff;
+}
+
+.admin-buttons button:first-child {
+  background-color: #ff9800;
+}
+
+.admin-buttons button:first-child:hover {
+  background-color: #e68a00;
 }
 
 .admin-buttons button:last-child {
-  background-color: #f44336;
+  background-color: #d00d00;
+}
+
+.admin-buttons button:last-child:hover {
+  background-color: #b30b00;
 }
 
 .create-course-wrapper {
@@ -69,29 +78,36 @@
 }
 
 .create-course-button {
-  background-color: #4caf50;
+  background-color: #ff9800;
   color: #fff;
-  padding: 10px 20px;
   font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .create-course-button:hover {
-  background-color: #409f44;
+  background-color: #e68a00;
 }
 
-.admin-buttons {
-  margin-top: 10px;
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+  .course-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-buttons {
+    margin-top: 15px;
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
-.admin-buttons button {
-  margin-right: 10px;
-  padding: 6px 12px;
-  font-size: 14px;
-  cursor: pointer;
+@media screen and (max-width: 480px) {
+  .course-list-container {
+    width: 100%;
+    margin: 30px auto;
+  }
+
+  .create-course-wrapper {
+    text-align: center;
+  }
 }
-
-
