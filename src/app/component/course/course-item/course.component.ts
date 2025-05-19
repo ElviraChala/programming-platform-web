@@ -39,7 +39,6 @@ export class CourseComponent implements OnInit {
     this.courseService.getCourseById(id).subscribe({
       next: (value) => {
         this.course = value;
-        console.log("Отриманий курс:", this.course);
 
         if (this.course.lessonIds && this.course.lessonIds.length > 0) {
           // Отримати всі уроки паралельно
@@ -50,7 +49,6 @@ export class CourseComponent implements OnInit {
           forkJoin(lessonObservables).subscribe({
             next: (lessons) => {
               this.lessons = lessons;
-              console.log("Отримані уроки:", this.lessons);
             },
             error: (err) => {
               console.error("Помилка під час завантаження уроків:", err);

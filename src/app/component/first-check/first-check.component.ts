@@ -6,7 +6,6 @@ import { Student } from "../../interface/Student";
 import { FirstCheck } from "../../interface/FirstCheck";
 import { Answer } from "../../interface/Answer";
 import { Level } from "../../interface/Level";
-import { Role } from "../../interface/Role";
 
 @Component({
   selector: "app-first-check",
@@ -95,23 +94,18 @@ export class FirstCheckComponent implements OnInit {
   // navigation for questions
 
   saveCurrentAnswer() {
-    const trimmedAnswer = this.currentAnswer.trim();
-    if (!trimmedAnswer) return;
+    const normalizedAnswer = this.currentAnswer.trim();
+    if (!normalizedAnswer) return;
 
     const existingIndex = this.savedAnswers.findIndex(ans => ans.id === this.currentQuestionId);
     if (existingIndex !== -1) {
-      this.savedAnswers[existingIndex].currentAnswer = trimmedAnswer;
+      this.savedAnswers[existingIndex].currentAnswer = normalizedAnswer;
     } else {
       this.savedAnswers.push({
         id: this.currentQuestionId,
-        currentAnswer: trimmedAnswer
+        currentAnswer: normalizedAnswer
       });
     }
-  }
-
-  isAnswered(index: number) {
-    const questionId = this.firstCheck?.questionIds[index];
-    this.isAnswers[index] = this.savedAnswers.some(ans => ans.id === questionId && ans.currentAnswer.trim() !== "");
   }
 
   goToQuestion(index: number): void {
@@ -142,11 +136,6 @@ export class FirstCheckComponent implements OnInit {
         console.error("Error submitting answers:", error);
       }
     });
-  }
-
-  isAdmin(): boolean {
-    console.log("isAdmin", this.student?.role === Role.ADMIN, this.student?.role);
-    return this.student?.role === Role.ADMIN;
   }
 
 

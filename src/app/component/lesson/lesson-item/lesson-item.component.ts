@@ -44,7 +44,6 @@ export class LessonItemComponent implements OnInit {
     this.studentService.getStudent().subscribe({
       next: (value) => {
         this.student = value;
-        console.log("Користувач:", this.student);
       },
       error: (err) => {
         console.error("Не вдалося завантажити студента", err);

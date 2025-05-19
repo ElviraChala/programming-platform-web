@@ -17,6 +17,7 @@ export class CourseListComponent implements OnInit {
   isLogged: boolean = false;
   student?: Student;
   courses: Course[] = [];
+  isAdmin: boolean = false;
 
   constructor(private readonly studentService: StudentService,
               private readonly courseService: CourseService,
@@ -31,11 +32,9 @@ export class CourseListComponent implements OnInit {
           this.student = value;
 
           if (this.student?.isFirst === true && this.student.role === Role.STUDENT) {
-            this.router.navigate(["/first-check"])
-              .then(r => {
-                console.debug(r);
-              });
+            this.router.navigate(["/first-check"]).then(console.debug);
           }
+          this.checkAdmin();
         },
         error: value => console.error(value)
       });
@@ -43,7 +42,6 @@ export class CourseListComponent implements OnInit {
     this.courseService.getAllCourses().subscribe({
       next: value => {
         this.courses = value;
-        console.log("Отримані курси список:", this.courses);
       },
       error: value => console.error(value)
     });
@@ -57,9 +55,8 @@ export class CourseListComponent implements OnInit {
     this.router.navigate(['/courses', id]).then(console.debug);
   }
 
-  isAdmin(): boolean {
-    console.log("isAdmin", this.student?.role === Role.ADMIN, this.student?.role);
-    return this.student?.role === Role.ADMIN;
+  checkAdmin() {
+    this.isAdmin = this.student?.role === Role.ADMIN;
   }
 
   createNewCourse(): void {

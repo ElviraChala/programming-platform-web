@@ -95,13 +95,7 @@ export class RegisterComponent {
         this.isCheckingUsername = false;
       },
       error: err => {
-        if (err.status === 404) {
-          // Користувача немає — це добре, логін вільний
-          this.isUsernameTaken = false;
-        } else {
-          console.error("Помилка при перевірці логіна", err);
-          this.isUsernameTaken = true;
-        }
+        this.isUsernameTaken = err.status !== 404;
         this.validateForm();
         this.isCheckingUsername = false;
       }

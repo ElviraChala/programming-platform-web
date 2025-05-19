@@ -10,7 +10,7 @@
   </div>
 
   <!-- Кнопка для адміністратора -->
-  <div *ngIf="isAdmin()" class="create-course-wrapper">
+  <div *ngIf="isAdmin" class="create-course-wrapper">
     <button class="create-course-button" (click)="createNewCourse()">+ Створити новий курс</button>
   </div>
 
@@ -20,7 +20,7 @@
         (click)="isLogged && course.id !== undefined && openCourse(course.id)">
       {{ course.name }}
 
-      <div *ngIf="isAdmin()" class="admin-buttons" (click)="$event.stopPropagation()">
+      <div *ngIf="isAdmin" class="admin-buttons" (click)="$event.stopPropagation()">
         <button (click)="editCourse(course)">Редагувати</button>
         <button *ngIf="course.id !== undefined" (click)="deleteCourse(course.id)">Видалити</button>
       </div>
