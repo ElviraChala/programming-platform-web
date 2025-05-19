@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
+        this.closeMenu();
         this.isLoggedIn();
         this.getUserName();
       });
