@@ -48,12 +48,10 @@
       </button>
     </div>
 
-    <!-- Кнопка повернення до уроку -->
-    <div class="return-button-container">
-      <button class="return-button" (click)="goBackToLesson()">
-        Повернутись до уроку
-      </button>
-    </div>
+    <!-- Навігаційний блок -->
+    <button class="return-button" (click)="goBackToLesson()">
+      Повернутись до уроку
+    </button>
   </div>
 
   <!-- Завершення тесту -->
@@ -65,15 +63,18 @@
   <!-- Результати -->
   <div *ngIf="showResults" class="result-container">
     <div class="result-content">
-      <h2 class="result-score">Ваш результат: {{ resultScore | number:'1.0-0' }} із {{total}}</h2>
+      <h2 class="result-score">Ваш результат: {{ resultScore | number:'1.0-0' }} із {{ total }}</h2>
       <p class="feedback-message">{{ feedbackMessage }}</p>
-      <div class="result-buttons">
-        <button class="go-to-course" (click)="goBackToLesson()">
-          Повернутись до курсу
-        </button>
-        <button class="go-to-coding" (click)="goToCodingTasks()">
-          Перейти до практичних завдань 💻
-        </button>
+      <div class="navigation-block">
+        <h4 class="navigation-title">Навігація:</h4>
+        <div class="result-buttons">
+          <button class="go-to-course" (click)="goBackToLesson()">
+            Повернутись до уроку
+          </button>
+          <button class="go-to-coding" (click)="goToCodingTasks()">
+            Перейти до практичних завдань 💻
+          </button>
+        </div>
       </div>
     </div>
     <img class="result-image" src="/img-result.png" alt="Result Illustration">

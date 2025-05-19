@@ -18,10 +18,9 @@ app-root {
 
 .profile-container {
   max-width: 900px;
-  margin: 80px auto;
+  margin: 0 auto;
   padding: 30px;
   border-radius: 12px;
-  min-height: 100vh;
   flex: 1;
 }
 

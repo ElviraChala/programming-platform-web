@@ -1,102 +1,110 @@
 .footer {
-  background-color: #333;
+  background: #333;
   color: #fff;
-  padding: 20px 0;
+  padding: 25px 0;
   text-align: center;
-  width: 100%;
-  position: relative;
-  bottom: unset;
 }
 
 .footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.footer p {
-  margin: 0;
-  font-size: clamp(12px, 2.5vw, 14px);
+.footer-branding {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
   gap: 8px;
+  animation: fadeInUp 0.6s ease-in-out;
+  flex-wrap: wrap;
 }
 
-.footer-divider {
-  display: inline-block;
+.footer-logo {
+  font-size: 1rem;
+  margin: 0;
+  color: #ffffff;
 }
 
 .footer-motto {
-  display: inline-block;
+  font-size: 0.95rem;
+  color: #ddd;
 }
 
-.social-icons {
-  margin-top: 15px;
-  display: flex;
-  gap: 15px;
+.footer-contact {
+  font-size: 0.95rem;
+  color: #eee;
+  animation: fadeInUp 0.8s ease-in-out;
+  text-align: left;
 }
 
-.social-icon {
-  color: #fff;
-  font-size: 20px;
-  transition: color 0.3s ease, transform 0.3s ease;
+.footer-email {
+  color: #ffb74d;
+  text-decoration: none;
+  margin-left: 5px;
+  transition: color 0.3s ease;
 }
 
-.social-icon:hover {
-  color: #ff9800;
-  transform: translateY(-2px);
+.footer-email:hover {
+  color: #ffa726;
+  text-decoration: underline;
 }
 
-/* Адаптивність */
-@media screen and (max-width: 768px) {
-  .footer {
-    padding: 15px 0;
-    position: relative;
-    bottom: unset;
+@keyframes fadeInUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
   }
-
-  .footer p {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .footer-divider {
-    display: none;
-  }
-
-  .social-icons {
-    margin-top: 12px;
-    gap: 12px;
-  }
-
-  .social-icon {
-    font-size: 18px;
+  to {
+    transform: translateY(0px);
+    opacity: 1;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .footer {
-    padding: 12px 0;
-    position: relative;
-    bottom: unset;
-  }
-
+/* 📱 Адаптивність */
+@media (max-width: 768px) {
   .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     padding: 0 15px;
   }
 
-  .footer-motto {
-    display: block;
-    margin-top: 5px;
+  .footer-branding {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .social-icons {
+  .footer-logo {
+    font-size: 0.95rem;
+  }
+
+  .footer-motto {
+    font-size: 0.9rem;
+  }
+
+  .footer-contact {
+    font-size: 0.9rem;
     margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    font-size: 0.9rem;
+  }
+
+  .footer-motto,
+  .footer-contact {
+    font-size: 0.85rem;
+  }
+
+  .footer-content {
     gap: 10px;
   }
 }

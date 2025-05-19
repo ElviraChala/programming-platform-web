@@ -7,6 +7,8 @@
 
       <h3>Очікуваний результат:</h3>
       <pre><code>{{ task.expectedOutput }}</code></pre>
+
+
     </div>
 
     <!-- Права панель: поле для коду -->
@@ -33,3 +35,22 @@
 <div *ngIf="!taskLoaded">
   <p class="error-message">Завантаження або помилка...</p>
 </div>
+
+<!-- Навігаційний блок -->
+<!-- Навігаційний блок -->
+<div *ngIf="taskLoaded && task" class="navigation-buttons">
+  <button (click)="goBackToLesson()" class="lesson-button link-button">
+    Повернутись до теорії
+  </button>
+
+  <button *ngIf="lesson?.checkKnowledgeId"
+          (click)="goToLessonTest()"
+          class="lesson-button link-button">
+    Перейти до тестування
+  </button>
+
+  <button (click)="goToCourseList()" class="lesson-button link-button course-list-button">
+    Повернутися до списку курсів
+  </button>
+</div>
+

@@ -1,8 +1,7 @@
 .coding-task-page {
+  margin-top: 35px;
   padding: 20px;
   font-family: 'Segoe UI', sans-serif;
-  margin: 50px 0;
-  min-height: calc(100vh - env(safe-area-inset-bottom));
 }
 
 .task-layout {
@@ -20,6 +19,34 @@
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  width: 100%;
+  margin: 30px auto;
+  max-width: 90%;
+}
+
+.link-button {
+  background: none;
+  color: #df7711;
+  font-size: 13px;
+  padding: 4px;
+  border: none;
+  text-align: left;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.link-button:hover {
+  color: #000;
+  text-decoration: none;
 }
 
 .code-editor {
@@ -93,6 +120,10 @@ pre {
   .task-description,
   .code-editor {
     font-size: 14px;
+    max-width: 100%;
+  }
+
+  .navigation-block {
     max-width: 100%;
   }
 

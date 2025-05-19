@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LessonService } from '../../service/lesson.service';
 import { ProgrammingTaskService } from '../../service/programming-task.service';
 import { Lesson } from '../../interface/Lesson';
@@ -21,6 +21,7 @@ export class CodingTaskComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly lessonService: LessonService,
     private readonly programmingTaskService: ProgrammingTaskService,
     private readonly interpreterService: InterpreterService
@@ -85,5 +86,23 @@ export class CodingTaskComponent implements OnInit {
         this.output = "Виникла помилка";
       }
     })
+  }
+
+  goBackToLesson(): void {
+    if (this.lesson?.id) {
+      this.router.navigate(['/lessons', this.lesson.id]).then(console.debug);
+    } else {
+      this.router.navigate(['/courses']).then(console.debug);
+    }
+  }
+
+  goToLessonTest(): void {
+    if (this.lesson?.checkKnowledgeId) {
+      this.router.navigate(['/lesson-test', this.lesson.checkKnowledgeId]).then(console.debug);
+    }
+  }
+
+  goToCourseList(): void {
+    this.router.navigate(['/courses']).then(console.debug);
   }
 }

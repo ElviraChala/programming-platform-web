@@ -1,23 +1,33 @@
 <div *ngIf="lesson" class="lesson-list-container">
   <h2>{{ lesson.name }}</h2>
+  <div class="lesson-content" [innerHTML]="content"></div>
+</div>
 
-  <div class="inner-text" [innerHTML]="content"></div>
-
+<div *ngIf="lesson" class="navigation-buttons">
   <button *ngIf="student && !isAdmin() && lesson?.checkKnowledgeId"
           (click)="startLessonTest()"
-          class="start-test-button">
+          class="lesson-button link-button">
     Перейти до тестування
   </button>
 
-  <!-- Для адміністратора -->
+  <button *ngIf="student && !isAdmin()"
+          (click)="goToCodingTasks()"
+          class="lesson-button link-button">
+    Перейти до практичних завдань
+  </button>
+
+  <button (click)="goToCourseList()"
+          class="lesson-button link-button course-list-button">
+    Повернутися до списку курсів
+  </button>
+
   <button *ngIf="isAdmin() && lesson?.checkKnowledgeId"
           (click)="editQuestions()"
-          class="edit-test-button">
+          class="lesson-button edit-test-button">
     Редагувати тести
   </button>
 </div>
 
-
 <div *ngIf="!lesson">
-  <p>Курс не знайдено або сталася помилка.</p>
+  <p class="not-found-message">Курс не знайдено або сталася помилка.</p>
 </div>

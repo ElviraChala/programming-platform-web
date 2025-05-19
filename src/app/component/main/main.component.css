@@ -2,12 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 80px 5%;
+  padding: 50px 5%;
   background: #fff;
   color: #000;
   gap: 40px;
-  margin-top: 70px;
-  min-height: calc(100vh - env(safe-area-inset-bottom));
+  min-height: calc(100vh - 180px);
 }
 
 .hero-text {

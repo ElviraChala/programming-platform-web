@@ -87,6 +87,15 @@ export class LessonItemComponent implements OnInit {
     this.route.navigate(["/lesson-test", this.lesson.checkKnowledgeId]).then(console.debug);
   }
 
+  goToCodingTasks(): void {
+    if (!this.lesson) return;
+    this.route.navigate(['/coding-tasks', this.lesson.id]).then(console.debug);
+  }
+
+  goToCourseList(): void {
+    this.route.navigate(['/courses']).then(console.debug);
+  }
+
   editQuestions(): void {
     if (!this.lesson?.checkKnowledgeId) return;
     this.route.navigate(["/edit-questions", this.lesson.checkKnowledgeId]).then(console.debug);

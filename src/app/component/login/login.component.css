@@ -1,14 +1,12 @@
 .login-container {
   width: 97%;
   max-width: 420px;
-  margin: 80px auto;
+  margin: 0 auto;
   padding: 30px;
   /*border: 1px solid #ddd;*/
   border-radius: 10px;
   background-color: #fff;
   /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);*/
-  min-height: calc(100vh - env(safe-area-inset-bottom));
-
 }
 
 /* Заголовок */

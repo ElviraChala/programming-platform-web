@@ -1,7 +1,6 @@
 .course-list-container {
   width: 80%;
-  margin: 100px auto;
-  min-height: calc(100vh - env(safe-area-inset-bottom));
+  margin: 50px auto;
 }
 
 .course-list-container h2 {
