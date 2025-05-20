@@ -11,9 +11,9 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) {}
 
-  register(username: string, password: string) {
+  register(username: string, email: string, password: string) {
     const postUrl = "/register";
-    const body = {username, password};
+    const body = {username, email, password};
     return this.http.post<TokenObject>(this.apiUrl + postUrl, body);
   }
 

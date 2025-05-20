@@ -16,6 +16,21 @@
       </div>
     </div>
 
+    <div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        (ngModelChange)="validateForm()"
+        required>
+
+      <div *ngIf="email.length > 0 && !isEmailValid" class="error-message">
+        Введіть коректний email 📧
+      </div>
+    </div>
+
     <div class="password-wrapper">
       <label for="password">Пароль</label>
       <div class="password-field">

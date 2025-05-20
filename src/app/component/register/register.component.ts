@@ -12,6 +12,7 @@ import { Subject, debounceTime } from 'rxjs';
 })
 export class RegisterComponent {
   username: string = "";
+  email: string = "";
   password: string = "";
   confirmPassword: string = "";
   errorMessage: string = "";
@@ -23,6 +24,7 @@ export class RegisterComponent {
   showConfirmPassword: boolean = false;
   isUsernameTaken: boolean = false;
   isCheckingUsername: boolean = false;
+  isEmailValid: boolean = false;
   usernameChanged$ = new Subject<string>();
 
 
@@ -42,11 +44,19 @@ export class RegisterComponent {
     return pattern.test(password);
   }
 
+  private validateEmail(email: string): boolean {
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return pattern.test(email);
+  }
+
   validateForm() {
     this.isPassStrong = this.checkPasswordStrength(this.password);
     this.passwordsDoNotMatch = this.password !== this.confirmPassword;
+    this.isEmailValid = this.validateEmail(this.email);
 
     this.isFormValid = !!this.username &&
+      !!this.email &&
+      this.isEmailValid &&
       !!this.password &&
       !!this.confirmPassword &&
       this.isPassStrong &&
@@ -57,7 +67,7 @@ export class RegisterComponent {
   onRegister() {
     if (!this.isFormValid) return;
 
-    this.authService.register(this.username, this.password).subscribe({
+    this.authService.register(this.username, this.email, this.password).subscribe({
       next: value => {
         sessionStorage.setItem("token", value.token);
         this.router.navigate(["/registration-success"]).then(r => console.debug(r));
