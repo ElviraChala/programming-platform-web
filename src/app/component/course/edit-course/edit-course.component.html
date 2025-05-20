@@ -179,6 +179,20 @@
           </button>
         </div>
 
+        <!-- CheckKnowledge testWeight field -->
+        <div *ngIf="currentCheckKnowledge">
+          <label for="checkKnowledgeTestWeight">Вага тесту знань:</label>
+          <input
+            type="number"
+            id="checkKnowledgeTestWeight"
+            [(ngModel)]="currentCheckKnowledge.testWeight"
+            name="checkKnowledgeTestWeight"
+            required
+            min="1"
+            placeholder="Введіть вагу тесту знань"
+          />
+        </div>
+
         <div class="button-group">
           <button type="submit" class="cta-button">Зберегти зміни</button>
           <button type="button" class="cta-button cancel-button" (click)="cancelEditLesson()">Скасувати</button>
@@ -257,6 +271,19 @@
           ></textarea>
         </div>
 
+        <div>
+          <label for="testWeight">Вага тесту:</label>
+          <input
+            type="number"
+            id="testWeight"
+            [(ngModel)]="newProgrammingTask.testWeight"
+            name="testWeight"
+            required
+            min="1"
+            placeholder="Введіть вагу тесту"
+          />
+        </div>
+
         <div class="button-group">
           <button type="submit" class="cta-button">Зберегти завдання</button>
           <button type="button" class="cta-button cancel-button" (click)="cancelAddProgrammingTask()">Скасувати</button>
@@ -314,6 +341,19 @@
             required
             placeholder="Введіть очікуваний результат"
           ></textarea>
+        </div>
+
+        <div>
+          <label for="editTestWeight">Вага тесту:</label>
+          <input
+            type="number"
+            id="editTestWeight"
+            [(ngModel)]="editingProgrammingTask.testWeight"
+            name="editTestWeight"
+            required
+            min="1"
+            placeholder="Введіть вагу тесту"
+          />
         </div>
 
         <div class="button-group">

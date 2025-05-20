@@ -8,8 +8,8 @@ import { LessonService } from "../../../service/lesson.service";
 import { ProgrammingTask } from "../../../interface/ProgrammingTask";
 import { ProgrammingTaskService } from "../../../service/programming-task.service";
 import { saveAs } from "file-saver";
-import { Theory } from "../../../interface/Theory";
-import { TheoryService } from "../../../service/theory.service";
+import { CheckKnowledge } from "../../../interface/CheckKnowledge";
+import { CheckKnowledgeService } from "../../../service/check-knowladge.service";
 
 @Component({
   selector: "app-edit-course",
@@ -40,12 +40,15 @@ export class EditCourseComponent implements OnInit {
   isEditingProgrammingTask = false;
   selectedLessonForTask: Lesson | null = null;
 
+  // CheckKnowledge management
+  currentCheckKnowledge: CheckKnowledge | null = null;
+
   constructor(private readonly route: ActivatedRoute,
               private readonly router: Router,
               private readonly courseService: CourseService,
               private readonly lessonService: LessonService,
               private readonly programmingTaskService: ProgrammingTaskService,
-              private readonly theoryService: TheoryService) {}
+              private readonly checkKnowledgeService: CheckKnowledgeService) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get("id"));
@@ -172,12 +175,28 @@ export class EditCourseComponent implements OnInit {
     this.isEditingLesson = true;
     this.isAddingLesson = false;
     this.editingLesson = {...lesson}; // Create a copy to avoid direct modification
+
+    // Load the associated CheckKnowledge object if it exists
+    if (lesson.checkKnowledgeId && lesson.checkKnowledgeId > 0) {
+      this.checkKnowledgeService.getById(lesson.checkKnowledgeId).subscribe({
+        next: (checkKnowledge) => {
+          this.currentCheckKnowledge = checkKnowledge;
+        },
+        error: (err) => {
+          console.error(`Не вдалося завантажити тест знань з ID ${lesson.checkKnowledgeId}:`, err);
+          this.currentCheckKnowledge = null;
+        }
+      });
+    } else {
+      this.currentCheckKnowledge = null;
+    }
   }
 
   cancelEditLesson(): void {
     this.isEditingLesson = false;
     this.editingLesson = null;
     this.selectedEditFile = null;
+    this.currentCheckKnowledge = null;
   }
 
   onEditFileSelected(event: Event): void {
@@ -215,12 +234,32 @@ export class EditCourseComponent implements OnInit {
           });
         }
 
+        // If there's a CheckKnowledge object, save it
+        if (this.currentCheckKnowledge) {
+          this.saveCheckKnowledge();
+        }
+
         alert("Урок оновлено!");
         this.isEditingLesson = false;
         this.editingLesson = null;
         this.selectedEditFile = null;
+        this.currentCheckKnowledge = null;
       },
       error: (err) => console.error("Помилка при оновленні уроку:", err)
+    });
+  }
+
+  saveCheckKnowledge(): void {
+    if (!this.currentCheckKnowledge) return;
+
+    this.checkKnowledgeService.update(this.currentCheckKnowledge).subscribe({
+      next: (updatedCheck) => {
+        console.log("Тест знань оновлено:", updatedCheck);
+      },
+      error: (err) => {
+        console.error("Помилка при оновленні тесту знань:", err);
+        alert("Урок оновлено, але не вдалося оновити тест знань");
+      }
     });
   }
 
@@ -395,7 +434,8 @@ export class EditCourseComponent implements OnInit {
       description: "",
       starterCode: "",
       expectedOutput: "",
-      lessonId: id
+      lessonId: id,
+      testWeight: 1
     };
   }
 }

@@ -5,4 +5,5 @@ export interface ProgrammingTask {
   starterCode: string;
   expectedOutput: string;
   lessonId: number;
+  testWeight: number;
 }

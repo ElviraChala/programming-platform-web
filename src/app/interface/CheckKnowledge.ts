@@ -4,4 +4,5 @@ export interface CheckKnowledge {
   id: number;
   questions: Question[];
   lessonId: number;
+  testWeight: number;
 }
