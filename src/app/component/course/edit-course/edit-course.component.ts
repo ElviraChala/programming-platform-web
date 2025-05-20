@@ -358,8 +358,6 @@ export class EditCourseComponent implements OnInit {
       return;
     }
 
-    console.log(this.newProgrammingTask);
-
     this.programmingTaskService.createProgrammingTask(this.newProgrammingTask).subscribe({
       next: (createdTask) => {
         this.programmingTasks.push(createdTask);

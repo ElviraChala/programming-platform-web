@@ -19,7 +19,6 @@ export class MainComponent {
 
   login() {
     let response = this.authService.login(this.username, this.password);
-    console.log(response);
     response.subscribe({
       next: (res) => this.saveTokenAndMove(res),
       error: (err) => console.error("Login failed", err)
