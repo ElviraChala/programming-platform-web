@@ -7,6 +7,7 @@ import { Role } from "../../../interface/Role";
 import { StudentService } from "../../../service/student.service";
 import { Student } from "../../../interface/Student";
 import { TheoryService } from "../../../service/theory.service";
+import DOMPurify from 'dompurify';
 
 @Component({
   selector: "app-lesson-item",
@@ -65,7 +66,8 @@ export class LessonItemComponent implements OnInit {
         this.lesson = value;
         this.theoryService.getHtml(value.theory.id).subscribe({
           next: (html) => {
-            this.content = this.sanitizer.bypassSecurityTrustHtml(html.content);
+            let content = DOMPurify.sanitize(html.content);
+            this.content = this.sanitizer.bypassSecurityTrustHtml(content);
           },
           error: (err) => {
             console.error("Не вдалося завантажити теорію", err);
