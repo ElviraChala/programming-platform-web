@@ -42,9 +42,7 @@ export class AuthService {
   forgotPassword(email: string) {
     const postUrl = "/forgot-password";
     const body = {email: email};
-    // this.http.post(this.apiUrl + postUrl, body).subscribe();
     return this.http.post(this.apiUrl + postUrl, body); // <-- Повертаємо Observable
-
   }
 
 
@@ -56,5 +54,9 @@ export class AuthService {
 
   checkUsername(username: string) {
     return this.http.get<{ email: string }>(`${this.apiUrl}/check-username?username=${username}`);
+  }
+
+  verifyEmail(token: string) {
+    return this.http.get(`${this.apiUrl}/verify-email?token=${token}`);
   }
 }

@@ -1,0 +1,20 @@
+<div class="verify-email">
+  <div *ngIf="verificationStatus === 'pending'">
+    <h1>Підтвердження електронної пошти</h1>
+    <p>Натисніть кнопку нижче, щоб підтвердити вашу електронну пошту.</p>
+    <button (click)="verifyEmail()">Підтвердити email</button>
+  </div>
+
+  <div *ngIf="verificationStatus === 'success'">
+    <h1>Email успішно підтверджено!</h1>
+    <p>Ваша електронна пошта була успішно підтверджена. Тепер ви можете увійти в систему.</p>
+    <button (click)="goToLogin()">Перейти до входу</button>
+  </div>
+
+  <div *ngIf="verificationStatus === 'error'">
+    <h1>Помилка підтвердження</h1>
+    <p>{{ errorMessage }}</p>
+    <button (click)="verifyEmail()" *ngIf="token">Спробувати знову</button>
+    <button (click)="goToLogin()">Перейти до входу</button>
+  </div>
+</div>

@@ -30,6 +30,7 @@ import { AddQuestionFormComponent } from './component/lesson/add-question-form/a
 import { LeaderboardComponent } from './component/leaderboard/leaderboard.component';
 import { UsersEditComponent } from './component/users-edit/users-edit.component';
 import { StudentEditComponent } from './component/student-edit/student-edit.component';
+import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { StudentEditComponent } from './component/student-edit/student-edit.comp
     AddQuestionFormComponent,
     LeaderboardComponent,
     UsersEditComponent,
-    StudentEditComponent
+    StudentEditComponent,
+    VerifyEmailComponent
   ],
   imports: [
     HttpClientModule,

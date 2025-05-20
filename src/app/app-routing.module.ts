@@ -21,6 +21,7 @@ import { EditQuestionFormComponent } from "./component/lesson/edit-question-form
 import { LeaderboardComponent } from "./component/leaderboard/leaderboard.component";
 import { UsersEditComponent } from "./component/users-edit/users-edit.component";
 import { StudentEditComponent } from "./component/student-edit/student-edit.component";
+import { VerifyEmailComponent } from "./component/verify-email/verify-email.component";
 
 const routes: Routes = [
   {path: "", component: MainComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: "register", component: RegisterComponent},
   {path: "registration-success", component: RegistrationSuccessComponent},
   {path: "auth/create-new-password", component: CreateNewPasswordComponent},
+  {path: "auth/verify-email", component: VerifyEmailComponent},
   { path: 'leaderboard', component: LeaderboardComponent },
 
 
