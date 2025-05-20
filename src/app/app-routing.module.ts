@@ -32,8 +32,7 @@ const routes: Routes = [
   {path: "registration-success", component: RegistrationSuccessComponent},
   {path: "auth/create-new-password", component: CreateNewPasswordComponent},
   {path: "auth/verify-email", component: VerifyEmailComponent},
-  { path: 'leaderboard', component: LeaderboardComponent },
-
+  {path: "leaderboard", component: LeaderboardComponent},
 
   // 👤 Користувач
   {path: "profile", component: ProfileComponent},

@@ -60,6 +60,7 @@ export class StudentEditComponent implements OnInit {
       next: (student) => {
         if (student) {
           this.student = student;
+          this.student.password = "";
           this.populateForm();
         } else {
           this.error = `Student with ID ${this.studentId} not found`;

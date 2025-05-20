@@ -26,15 +26,6 @@ export class MainComponent {
     });
   }
 
-  registration() {
-    let response = this.authService.register(this.username, this.password);
-    console.log(response);
-    response.subscribe({
-      next: (res) => this.saveTokenAndMove(res),
-      error: (err) => console.error("Registration failed", err)
-    });
-  }
-
   private saveTokenAndMove(res: TokenObject) {
     console.debug("login success", res);
 
