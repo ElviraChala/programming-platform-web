@@ -74,6 +74,15 @@
           <button class="go-to-coding" (click)="goToCodingTasks()">
             Перейти до практичних завдань 💻
           </button>
+          <!-- Кнопка до наступного уроку або повернення до курсів -->
+          <button *ngIf="isCheckKnowledgeCompleted && isProgrammingTaskCompleted && nextLesson"
+                  class="go-to-next-lesson" (click)="goToNextLesson()">
+            Перейти до наступного уроку
+          </button>
+          <button *ngIf="isCheckKnowledgeCompleted && isProgrammingTaskCompleted && !nextLesson"
+                  class="go-to-courses" (click)="goToCourseList()">
+            Повернутися до списку курсів
+          </button>
         </div>
       </div>
     </div>

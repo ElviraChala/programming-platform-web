@@ -37,7 +37,6 @@
 </div>
 
 <!-- Навігаційний блок -->
-<!-- Навігаційний блок -->
 <div *ngIf="taskLoaded && task" class="navigation-buttons">
   <button (click)="goBackToLesson()" class="lesson-button link-button">
     Повернутись до теорії
@@ -49,8 +48,17 @@
     Перейти до тестування
   </button>
 
-  <button (click)="goToCourseList()" class="lesson-button link-button course-list-button">
+  <!-- Кнопка до наступного уроку або повернення до курсів -->
+  <button *ngIf="isTaskCompleted && isCheckKnowledgeCompleted && nextLesson"
+          (click)="goToNextLesson()"
+          class="lesson-button link-button next-lesson-button">
+    Перейти до наступного уроку
+  </button>
+
+  <!-- Звичайна кнопка повернення до курсів, якщо завдання не виконані -->
+  <button *ngIf="!(isTaskCompleted && isCheckKnowledgeCompleted)"
+          (click)="goToCourseList()"
+          class="lesson-button link-button course-list-button">
     Повернутися до списку курсів
   </button>
 </div>
-

@@ -6,6 +6,8 @@ import { Student } from "../../../interface/Student";
 import { StudentService } from "../../../service/student.service";
 import { Answer } from "../../../interface/Answer";
 import { CheckKnowledge } from "../../../interface/CheckKnowledge";
+import { LessonService } from "../../../service/lesson.service";
+import { Lesson } from "../../../interface/Lesson";
 
 
 @Component({
@@ -27,12 +29,16 @@ export class LessonTestComponent implements OnInit {
   student?: Student;
   questions: Question[] = [];
   total: number = 0;
+  isCheckKnowledgeCompleted: boolean = false;
+  isProgrammingTaskCompleted: boolean = false;
+  nextLesson?: Lesson;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly checkKnowledgeService: CheckKnowledgeService,
-    private readonly studentService: StudentService
+    private readonly studentService: StudentService,
+    private readonly lessonService: LessonService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +53,40 @@ export class LessonTestComponent implements OnInit {
     });
   }
 
+  private findNextLesson(lessonId: number): void {
+    this.lessonService.getLessonById(lessonId).subscribe({
+      next: (currentLesson: Lesson) => {
+        this.lessonService.getAllLessons().subscribe({
+          next: (lessons: Lesson[]) => {
+            // Filter lessons by course ID
+            const courseLessons = lessons.filter(lesson => lesson.courseId === currentLesson.courseId);
+
+            // Sort by orderIndex
+            courseLessons.sort((a, b) => a.orderIndex - b.orderIndex);
+
+            // Find current lesson index
+            const currentIndex = courseLessons.findIndex(lesson => lesson.id === currentLesson.id);
+
+            // Check if there's a next lesson
+            if (currentIndex !== -1 && currentIndex < courseLessons.length - 1) {
+              this.nextLesson = courseLessons[currentIndex + 1];
+            }
+
+            // For demonstration purposes, we'll set isProgrammingTaskCompleted to true
+            // In a real implementation, we would check if the student has completed the programming task
+            this.isProgrammingTaskCompleted = true;
+          },
+          error: (err) => {
+            console.error("Помилка при завантаженні уроків", err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error("Помилка при завантаженні уроку", err);
+      }
+    });
+  }
+
   private initStudentAndQuestions(checkId: string): void {
     this.checkKnowledgeService.getById(Number(checkId))
       .subscribe({
@@ -54,6 +94,11 @@ export class LessonTestComponent implements OnInit {
           this.check = value;
           this.questions = value.questions;
           this.goToQuestion(0);
+
+          // Find the next lesson if there is a lessonId
+          if (value.lessonId) {
+            this.findNextLesson(value.lessonId);
+          }
         },
         error: console.error
       });
@@ -132,16 +177,33 @@ export class LessonTestComponent implements OnInit {
           this.resultScore = result;
           this.feedbackMessage = this.getMessage(result);
           this.showResults = true;
-          if (!this.check?.id || (result / this.check.questions.length) < 0.67) {
-            return;
+
+          // Check if the test is passed (score ratio >= 0.67)
+          const isPassed = (result / this.check!.questions.length) >= 0.67;
+
+          if (isPassed) {
+            // Set isCheckKnowledgeCompleted to true when the test is passed
+            this.isCheckKnowledgeCompleted = true;
+
+            // Update student score
+            this.studentService.addScore(this.student!.id, this.check!.id).subscribe({
+              next: () => console.debug("Бали оновлено"),
+              error: (err) => console.error("Помилка при оновленні балів:", err)
+            });
           }
-          this.studentService.addScore(this.student!.id, this.check?.id).subscribe({
-            next: () => console.debug("Бали оновлено"),
-            error: (err) => console.error("Помилка при оновленні балів:", err)
-          });
         },
         error: (error) => console.error("Error submitting answers:", error)
       });
+  }
+
+  goToNextLesson(): void {
+    if (this.nextLesson) {
+      this.router.navigate(['/lessons', this.nextLesson.id]).then(console.debug);
+    }
+  }
+
+  goToCourseList(): void {
+    this.router.navigate(['/courses']).then(console.debug);
   }
 
   getMessage(score:number): string {
