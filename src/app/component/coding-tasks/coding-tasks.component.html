@@ -1,4 +1,20 @@
 <div *ngIf="taskLoaded && task" class="coding-task-page">
+  <h1>Практичні завдання 📝</h1>
+
+  <!-- Навігація по запитаннях -->
+  <div *ngIf="taskIds.length > 0" class="navigation-panel">
+    <div class="question-buttons">
+      <button class="answer-options"
+              *ngFor="let id of taskIds; let i = index"
+              [class.current]="i === currentTaskId"
+              [class.answered]="isTaskCompleted[i]"
+              [class.unanswered]="!isTaskCompleted[i]"
+              (click)="goToTask(i)">
+        {{ i + 1 }}
+      </button>
+    </div>
+  </div>
+
   <div class="task-layout">
     <!-- Ліва панель: опис завдання -->
     <div class="task-description">

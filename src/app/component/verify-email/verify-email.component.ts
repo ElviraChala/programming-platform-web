@@ -10,8 +10,8 @@ import { AuthService } from "../../service/auth.service";
 })
 export class VerifyEmailComponent implements OnInit {
   token: string | null = null;
-  verificationStatus: 'pending' | 'success' | 'error' = 'pending';
-  errorMessage: string = '';
+  verificationStatus: "pending" | "success" | "error" = "pending";
+  errorMessage: string = "";
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -20,29 +20,29 @@ export class VerifyEmailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.token = this.route.snapshot.queryParamMap.get('token');
+    this.token = this.route.snapshot.queryParamMap.get("token");
   }
 
   verifyEmail(): void {
     if (!this.token) {
-      this.verificationStatus = 'error';
-      this.errorMessage = 'Токен верифікації відсутній';
+      this.verificationStatus = "error";
+      this.errorMessage = "Токен верифікації відсутній";
       return;
     }
 
     this.authService.verifyEmail(this.token).subscribe({
       next: () => {
-        this.verificationStatus = 'success';
+        this.verificationStatus = "success";
       },
       error: (error) => {
-        this.verificationStatus = 'error';
-        this.errorMessage = 'Помилка верифікації email. Будь ласка, спробуйте знову або зверніться до підтримки.';
-        console.error('Email verification error:', error);
+        this.verificationStatus = "error";
+        this.errorMessage = "Помилка верифікації email. Будь ласка, спробуйте знову або зверніться до підтримки.";
+        console.error("Email verification error:", error);
       }
     });
   }
 
   goToLogin(): void {
-    this.router.navigate(['/login']).then(console.debug);
+    this.router.navigate(["/login"]).then(console.debug);
   }
 }

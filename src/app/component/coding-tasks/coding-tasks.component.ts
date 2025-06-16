@@ -16,12 +16,15 @@ import { Student } from "../../interface/Student";
 })
 export class CodingTaskComponent implements OnInit {
   task: ProgrammingTask | null = null;
+  taskIds : number[] = [];
+  currentTaskId : number = 0;
+
   code: string = "";
   output: string = "";
   taskLoaded: boolean = false;
   lesson?: Lesson;
   student?: Student;
-  isTaskCompleted: boolean = false;
+  isTaskCompleted: boolean[] = [];
   isCheckKnowledgeCompleted: boolean = false;
   nextLesson?: Lesson;
 
@@ -63,11 +66,14 @@ export class CodingTaskComponent implements OnInit {
         // Check if knowledge test is completed
         this.checkKnowledgeCompletion(lesson);
 
-        if (lesson.programmingTaskIds && lesson.programmingTaskIds.length > 0) {
-          const taskId = lesson.programmingTaskIds[0];
-          this.loadProgrammingTask(taskId);
+        this.taskIds = lesson.programmingTaskIds;
+        console.log("taskIds: " + this.taskIds);
+
+        if (lesson.programmingTaskIds && this.taskIds.length > 0) {
+          this.currentTaskId = lesson.programmingTaskIds[0];
+          this.loadProgrammingTask(this.currentTaskId);
         } else {
-          console.warn("Урок не містить програмувальних завдань");
+          console.warn("Урок не містить практичних завдань");
           this.taskLoaded = true;
         }
       },
@@ -129,7 +135,7 @@ export class CodingTaskComponent implements OnInit {
       next: value => {
         if (value.isOk) {
           this.output = "Супер, все правильно";
-          this.isTaskCompleted = true;
+          this.isTaskCompleted[this.currentTaskId] = true;
           this.checkBothTasksCompleted();
         } else {
           this.output = "Щось не так:"
@@ -180,4 +186,18 @@ export class CodingTaskComponent implements OnInit {
   goToCourseList(): void {
     this.router.navigate(["/courses"]).then(console.debug);
   }
+
+  goToTask(index: number): void {
+    if (index >= 0 && index < this.taskIds.length) {
+      const taskId = this.taskIds[index];
+      this.currentTaskId = taskId;
+      this.loadProgrammingTask(taskId);
+      this.output = "";
+      this.code = "";
+    } else {
+      console.warn("Недопустимий індекс завдання:", index);
+    }
+  }
+
+
 }

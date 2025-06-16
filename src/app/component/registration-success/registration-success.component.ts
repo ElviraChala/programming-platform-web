@@ -23,6 +23,7 @@ export class RegistrationSuccessComponent {
       next: (student) => {
         if (student) {
           student.isFirst = false;
+          student.password = "";
           this.studentService.updateStudent(student).subscribe({
             next: () => {
               this.router.navigate(["/courses"]).then(console.debug);
