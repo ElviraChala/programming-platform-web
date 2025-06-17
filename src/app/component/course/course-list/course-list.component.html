@@ -12,6 +12,7 @@
   <!-- Кнопка для адміністратора -->
   <div *ngIf="isAdmin" class="create-course-wrapper">
     <button class="create-course-button" (click)="createNewCourse()">+ Створити новий курс</button>
+    <button class="create-course-button" (click)="editFirstCheck()">Редагувати вступний тест</button>
   </div>
 
   <ul class="course-list">

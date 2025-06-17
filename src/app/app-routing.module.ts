@@ -22,6 +22,7 @@ import { LeaderboardComponent } from "./component/leaderboard/leaderboard.compon
 import { UsersEditComponent } from "./component/users-edit/users-edit.component";
 import { StudentEditComponent } from "./component/student-edit/student-edit.component";
 import { VerifyEmailComponent } from "./component/verify-email/verify-email.component";
+import { FiresCheckEditComponent } from "./component/fires-check-edit/fires-check-edit.component";
 
 const routes: Routes = [
   {path: "", component: MainComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
   // 👤 Користувач
   {path: "profile", component: ProfileComponent},
   {path: "first-check", component: FirstCheckComponent},
+  {path: "first-check/edit", component: FiresCheckEditComponent},
 
   // 📚 Курси
   {path: "courses/create", component: CourseCreateComponent},         // має йти першим

@@ -23,4 +23,9 @@ export class FirstCheckService {
     const postUrl: string = "/first-check";
     return this.http.post<CheckResult>(this.apiUrl + postUrl, savedAnswers);
   }
+
+  public updateFirstCheck(firstCheck: FirstCheck) {
+    const postUrl: string = "/first-check/update";
+    return this.http.put<FirstCheck>(this.apiUrl + postUrl, firstCheck);
+  }
 }

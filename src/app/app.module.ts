@@ -31,6 +31,7 @@ import { LeaderboardComponent } from './component/leaderboard/leaderboard.compon
 import { UsersEditComponent } from './component/users-edit/users-edit.component';
 import { StudentEditComponent } from './component/student-edit/student-edit.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
+import { FiresCheckEditComponent } from './component/fires-check-edit/fires-check-edit.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { VerifyEmailComponent } from './component/verify-email/verify-email.comp
     LeaderboardComponent,
     UsersEditComponent,
     StudentEditComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    FiresCheckEditComponent
   ],
   imports: [
     HttpClientModule,

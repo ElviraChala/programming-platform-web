@@ -81,4 +81,8 @@ export class CourseListComponent implements OnInit {
     }
   }
 
+  editFirstCheck(): void {
+    this.router.navigate(['/first-check/edit']).then(console.debug);
+  }
+
 }
